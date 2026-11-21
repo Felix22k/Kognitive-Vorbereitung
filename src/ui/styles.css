@@ -1,23 +1,24 @@
 :root {
-  /* Feldgrün, Oliv und Sand: helles Dunkeldesign mit militärischer Anmutung */
-  --bg: #1d211b;
-  --card: #282e26;
-  --card-2: #323a30;
-  --line: #434c3f;
-  --line-strong: #5a6554;
-  --text: #eef0e6;
-  --muted: #a8b09c;
-  --accent: #4f7d36; /* Flächen, Buttons (weiße Schrift, Kontrast 4,9:1) */
-  --accent-strong: #8fc164; /* Linien, Text und Akzente auf dunklem Grund */
-  --on-accent: #ffffff;
+  /* Neutrales helles Dunkelgrau, Grün nur als Akzent */
+  --bg: #2b2d31;
+  --card: #35383d;
+  --card-2: #3f4248;
+  --line: #4b4f56;
+  --line-strong: #60656d;
+  --text: #f2f3f5;
+  --muted: #aeb2b9;
+  --accent: #3ec46d; /* Flächen und Linien */
+  --accent-strong: #4fd37d; /* Text und dünne Linien auf grauem Grund */
+  --accent-on-paper: #1f8a47; /* Grün auf dem weißen Aufgabenfeld */
+  --on-accent: #0d1f13; /* dunkle Schrift auf Grün, Kontrast über 8:1 */
   --sand: #cdbb8a;
-  --on-sand: #1d211b;
-  --ok: #5cbf6e;
-  --bad: #e07a4f; /* Signalorange für Fehler */
-  --info: #8fb8d0;
+  --on-sand: #2b2d31;
+  --ok: #4fd37d;
+  --bad: #f0845a;
+  --info: #8fc3e0;
   --paper: #ffffff;
   --ink: #111111;
-  --focus: #c9e3a8;
+  --focus: #a7ecbf;
   --radius: 6px;
   --mono: ui-monospace, 'SF Mono', 'Cascadia Mono', Consolas, 'Roboto Mono', monospace;
   color-scheme: dark;
@@ -106,7 +107,7 @@ p {
   align-items: center;
   gap: 8px;
   padding: 10px 24px;
-  background: rgba(29, 33, 27, 0.94);
+  background: rgba(43, 45, 49, 0.95);
   backdrop-filter: blur(6px);
   border-bottom: 1px solid var(--line);
 }
@@ -344,8 +345,8 @@ kbd {
   color: var(--on-accent);
 }
 .dot.rest {
-  background: #3a4237;
-  border-color: #3a4237;
+  background: #4a4d53;
+  border-color: #4a4d53;
 }
 .day.today .dot:not(.done) {
   border-color: var(--text);
@@ -549,7 +550,7 @@ select {
 }
 .paper .hint {
   margin-top: 8px;
-  color: #4a5246;
+  color: #555;
   font-size: 1rem;
 }
 
@@ -654,7 +655,7 @@ select {
 .zr .term {
   min-width: 70px;
   padding: 12px 10px;
-  border: 2px solid #1f241d;
+  border: 2px solid #222;
   border-radius: 4px;
   font-size: 1.6rem;
   font-weight: 600;
@@ -662,7 +663,7 @@ select {
 }
 .zr .term.missing {
   border-style: dashed;
-  color: var(--accent);
+  color: var(--accent-on-paper);
 }
 
 .zr-solution {
@@ -786,20 +787,13 @@ select {
 
 /* ---------- Militärische Gestaltungselemente ---------- */
 
-/* Dezentes Höhenlinien-Muster wie auf einer topografischen Karte */
-body {
-  background-color: var(--bg);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='480' height='480' viewBox='0 0 480 480'%3E%3Cg fill='none' stroke='%23cdbb8a' stroke-opacity='0.055' stroke-width='1.2'%3E%3Cpath d='M-20 90 C 60 40 140 130 220 80 S 380 20 500 70'/%3E%3Cpath d='M-20 130 C 70 80 150 170 230 120 S 390 60 500 110'/%3E%3Cpath d='M-20 175 C 80 125 160 215 240 165 S 400 105 500 155'/%3E%3Cpath d='M-20 300 C 50 260 120 350 210 300 S 360 240 500 290'/%3E%3Cpath d='M-20 345 C 60 305 130 395 220 345 S 370 285 500 335'/%3E%3Cpath d='M-20 395 C 70 355 140 445 230 395 S 380 335 500 385'/%3E%3Cellipse cx='360' cy='230' rx='60' ry='34'/%3E%3Cellipse cx='360' cy='230' rx='34' ry='18'/%3E%3Cellipse cx='110' cy='235' rx='44' ry='26'/%3E%3C/g%3E%3C/svg%3E");
-  background-attachment: fixed;
-}
-
 /* Abschnittsüberschriften als Lagebezeichnung */
 h2 {
   text-transform: uppercase;
   letter-spacing: 0.12em;
   font-size: 0.85rem;
   font-weight: 700;
-  color: var(--sand);
+  color: var(--muted);
 }
 .card h2 {
   color: var(--text);
@@ -810,7 +804,7 @@ h2 {
   font-size: 0.78rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--sand);
+  color: var(--accent-strong);
 }
 
 .mono,
@@ -841,7 +835,7 @@ h2 {
   position: absolute;
   width: 18px;
   height: 18px;
-  border: 2px solid var(--accent);
+  border: 2px solid var(--accent-on-paper);
   pointer-events: none;
 }
 .paper::before {
@@ -886,5 +880,5 @@ h2 {
 
 kbd.on-accent {
   color: var(--on-accent);
-  border-color: rgba(255, 255, 255, 0.55);
+  border-color: rgba(13, 31, 19, 0.45);
 }
