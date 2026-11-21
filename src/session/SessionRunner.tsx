@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { MODULE_BY_ID } from '../modules/catalog';
 import { PromptView, SolutionView, choiceInfo, type ChoiceInfo } from '../modules/views';
+import { RotationAngleSummary } from '../modules/raumViews';
 import { getModuleState, getSettings, saveSettings } from '../db/db';
 import { testStartLevel, updateStair, type StairState } from '../core/staircase';
 import { uid } from '../core/ids';
@@ -20,6 +21,7 @@ interface Result {
   timedOut: boolean;
   rtMs: number;
   answerIndex?: number;
+  answerIndices?: number[];
 }
 
 export interface RunnerProps {
@@ -63,6 +65,7 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
   const [results, setResults] = useState<Result[]>([]);
   const [input, setInput] = useState('');
   const [selected, setSelected] = useState<number | null>(null);
+  const [multiSel, setMultiSel] = useState<number[]>([]);
   const [showIntro, setShowIntro] = useState(false);
   const [showExpl, setShowExpl] = useState(false);
   const [reported, setReported] = useState(false);
@@ -116,6 +119,8 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
       setItem(it);
       setInput('');
       setSelected(null);
+      setMultiSel([]);
+      setMultiSel([]);
       setShowExpl(false);
       setReported(false);
       setInputError('');
@@ -152,6 +157,11 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
       let answerLabel = '';
       if (answer?.type === 'text') answerLabel = answer.raw.trim();
       if (answer?.type === 'choice') answerLabel = choiceInfo(item)?.label(answer.index) ?? '';
+      if (answer?.type === 'multi')
+        answerLabel = [...answer.indices]
+          .sort((a, b) => a - b)
+          .map((i) => choiceInfo(item)?.label(i) ?? '')
+          .join(' und ');
       if (timedOut) answerLabel = '(Zeit abgelaufen)';
       answered.current = true;
       const rtMs = Math.round(performance.now() - shownAt.current);
@@ -186,7 +196,11 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
       const nextStair = updateStair(stair, correct, mode);
       setStair(nextStair);
       const answerIndex = answer?.type === 'choice' ? answer.index : undefined;
-      const res = [...results, { item, answerLabel, correct, timedOut, rtMs, answerIndex }];
+      const answerIndices = answer?.type === 'multi' ? answer.indices : undefined;
+      const res = [
+        ...results,
+        { item, answerLabel, correct, timedOut, rtMs, answerIndex, answerIndices },
+      ];
       setResults(res);
       if (mode === 'lernen') {
         setShowExpl(!correct); // bei Fehlern die Erklärung gleich aufklappen
@@ -222,6 +236,7 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
     setItem(it);
     setInput('');
     setSelected(null);
+    setMultiSel([]);
     setShowExpl(false);
     setReported(false);
     setPhase('run');
@@ -254,6 +269,20 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
     submit({ type: 'text', raw: input });
   }, [input, submit]);
 
+  const toggleMulti = useCallback(
+    (i: number) => {
+      const max = choice?.multi ?? 1;
+      setMultiSel((cur) =>
+        cur.includes(i)
+          ? cur.filter((x) => x !== i)
+          : cur.length >= max
+            ? [...cur.slice(1), i]
+            : [...cur, i],
+      );
+    },
+    [choice],
+  );
+
   // Tastatur
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -271,16 +300,24 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
       if (phase === 'run' && choice) {
         const k = e.key.toUpperCase();
         let idx = -1;
-        if (/^[1-8]$/.test(k)) idx = parseInt(k, 10) - 1;
+        if (choice.keys) idx = choice.keys.indexOf(k);
+        else if (/^[1-8]$/.test(k)) idx = parseInt(k, 10) - 1;
         else if (LETTERS.includes(k) && k.length === 1) idx = LETTERS.indexOf(k);
         if (idx >= 0 && idx < choice.count) {
           e.preventDefault();
-          setSelected(idx);
+          if (choice.instant) submit({ type: 'choice', index: idx });
+          else if (choice.multi) toggleMulti(idx);
+          else setSelected(idx);
           return;
         }
-        if (e.key === 'Enter' && selected !== null && !isTypingTarget(e.target)) {
-          e.preventDefault();
-          submit({ type: 'choice', index: selected });
+        if (e.key === 'Enter' && !isTypingTarget(e.target)) {
+          if (choice.multi && multiSel.length === choice.multi) {
+            e.preventDefault();
+            submit({ type: 'multi', indices: multiSel });
+          } else if (!choice.multi && selected !== null) {
+            e.preventDefault();
+            submit({ type: 'choice', index: selected });
+          }
         }
         return;
       }
@@ -295,7 +332,7 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [phase, choice, selected, submit, start, abort, continueAfterFeedback]);
+  }, [phase, choice, selected, multiSel, toggleMulti, submit, start, abort, continueAfterFeedback]);
 
   if (!mod || !gen) {
     return (
@@ -446,6 +483,7 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
             </div>
           </div>
         )}
+        {moduleId === 'rotation' && <RotationAngleSummary results={results} />}
         <ReviewTable results={results} />
         <div className="row section">
           <button
@@ -516,35 +554,65 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
             {choice ? (
               <>
                 <div
-                  className={'options' + (choice.figures ? ' figures' : '')}
+                  className={
+                    'options' + (choice.figures ? ' figures' : '') + (choice.large ? ' large' : '')
+                  }
                   role="radiogroup"
                   aria-label="Antworten"
                 >
-                  {Array.from({ length: choice.count }, (_, i) => (
+                  {Array.from({ length: choice.count }, (_, i) => {
+                    const on = choice.multi ? multiSel.includes(i) : selected === i;
+                    return (
+                      <button
+                        key={i}
+                        role={choice.multi ? 'checkbox' : 'radio'}
+                        aria-checked={on}
+                        className={
+                          'option' +
+                          (choice.figures ? ' figure' : '') +
+                          (choice.keys ? ' keyed' : '') +
+                          (on ? ' selected' : '')
+                        }
+                        onClick={() =>
+                          choice.instant
+                            ? submit({ type: 'choice', index: i })
+                            : choice.multi
+                              ? toggleMulti(i)
+                              : setSelected(i)
+                        }
+                        onDoubleClick={() =>
+                          !choice.multi && !choice.instant && submit({ type: 'choice', index: i })
+                        }
+                      >
+                        <span className="key">{choice.keys ? choice.keys[i] : LETTERS[i]}</span>
+                        {choice.render(i)}
+                      </button>
+                    );
+                  })}
+                </div>
+                {!choice.instant &&
+                  (choice.multi ? (
                     <button
-                      key={i}
-                      role="radio"
-                      aria-checked={selected === i}
-                      className={
-                        'option' +
-                        (choice.figures ? ' figure' : '') +
-                        (selected === i ? ' selected' : '')
-                      }
-                      onClick={() => setSelected(i)}
-                      onDoubleClick={() => submit({ type: 'choice', index: i })}
+                      className="btn primary"
+                      disabled={multiSel.length !== choice.multi}
+                      onClick={() => submit({ type: 'multi', indices: multiSel })}
                     >
-                      <span className="key">{LETTERS[i]}</span>
-                      {choice.render(i)}
+                      {multiSel.length === choice.multi
+                        ? 'Bestätigen'
+                        : `Noch ${choice.multi - multiSel.length} auswählen`}{' '}
+                      <kbd className="on-accent">Enter</kbd>
+                    </button>
+                  ) : (
+                    <button
+                      className="btn primary"
+                      disabled={selected === null}
+                      onClick={() =>
+                        selected !== null && submit({ type: 'choice', index: selected })
+                      }
+                    >
+                      Bestätigen <kbd className="on-accent">Enter</kbd>
                     </button>
                   ))}
-                </div>
-                <button
-                  className="btn primary"
-                  disabled={selected === null}
-                  onClick={() => selected !== null && submit({ type: 'choice', index: selected })}
-                >
-                  Bestätigen <kbd className="on-accent">Enter</kbd>
-                </button>
               </>
             ) : (
               <form
@@ -584,7 +652,9 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
 
         {phase === 'feedback' && last && choice && (
           <div
-            className={'options' + (choice.figures ? ' figures' : '')}
+            className={
+              'options' + (choice.figures ? ' figures' : '') + (choice.large ? ' large' : '')
+            }
             style={{ marginTop: 22 }}
             aria-label="Antworten mit Lösung"
           >
@@ -594,11 +664,17 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
                 className={
                   'option' +
                   (choice.figures ? ' figure' : '') +
-                  (i === choice.correctIndex ? ' is-correct' : '') +
-                  (i === last.answerIndex && !last.correct ? ' is-wrong' : '')
+                  ((choice.correctIndices ?? [choice.correctIndex]).includes(i)
+                    ? ' is-correct'
+                    : '') +
+                  (!last.correct &&
+                  (i === last.answerIndex || last.answerIndices?.includes(i)) &&
+                  !(choice.correctIndices ?? [choice.correctIndex]).includes(i)
+                    ? ' is-wrong'
+                    : '')
                 }
               >
-                <span className="key">{LETTERS[i]}</span>
+                <span className="key">{choice.keys ? choice.keys[i] : LETTERS[i]}</span>
                 {choice.render(i)}
               </div>
             ))}

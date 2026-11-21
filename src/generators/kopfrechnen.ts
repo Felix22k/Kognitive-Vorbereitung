@@ -732,6 +732,7 @@ export const kopfrechnenGenerator: Generator<KrPrompt, KrCorrect> = {
   check(item, answer) {
     const a = answer as AnswerValue;
     if (a.type === 'choice') return a.index === item.prompt.correctIndex;
+    if (a.type !== 'text') return false;
     const parsed = parseAnswer(a.raw);
     if (!parsed) return false;
     const target = rat(item.correct.n, item.correct.d);

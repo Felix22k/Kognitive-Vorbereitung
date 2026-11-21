@@ -2,7 +2,10 @@ import type { Item } from '../core/types';
 import type { Rng } from '../core/rng';
 
 /** Antwort, wie sie von der Oberfläche kommt. */
-export type AnswerValue = { type: 'text'; raw: string } | { type: 'choice'; index: number };
+export type AnswerValue =
+  | { type: 'text'; raw: string }
+  | { type: 'choice'; index: number }
+  | { type: 'multi'; indices: number[] };
 
 /** Linear zwischen zwei Werten je nach Stufe (1 bis 10) interpolieren, auf 1 s gerundet. */
 export function timeForLevel(level: number, minS: number, maxS: number): number {

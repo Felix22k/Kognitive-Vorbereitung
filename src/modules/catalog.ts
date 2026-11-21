@@ -3,6 +3,9 @@ import { kopfrechnenGenerator } from '../generators/kopfrechnen';
 import { zahlenreihenGenerator } from '../generators/zahlenreihen';
 import { matrizenGenerator } from '../generators/matrizen';
 import { figurenreihenGenerator } from '../generators/figurenreihen';
+import { rotation4Generator, rotationGenerator } from '../generators/rotation';
+import { wuerfelGenerator } from '../generators/wuerfel';
+import { wuerfelZaehlenGenerator } from '../generators/wuerfelZaehlen';
 
 export interface AreaDef {
   id: AreaId;
@@ -134,23 +137,58 @@ export const MODULES: ModuleDef[] = [
   {
     id: 'rotation',
     areaId: 'raum',
-    name: 'Mentale Rotation 3D',
-    description: 'Gleich oder gespiegelt? Würfelfiguren im Raum drehen.',
+    name: 'Mentale Rotation: gleich oder gespiegelt',
+    description: 'Tempo-Format: Ist die rechte Figur dieselbe, nur gedreht, oder gespiegelt?',
     milestone: 3,
+    generator: rotationGenerator as Generator,
+    instructions:
+      'Links und rechts siehst du eine Figur aus Würfeln. Die rechte ist gedreht. Ist sie dieselbe Figur (Taste F) oder ihr Spiegelbild (Taste J)? Die Taste antwortet sofort. Es zählt Tempo: Die Zeit ist knapp (7 bis 4 Sekunden). Ein Block hat 50 Aufgaben, die Auswertung zeigt die Zeit je Drehwinkel.',
+    exampleLevels: [1, 4],
+    itemsLernen: 20,
+    itemsTest: 50,
+    timeText: '7 bis 4 s',
+  },
+  {
+    id: 'rotation4',
+    areaId: 'raum',
+    name: 'Mentale Rotation: zwei aus vier',
+    description: 'Welche zwei Optionen zeigen die Zielfigur, nur gedreht?',
+    milestone: 3,
+    generator: rotation4Generator as Generator,
+    instructions:
+      'Links oben steht die Zielfigur. Genau zwei der vier Optionen zeigen dieselbe Figur, nur gedreht. Die beiden anderen sind gespiegelt oder baulich anders (ein Würfel sitzt woanders). Wähle mit 1 bis 4 oder A bis D zwei Optionen und bestätige mit Enter. Einen Punkt gibt es nur, wenn beide richtig sind.',
+    exampleLevels: [1, 5],
+    itemsLernen: 8,
+    itemsTest: 10,
+    timeText: '30 bis 60 s',
   },
   {
     id: 'wuerfelDrehen',
     areaId: 'raum',
     name: 'Würfel drehen',
-    description: 'Welcher Würfel ist derselbe in anderer Lage?',
+    description: 'Welcher Würfel ist derselbe in anderer Lage? Ab Stufe 3 auch Faltvorlagen.',
     milestone: 3,
+    generator: wuerfelGenerator as Generator,
+    instructions:
+      'Der Würfel trägt sechs verschiedene Symbole. Welche Ansicht zeigt denselben Würfel in anderer Lage? Achte auf die Reihenfolge der Flächen um eine Ecke und auf die Ausrichtung der Symbole. Ab Stufe 3 gibt es auch Faltvorlagen, ab Stufe 5 die Antwort „keine passt“ (E). Auswahl mit A bis E oder 1 bis 5, Enter bestätigt.',
+    exampleLevels: [1, 4],
+    itemsLernen: 8,
+    itemsTest: 10,
+    timeText: '30 bis 60 s',
   },
   {
     id: 'wuerfelZaehlen',
     areaId: 'raum',
     name: 'Würfel zählen',
-    description: 'Wie viele Würfel sind es?',
+    description: 'Wie viele Würfel sind es? Ab Stufe 7 auch: Wie viele berühren genau zwei andere?',
     milestone: 3,
+    generator: wuerfelZaehlenGenerator as Generator,
+    instructions:
+      'Die Würfel stehen in Säulen auf einem Bodenraster, keiner schwebt. Zähle alle Würfel, auch die verdeckten unter sichtbaren. Ab Stufe 7 lautet die Frage manchmal: Wie viele Würfel berühren genau zwei andere mit einer ganzen Fläche? Zahl eintippen, Enter bestätigt.',
+    exampleLevels: [1, 5],
+    itemsLernen: 10,
+    itemsTest: 12,
+    timeText: '30 bis 45 s',
   },
   {
     id: 'zahlenspanne',
@@ -273,6 +311,15 @@ export const TAG_NAMES: Record<string, string> = {
   'zr.potenz': 'Quadrat- und Kubikzahlen',
   'zr.prim': 'Primzahlen',
   'zr.diffZweiReihen': 'verschränkte Differenzen',
+  'mr.gleichSpiegel': 'Rotation: gleich oder gespiegelt',
+  'mr.vierOptionen': 'Rotation: zwei aus vier',
+  'mr.achse.ebene': 'Rotation in der Bildebene',
+  'mr.achse.tiefe': 'Rotation in die Tiefe',
+  'mr.achse.kombiniert': 'Rotation um zwei Achsen',
+  'wd.drehen': 'Würfel in anderer Lage',
+  'wd.netz': 'Würfel aus Faltvorlage',
+  'wz.zaehlen': 'Würfel zählen',
+  'wz.kontakt': 'Würfel mit genau zwei Nachbarn',
 };
 
 const FIG_RULES: Record<string, string> = {

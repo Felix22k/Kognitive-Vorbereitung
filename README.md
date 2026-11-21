@@ -7,7 +7,7 @@ Web-App zum Training der computergestützten kognitiven Tests im Potenzialfestst
 
 Alles läuft lokal im Browser. Kein Backend, keine Anmeldung, kein Tracking.
 
-## Stand: Meilenstein 2 (Logik)
+## Stand: Meilenstein 3 (Räumliches Denken)
 
 | Bereich                                                                                        | Stand                                |
 | ---------------------------------------------------------------------------------------------- | ------------------------------------ |
@@ -152,6 +152,30 @@ Wo der Bau-Prompt nichts festlegt, gilt:
 
 - Regeln: gleichmäßige Veränderung (Drehung, Position, Anzahl) und Wechsel zweier Zustände (Form, Füllung, Größe, Linienart, Anzahl). Ab Stufe 9 unterscheiden sich die Schrittweiten der gleichmäßig veränderten Merkmale.
 - 5 Optionen: 2 × 2 ausgewogen nach typischen Fehlern (nicht weitergerechnet, doppelt weitergerechnet, falscher Wechselzustand) plus eine Option mit zwei weiteren Fehlern. Volle Ausgewogenheit ist mit 5 Optionen nicht möglich; die Lösung ist aber nie der einzige Mehrheitswert.
+
+**Mentale Rotation**
+
+- Die beiden Formate sind zwei Module in der Bibliothek („gleich oder gespiegelt“ und „zwei aus vier“), weil sie sich in Bedienung, Aufgabenzahl und Zeit grundlegend unterscheiden.
+- Figuren: 8 bis 10 Würfel als Kette mit 3 bis 4 Armen, alle drei Achsen kommen vor, kein Würfel berührt einen anderen als seinen Vorgänger. Chiralität wird über die Normalform aller 24 Würfeldrehungen geprüft.
+- Sichtbarkeit: Jede Figur wird gerastert; jeder Würfel braucht eine Mindestzahl sichtbarer Pixel. Ab Stufe 8 ist die Schwelle niedriger (teilweise Verdeckung als Schwierigkeit).
+- Bei Drehung in der Bildebene wird das Licht mitgedreht, damit das Bild wie eine reine Bilddrehung aussieht. Bei Drehung in die Tiefe bleibt das Licht fest. Ein Test prüft, dass das rechte Bild exakt das gedrehte linke ist.
+- Stufen: 1 bis 3 Bildebene (bis 60°, 120°, 180°), 4 bis 6 in die Tiefe, ab 7 zwei Achsen kombiniert; Würfelzahl steigt von 8 auf 10.
+- Format A antwortet sofort mit F oder J (keine Bestätigung), die Auswertung zeigt Median-Zeit und Trefferquote je Drehwinkelgruppe.
+- Format B: Die baulich andere Figur entsteht, indem ein Endwürfel an eine andere Stelle wandert. Ab Stufe 8 sind oft beide falschen Optionen baulich ähnlich.
+
+**Würfel drehen**
+
+- Symbole: Pfeil, F, L, P, R, halb gefüllte Fläche, Punkt in der Ecke (6 von 7 je Würfel), alle in jeder 90°-Lage unterscheidbar.
+- Prüfung „möglich oder unmöglich“: Eine Ansicht ist möglich, wenn eine der 24 Würfellagen sie erzeugt und dabei alle bekannten Flächen mit Symbol und Ausrichtung stimmen. Beim Format „drehen“ sind nur die drei sichtbaren Flächen der Ausgangsansicht bekannt; unbekannte Flächen dürfen jedes noch nicht vergebene Symbol tragen. Deshalb zeigen alle Optionen mindestens eine bekannte Fläche (unten mindestens zwei).
+- Ablenker: falsch ausgerichtetes Symbol, zwei Flächen vertauscht, gespiegelte Anordnung, Symbol an unmöglicher Stelle. Sie werden abwechselnd gezogen, damit nicht immer derselbe Fehlertyp vorkommt.
+- Faltnetze werden nicht von Hand eingetragen, sondern aus allen Hexominos durch Falten ermittelt (ein Test bestätigt: genau 11 Grundformen). Bis Stufe 5 nur Netze mit Viererreihe.
+- Ab Stufe 5 gibt es die Option „keine passt“ (in etwa 20 % der Aufgaben richtig).
+
+**Würfel zählen**
+
+- Höhenkarten werden als Treppe mit Zufall erzeugt (hinten höher). Geprüft wird an 25 Punkten je Oberseite, dass jede Säulenoberseite zu mindestens 45 % sichtbar ist.
+- Blickwinkel bewusst nicht exakt isometrisch, sonst wären Höhe und Tiefe verwechselbar. Ein Bodenraster zeigt die Grundfläche.
+- Ab Stufe 7 die Kontaktfrage (genau zwei Nachbarn über eine ganze Fläche), dann auf höchstens 4 × 4 Grundfläche.
 
 **Debug-Seite**
 

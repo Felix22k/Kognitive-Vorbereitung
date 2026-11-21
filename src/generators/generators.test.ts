@@ -5,6 +5,11 @@ import { zahlenreihenGenerator, checkUnique } from './zahlenreihen';
 import { matrizenGenerator } from './matrizen';
 import { figurenreihenGenerator } from './figurenreihen';
 import { renderKey } from './figuren/model';
+import { rotationGenerator, rotation4Generator } from './rotation';
+import { wuerfelGenerator, NETS, fold, isPossible, knownOf } from './wuerfel';
+import { wuerfelZaehlenGenerator, toPoints, contactCount } from './wuerfelZaehlen';
+import { canonical, isChiral, mirror } from './raum/voxel';
+import { choiceInfo } from '../modules/views';
 import { RULE_BY_ID, RULES } from './zahlenreihen/rules';
 import { pickUniqueItem } from '../session/engine';
 import { deriveSeed } from '../core/rng';
@@ -15,6 +20,10 @@ const GENS: [string, Generator][] = [
   ['Zahlenreihen', zahlenreihenGenerator as Generator],
   ['Figurale Matrizen', matrizenGenerator as Generator],
   ['Figurenreihen', figurenreihenGenerator as Generator],
+  ['Mentale Rotation A', rotationGenerator as Generator],
+  ['Mentale Rotation B', rotation4Generator as Generator],
+  ['Würfel drehen', wuerfelGenerator as Generator],
+  ['Würfel zählen', wuerfelZaehlenGenerator as Generator],
 ];
 
 for (const [name, gen] of GENS) {
@@ -38,9 +47,19 @@ for (const [name, gen] of GENS) {
             expect(JSON.stringify(again)).toBe(JSON.stringify(item));
           }
           // Die richtige Lösung wird als richtig erkannt, bei Auswahl genau eine Option
-          if (item.answerKind === 'choice') {
-            const opts = (item.prompt as { options: unknown[] }).options;
-            const right = opts.filter((_, k) => gen.check(item, { type: 'choice', index: k }));
+          if (Array.isArray(item.correct)) {
+            const c = item.correct as number[];
+            expect(gen.check(item, { type: 'multi', indices: c })).toBe(true);
+            // jede andere Zweierauswahl ist falsch
+            for (let x = 0; x < 4; x++)
+              for (let y = x + 1; y < 4; y++)
+                if (!(x === c[0] && y === c[1]))
+                  expect(gen.check(item, { type: 'multi', indices: [x, y] })).toBe(false);
+          } else if (item.answerKind === 'choice') {
+            const n = choiceInfo(item)!.count;
+            const right = Array.from({ length: n }, (_, k) => k).filter((k) =>
+              gen.check(item, { type: 'choice', index: k }),
+            );
             expect(right.length).toBe(1);
           } else
             expect(
@@ -166,5 +185,112 @@ describe('Figurale Matrizen: Aufbau', () => {
         expect(renderKey(p.options[p.correctIndex])).toBe(renderKey(p.solution));
       }
     expect(seen).toEqual({ spalte: true, otherMissing: true, xor: true, addSub: true });
+  });
+});
+
+describe('Räumliches Denken: Spezialprüfungen', () => {
+  it('Rotation: Figuren chiral, gespiegelt nur bei Spiegelung, 8 bis 10 Würfel', () => {
+    for (let level = 1; level <= 10; level++)
+      for (let i = 0; i < 100; i++) {
+        const it = rotationGenerator.generate(deriveSeed(level * 3, i), level);
+        const p = it.prompt;
+        expect(isChiral(p.left.points)).toBe(true);
+        expect(canonical(p.left.points) === canonical(p.right.points)).toBe(!p.mirrored);
+        expect(p.left.points.length).toBeGreaterThanOrEqual(8);
+      }
+  });
+  it('Rotation B: zwei richtig, Ablenker gespiegelt oder baulich anders', () => {
+    for (let level = 1; level <= 10; level++)
+      for (let i = 0; i < 100; i++) {
+        const it = rotation4Generator.generate(deriveSeed(level * 5, i), level);
+        const p = it.prompt;
+        const tc = canonical(p.target.points);
+        const mc = canonical(mirror(p.target.points));
+        p.options.forEach((o, k) => {
+          const c = canonical(o.points);
+          if (p.kinds[k] === 'richtig') expect(c).toBe(tc);
+          else if (p.kinds[k] === 'gespiegelt') expect(c).toBe(mc);
+          else {
+            expect(c).not.toBe(tc);
+            expect(c).not.toBe(mc);
+          }
+        });
+      }
+  });
+  it('Würfelnetze: genau 11 Grundformen', () => {
+    // Normalform unter Drehen und Spiegeln in der Ebene
+    const forms = new Set(
+      NETS.map((cells) => {
+        const variants: string[] = [];
+        let cur = cells.map(([c, r]) => [c, r]);
+        for (let m = 0; m < 2; m++) {
+          for (let rot = 0; rot < 4; rot++) {
+            cur = cur.map(([c, r]) => [r, -c]);
+            const mc = Math.min(...cur.map((x) => x[0]));
+            const mr = Math.min(...cur.map((x) => x[1]));
+            variants.push(
+              cur
+                .map(([c, r]) => [c - mc, r - mr].join(','))
+                .sort()
+                .join(';'),
+            );
+          }
+          cur = cur.map(([c, r]) => [-c, r]);
+        }
+        return variants.sort()[0];
+      }),
+    );
+    expect(forms.size).toBe(11);
+    for (const n of NETS) expect(fold(n)).not.toBeNull();
+  });
+  it('Würfel drehen: richtige Option möglich, jede falsche unmöglich', () => {
+    for (let level = 1; level <= 10; level++)
+      for (let i = 0; i < 200; i++) {
+        const it = wuerfelGenerator.generate(deriveSeed(level * 7, i), level);
+        const { known, complete } = knownOf(it.prompt);
+        it.prompt.options.forEach((o, k) => {
+          expect(isPossible(o, known, complete)).toBe(k === it.prompt.correctIndex);
+        });
+      }
+  });
+  it('Würfel zählen: Antwort stimmt, keine Säule schwebt', () => {
+    for (let level = 1; level <= 10; level++)
+      for (let i = 0; i < 100; i++) {
+        const it = wuerfelZaehlenGenerator.generate(deriveSeed(level * 9, i), level);
+        const pts = toPoints(it.prompt.heights);
+        expect(it.correct).toBe(
+          it.prompt.question === 'zaehlen' ? pts.length : contactCount(pts, 2),
+        );
+      }
+  });
+});
+
+describe('Rotation in der Bildebene', () => {
+  it('rechtes Bild = linkes Bild, um den Winkel gedreht (inklusive Schattierung)', async () => {
+    const { faces, DEFAULT_VIEW } = await import('./raum/voxel');
+    let checked = 0;
+    for (let i = 0; i < 300 && checked < 60; i++) {
+      const it = rotationGenerator.generate(deriveSeed(4242, i), 2);
+      const p = it.prompt;
+      if (p.mirrored || p.axis !== 'ebene') continue;
+      checked++;
+      const L = faces(p.left.points, p.left.rot, DEFAULT_VIEW, p.left.lightDeg ?? 0);
+      const R = faces(p.right.points, p.right.rot, DEFAULT_VIEW, p.right.lightDeg ?? 0);
+      const deg = p.right.lightDeg ?? 0;
+      const a = (deg * Math.PI) / 180;
+      const sig = (fs: typeof L, rotate: boolean) =>
+        fs
+          .map((f) => {
+            let x = f.pts.reduce((s, q) => s + q[0], 0) / 4;
+            let y = -f.pts.reduce((s, q) => s + q[1], 0) / 4; // Bild → Blickkoordinaten
+            if (rotate)
+              [x, y] = [x * Math.cos(a) - y * Math.sin(a), x * Math.sin(a) + y * Math.cos(a)];
+            return `${x.toFixed(2)},${y.toFixed(2)},${f.shade}`;
+          })
+          .sort()
+          .join(';');
+      expect(sig(R, false)).toBe(sig(L, true));
+    }
+    expect(checked).toBeGreaterThan(20);
   });
 });

@@ -7,6 +7,21 @@ import type { FrItem } from '../generators/figurenreihen';
 import type { ReactNode } from 'react';
 import { FigureSvg } from './FigureSvg';
 import { MatrixPrompt, MatrixSolution, SequenceRow, SequenceSolution } from './figureViews';
+import type { MrItem, Mr4Item } from '../generators/rotation';
+import type { WdItem } from '../generators/wuerfel';
+import type { WzItem } from '../generators/wuerfelZaehlen';
+import {
+  Rotation4Prompt,
+  RotationPrompt,
+  RotationSolution,
+  WuerfelPrompt,
+  WuerfelSolution,
+  ZaehlenPrompt,
+  ZaehlenSolution,
+  rotation4Extent,
+} from './raumViews';
+import { VoxelSvg } from './VoxelSvg';
+import { CubeSvg } from './CubeSvg';
 
 function KopfrechnenPrompt({ item }: { item: KrItem }) {
   return (
@@ -150,6 +165,14 @@ export function PromptView({ item }: { item: Item }) {
       return <MatrixPrompt item={item as MxItem} />;
     case 'figurenreihen':
       return <SequenceRow item={item as FrItem} />;
+    case 'rotation':
+      return <RotationPrompt item={item as MrItem} />;
+    case 'rotation4':
+      return <Rotation4Prompt item={item as Mr4Item} />;
+    case 'wuerfelDrehen':
+      return <WuerfelPrompt item={item as WdItem} />;
+    case 'wuerfelZaehlen':
+      return <ZaehlenPrompt item={item as WzItem} />;
     default:
       return <div>Unbekanntes Modul</div>;
   }
@@ -187,6 +210,10 @@ export function SolutionView({ item }: { item: Item }) {
   if (item.moduleId === 'kopfrechnen') return <KopfrechnenSolution item={item as KrItem} />;
   if (item.moduleId === 'matrizen') return <MatrixSolution item={item as MxItem} />;
   if (item.moduleId === 'figurenreihen') return <SequenceSolution item={item as FrItem} />;
+  if (item.moduleId === 'rotation' || item.moduleId === 'rotation4')
+    return <RotationSolution item={item as MrItem} />;
+  if (item.moduleId === 'wuerfelDrehen') return <WuerfelSolution item={item as WdItem} />;
+  if (item.moduleId === 'wuerfelZaehlen') return <ZaehlenSolution item={item as WzItem} />;
   return <div style={{ whiteSpace: 'pre-line' }}>{item.explanation}</div>;
 }
 
@@ -199,6 +226,16 @@ export interface ChoiceInfo {
   label(i: number): string;
   /** Figuren-Optionen (weißes Feld, größere Kacheln) */
   figures: boolean;
+  /** große Figuren-Kacheln (vier nebeneinander) */
+  large?: boolean;
+  /** eigene Tasten statt A bis H (z. B. F und J) */
+  keys?: string[];
+  /** Taste beantwortet sofort, ohne Enter (Tempo-Format) */
+  instant?: boolean;
+  /** Anzahl auszuwählender Optionen (Mehrfachauswahl) */
+  multi?: number;
+  /** richtige Optionen bei Mehrfachauswahl */
+  correctIndices?: number[];
 }
 
 /** Antwortoptionen, falls die Aufgabe im Auswahlmodus gezeigt werden kann. */
@@ -211,6 +248,48 @@ export function choiceInfo(item: Item): ChoiceInfo | null {
       render: (i) => p.options[i],
       label: (i) => p.options[i],
       figures: false,
+    };
+  }
+  if (item.moduleId === 'rotation') {
+    const labels = ['gleich', 'gespiegelt'];
+    return {
+      count: 2,
+      correctIndex: (item as MrItem).correct,
+      render: (i) => labels[i],
+      label: (i) => labels[i],
+      figures: false,
+      keys: ['F', 'J'],
+      instant: true,
+    };
+  }
+  if (item.moduleId === 'rotation4') {
+    const it = item as Mr4Item;
+    const ext = rotation4Extent(it);
+    return {
+      count: 4,
+      correctIndex: it.correct[0],
+      correctIndices: it.correct,
+      render: (i) => <VoxelSvg fig={it.prompt.options[i]} size={200} extent={ext} />,
+      label: (i) => 'ABCD'[i],
+      figures: true,
+      large: true,
+      multi: 2,
+    };
+  }
+  if (item.moduleId === 'wuerfelDrehen') {
+    const it = item as WdItem;
+    const n = it.prompt.options.length;
+    return {
+      count: n + (it.prompt.noneOption ? 1 : 0),
+      correctIndex: it.correct,
+      render: (i) =>
+        i < n ? (
+          <CubeSvg view={it.prompt.options[i]} size={110} />
+        ) : (
+          <span className="none-opt">keine passt</span>
+        ),
+      label: (i) => (i < n ? 'ABCDE'[i] : 'E (keine passt)'),
+      figures: true,
     };
   }
   if (item.moduleId === 'matrizen' || item.moduleId === 'figurenreihen') {
