@@ -100,7 +100,7 @@ export function Fortschritt() {
                 </div>
                 <div>
                   <div className="muted small">Trefferquote</div>
-                  <LineChart points={pts((s) => s.summary[id].trefferquote)} color="#2E9E5B" />
+                  <LineChart points={pts((s) => s.summary[id].trefferquote)} color="var(--sand)" />
                 </div>
                 <div>
                   <div className="muted small">Median-Zeit pro Aufgabe</div>
@@ -108,7 +108,7 @@ export function Fortschritt() {
                     points={pts((s) => Math.round(s.summary[id].medianMs / 100) / 10)}
                     yMax={maxMs}
                     yLabel=" s"
-                    color="#9fd3ff"
+                    color="var(--info)"
                   />
                 </div>
               </div>
@@ -194,7 +194,7 @@ export function Fortschritt() {
                     <td className="num tnum">{t.errors}</td>
                     <td
                       className="num tnum"
-                      style={{ color: t.rate >= 0.5 ? '#ff7a74' : undefined }}
+                      style={{ color: t.rate >= 0.5 ? 'var(--bad)' : undefined }}
                     >
                       {pct(t.rate)}
                     </td>

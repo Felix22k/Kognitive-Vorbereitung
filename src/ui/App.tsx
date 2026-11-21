@@ -34,7 +34,8 @@ export function App() {
     <div className="app">
       <header className="topbar">
         <div className="brand">
-          PFV <span>Kognitionstrainer</span>
+          <span className="tag">PFV</span>
+          <span>Kognitionstrainer</span>
         </div>
         <nav className="nav" aria-label="Hauptnavigation">
           {NAV.map(([id, label]) => (

@@ -9,7 +9,7 @@ export function LineChart({
   height = 140,
   yMax = 100,
   yLabel = '%',
-  color = 'var(--accent)',
+  color = 'var(--accent-strong)',
 }: {
   points: Point[];
   height?: number;

@@ -403,7 +403,7 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
 
         <div className="row section">
           <button className="btn primary" onClick={() => void start()} autoFocus>
-            Starten <kbd style={{ color: '#fff', borderColor: 'rgba(255,255,255,.5)' }}>Enter</kbd>
+            Starten <kbd className="on-accent">Enter</kbd>
           </button>
           <span className="muted small">
             Abbrechen jederzeit mit <kbd>Esc</kbd>
@@ -531,7 +531,7 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
                   disabled={selected === null}
                   onClick={() => selected !== null && submit({ type: 'choice', index: selected })}
                 >
-                  Bestätigen <kbd style={{ color: '#fff' }}>Enter</kbd>
+                  Bestätigen <kbd className="on-accent">Enter</kbd>
                 </button>
               </>
             ) : (
@@ -557,12 +557,12 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
                   }}
                 />
                 {inputError && (
-                  <span className="small" style={{ color: '#ff7a74' }}>
+                  <span className="small" style={{ color: 'var(--bad)' }}>
                     {inputError}
                   </span>
                 )}
                 <button className="btn primary" type="submit" disabled={!input.trim()}>
-                  Bestätigen <kbd style={{ color: '#fff' }}>Enter</kbd>
+                  Bestätigen <kbd className="on-accent">Enter</kbd>
                 </button>
               </form>
             )}
@@ -588,7 +588,7 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
             <div className="row" style={{ marginTop: 12 }}>
               <button className="btn primary" onClick={continueAfterFeedback} autoFocus>
                 {results.length >= total ? 'Zur Auswertung' : 'Weiter'}{' '}
-                <kbd style={{ color: '#fff' }}>Enter</kbd>
+                <kbd className="on-accent">Enter</kbd>
               </button>
               <button
                 className="btn ghost"
@@ -666,7 +666,7 @@ function ReviewTable({ results }: { results: Result[] }) {
               <tr key={i}>
                 <td className="tnum">{i + 1}</td>
                 <td>{gen?.promptText(r.item)}</td>
-                <td style={{ color: r.correct ? '#57c486' : '#ff7a74' }}>
+                <td style={{ color: r.correct ? 'var(--ok)' : 'var(--bad)' }}>
                   {r.correct ? '✓ ' : '✗ '}
                   {r.timedOut ? 'Zeit abgelaufen' : r.answerLabel}
                 </td>

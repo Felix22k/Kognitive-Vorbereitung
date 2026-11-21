@@ -7,6 +7,23 @@ export function dayKey(d: Date | string): string {
   return `${x.getFullYear()}-${m}-${day}`;
 }
 
+/** Kalenderwoche nach ISO 8601. */
+export function isoWeek(date: Date): number {
+  const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+  const day = d.getUTCDay() || 7;
+  d.setUTCDate(d.getUTCDate() + 4 - day);
+  const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+  return Math.ceil(((d.getTime() - yearStart.getTime()) / 86400_000 + 1) / 7);
+}
+
+/** Ganze Kalendertage von heute bis zum Datum (YYYY-MM-DD). */
+export function daysUntil(isoDate: string, now: Date): number {
+  const [y, m, d] = isoDate.split('-').map(Number);
+  const target = Date.UTC(y, m - 1, d);
+  const today = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
+  return Math.round((target - today) / 86400_000);
+}
+
 /** Montag bis Sonntag der Woche, in der `today` liegt. */
 export function weekDays(today: Date): Date[] {
   const d = new Date(today.getFullYear(), today.getMonth(), today.getDate());

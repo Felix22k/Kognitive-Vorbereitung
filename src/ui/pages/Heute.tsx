@@ -1,7 +1,15 @@
 import { db, getSettings, saveSettings } from '../../db/db';
 import { useLive, navigate } from '../hooks';
 import { AREAS, MODULES, MODULE_BY_ID, isAvailable, modulesOfArea } from '../../modules/catalog';
-import { areaStats, completed, dayKey, difficultyLabel, weekDays } from '../../core/progress';
+import {
+  areaStats,
+  completed,
+  dayKey,
+  daysUntil,
+  difficultyLabel,
+  isoWeek,
+  weekDays,
+} from '../../core/progress';
 import { AreaIcon, CheckIcon } from '../components/Icons';
 import { DEFAULT_SETTINGS, type AreaId, type Settings } from '../../core/types';
 
@@ -21,6 +29,7 @@ export function Heute() {
   const doneDays = new Set(sessions.filter(completed).map((s) => dayKey(s.endedAt!)));
   const days = weekDays(now);
   const todayKey = dayKey(now);
+  const countdown = settings.testDate ? daysUntil(settings.testDate, now) : null;
 
   // FOKUS: schwächster Bereich unter den Bereichen mit verfügbaren Modulen
   const candidates = AREAS.filter((a) => modulesOfArea(a.id).some(isAvailable));
@@ -61,11 +70,26 @@ export function Heute() {
 
       <div className="row" style={{ alignItems: 'flex-end', marginBottom: 18 }}>
         <div>
+          <div className="eyebrow">Lage · KW {isoWeek(now)}</div>
           <h1 style={{ marginBottom: 4 }}>Heute</h1>
           <div className="muted">
             {now.toLocaleDateString('de-DE', { weekday: 'long', day: 'numeric', month: 'long' })}
           </div>
         </div>
+        <span className="spacer" />
+        {countdown !== null && countdown >= 0 ? (
+          <div className="countdown" title="Tage bis zum Testtermin">
+            <span className="v">T−{countdown}</span>
+            <span className="muted small">Tage bis zum PFV</span>
+          </div>
+        ) : (
+          loadedSettings &&
+          !settings.testDate && (
+            <a className="muted small" href="#/einstellungen">
+              Testtermin festlegen
+            </a>
+          )
+        )}
       </div>
 
       <div className="card" style={{ marginBottom: 14 }}>
@@ -113,8 +137,8 @@ export function Heute() {
             return (
               <button
                 key={a.id}
-                className="card area-card"
-                style={{ textAlign: 'left', cursor: 'pointer', border: 'none' }}
+                className={'card area-card' + (focus === a.id ? ' fokus' : '')}
+                style={{ textAlign: 'left', cursor: 'pointer' }}
                 onClick={() => navigate('bibliothek?bereich=' + a.id)}
               >
                 <div className="icon">

@@ -3,7 +3,7 @@ import { createRng, deriveSeed } from './rng';
 import { parseAnswer, rat, eq, formatRational, formatNumber } from './rational';
 import { updateStair, testStartLevel } from './staircase';
 import { median, niveau, trefferquote } from './stats';
-import { areaStats, tagStats, weekDays } from './progress';
+import { areaStats, daysUntil, isoWeek, tagStats, weekDays } from './progress';
 import type { Session } from './types';
 
 describe('rng', () => {
@@ -143,6 +143,12 @@ describe('Fortschritt', () => {
     expect(st.sprache.current).toBe(70);
     expect(st.sprache.best30).toBe(70); // 60, 50, 70
     expect(st.sprache.practiced).toBe(2);
+  });
+  it('Kalenderwoche und Countdown', () => {
+    expect(isoWeek(new Date('2026-11-21T12:00:00'))).toBe(47);
+    expect(isoWeek(new Date('2027-01-01T12:00:00'))).toBe(53);
+    expect(daysUntil('2026-11-28', new Date('2026-11-21T23:30:00'))).toBe(7);
+    expect(daysUntil('2026-11-21', new Date('2026-11-21T08:00:00'))).toBe(0);
   });
   it('Woche beginnt am Montag', () => {
     const d = weekDays(new Date('2026-11-21T12:00:00')); // Samstag
