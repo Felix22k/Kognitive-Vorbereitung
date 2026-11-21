@@ -24,6 +24,51 @@ function ZahlenreihenPrompt({ item }: { item: ZrItem }) {
   );
 }
 
+/** Erkennungshinweise je Regel der Zahlenreihen. */
+const ZR_TIPS: Record<string, string[]> = {
+  arith: ['Die Differenzen sind alle gleich. Immer zuerst die Differenzen bilden.'],
+  geom: [
+    'Die Differenzen wachsen stark, aber jedes Glied ist ein festes Vielfaches des vorigen. Teile zwei Nachbarn durcheinander.',
+  ],
+  diff2: [
+    'Die Differenzen sind nicht gleich, steigen aber gleichmäßig. Bilde dann die Differenzen der Differenzen.',
+  ],
+  potenz: [
+    'Zahlen wie 49, 64, 81 oder 125, 216 fallen als Quadrat- bzw. Kubikzahlen auf. Prüfe auch „Quadratzahl plus oder minus 1“.',
+    'Bei Quadratzahlen steigen die Differenzen um 2 (ungerade Zahlen: +3, +5, +7 …).',
+  ],
+  prim: [
+    'Keine Rechenregel passt und keine Zahl lässt sich teilen: an Primzahlen denken (2, 3, 5, 7, 11, 13, 17, 19, 23, 29 …).',
+  ],
+  wechsel: [
+    'Die Differenzen springen hin und her. Schau dir jeden zweiten Schritt getrennt an: Wiederholt sich ein Muster aus zwei Rechenschritten?',
+  ],
+  zyklus3: [
+    'Kein Zweier-Muster erkennbar? Dann Dreiergruppen von Schritten prüfen: Schritt 1, 4, 7 und 2, 5 und 3, 6.',
+  ],
+  zweiReihen: [
+    'Die Zahlen springen groß-klein-groß. Lies jedes zweite Glied als eigene Reihe: Glieder 1, 3, 5, 7 und Glieder 2, 4, 6.',
+  ],
+  zweiReihenKombi: [
+    'Erst in zwei Reihen trennen (jedes zweite Glied), dann jede Teilreihe für sich untersuchen, auch mit zweiten Differenzen.',
+  ],
+  diffGeom: [
+    'Die Differenzen verdoppeln oder verdreifachen sich. Wenn die Differenzen selbst eine Malreihe sind, liegt diese Regel vor.',
+  ],
+  mulAdd: [
+    'Die Zahlen wachsen etwa um einen festen Faktor, aber nicht exakt. Prüfe „mal q, dann plus c“: Glied × 2 und schauen, was fehlt.',
+  ],
+  fibonacci: [
+    'Prüfe, ob jedes Glied die Summe der beiden vorigen ist. Wächst ungefähr um den Faktor 1,6.',
+  ],
+  steigFaktor: [
+    'Die Faktoren zwischen den Gliedern steigen (×1, ×2, ×3 …). Dazwischen kann eine feste Addition stehen: Schritte einzeln aufschreiben.',
+  ],
+  diffZweiReihen: [
+    'Die Glieder steigen unregelmäßig. Bilde die Differenzen und lies dann jede zweite Differenz als eigene Reihe.',
+  ],
+};
+
 const signed = (x: number) => (x < 0 ? `−${formatNumber(-x)}` : `+${formatNumber(x)}`);
 
 function ZahlenreihenSolution({ item }: { item: ZrItem }) {
@@ -76,6 +121,16 @@ function ZahlenreihenSolution({ item }: { item: ZrItem }) {
       <p style={{ marginTop: 10, marginBottom: 0 }}>
         <strong>Regel:</strong> {ruleText}
       </p>
+      {ZR_TIPS[item.prompt.ruleId] && (
+        <>
+          <div className="sol-head">So erkennst du es</div>
+          <ul className="sol-tips">
+            {ZR_TIPS[item.prompt.ruleId].map((t, i) => (
+              <li key={i}>{t}</li>
+            ))}
+          </ul>
+        </>
+      )}
     </div>
   );
 }
@@ -92,8 +147,35 @@ export function PromptView({ item }: { item: Item }) {
 }
 
 /** Erklärung nach dem Antworten. */
+function KopfrechnenSolution({ item }: { item: KrItem }) {
+  const { steps, tips } = item.prompt;
+  // Ältere gespeicherte Aufgaben (Version 1) haben nur den Erklärungstext
+  if (!steps) return <div style={{ whiteSpace: 'pre-line' }}>{item.explanation}</div>;
+  return (
+    <div className="solution">
+      <div className="sol-head">Rechenweg</div>
+      {steps.map((s, i) => (
+        <div key={i} className="sol-steps">
+          {s}
+        </div>
+      ))}
+      {tips.length > 0 && (
+        <>
+          <div className="sol-head">So geht's im Kopf</div>
+          <ul className="sol-tips">
+            {tips.map((t, i) => (
+              <li key={i}>{t}</li>
+            ))}
+          </ul>
+        </>
+      )}
+    </div>
+  );
+}
+
 export function SolutionView({ item }: { item: Item }) {
   if (item.moduleId === 'zahlenreihen') return <ZahlenreihenSolution item={item as ZrItem} />;
+  if (item.moduleId === 'kopfrechnen') return <KopfrechnenSolution item={item as KrItem} />;
   return <div style={{ whiteSpace: 'pre-line' }}>{item.explanation}</div>;
 }
 

@@ -21,6 +21,7 @@ import {
 import type { Generator, Item } from '../core/types';
 import { baseValidate, timeForLevel, type AnswerValue } from './common';
 import { bin, evalText, evaluate, num, paren, render, steps, type Expr } from './expr';
+import * as T from './kopfrechnen-tipps';
 
 export interface KrPrompt {
   /** Rechnung oder Aufgabentext. */
@@ -32,6 +33,10 @@ export interface KrPrompt {
   correctIndex: number;
   /** Ergebnis als Bruch erwartet. */
   fraction: boolean;
+  /** Rechenweg (kurz). */
+  steps: string[];
+  /** So geht's im Kopf: Strategien und Fallen. */
+  tips: string[];
 }
 
 export interface KrCorrect {
@@ -46,6 +51,11 @@ interface Task {
   value: Rational;
   tags: string[];
   explanation: string[];
+  tips: string[];
+  /** Term, falls die Aufgabe ein Rechenterm ist. */
+  expr?: Expr;
+  /** Ergebnis bei Strich vor Punkt (für den Fallen-Hinweis). */
+  invertedLabel?: string | null;
   wrongs: Rational[];
   fraction?: boolean;
   requireReducedFraction?: boolean;
@@ -59,9 +69,15 @@ function exprTask(e: Expr, tags: string[], extraWrongs: Rational[] = [], fractio
   const text = render(e);
   const value = evaluate(e);
   const wrongs = [...extraWrongs];
+  let invertedLabel: string | null = null;
   try {
     const inv = evalText(text, true);
-    if (!eq(inv, value)) wrongs.unshift(inv); // Strich vor Punkt gerechnet
+    if (!eq(inv, value)) {
+      wrongs.unshift(inv); // Strich vor Punkt gerechnet
+      // Für den Fallen-Hinweis nur glatte Werte zeigen
+      if (isFiniteDecimal(inv, 2) || (fraction && inv.d <= 100))
+        invertedLabel = formatRational(inv, fraction);
+    }
   } catch {
     /* ignorieren */
   }
@@ -73,9 +89,47 @@ function exprTask(e: Expr, tags: string[], extraWrongs: Rational[] = [], fractio
     value,
     tags,
     explanation: st.length ? [`${text} = ${st.join(' = ')}`] : [text],
+    tips: [],
+    expr: e,
+    invertedLabel,
     wrongs,
     fraction,
   };
+}
+
+/** Tipp für die schwierigste Teilrechnung eines Terms (Multiplikation). */
+function subTips(e: Expr): string[] {
+  const out: string[] = [];
+  const walk = (x: Expr) => {
+    if (x.k === 'num') return;
+    walk(x.l);
+    walk(x.r);
+    if (x.op !== '*' || out.length) return;
+    let lv: Rational;
+    let rv: Rational;
+    try {
+      lv = evaluate(x.l);
+      rv = evaluate(x.r);
+    } catch {
+      return;
+    }
+    if (lv.d === 1 && rv.d === 1) {
+      const a = Math.abs(lv.n);
+      const b = Math.abs(rv.n);
+      if (Math.max(a, b) >= 11 && Math.min(a, b) >= 3) {
+        const tm = T.tipsMul(a, b);
+        out.push(`Teilrechnung ${a} × ${b}: ${tm[tm.length - 1]}`);
+      }
+    } else if (lv.d > 1 && rv.d > 1) {
+      const tb = T.tipsBruchMul(lv, rv);
+      if (tb.length > 1)
+        out.push(
+          `Teilrechnung ${formatRational(lv, true)} × ${formatRational(rv, true)}: ${tb[1]}`,
+        );
+    }
+  };
+  walk(e);
+  return out;
 }
 
 function digits(rng: Rng, n: number): number {
@@ -87,7 +141,9 @@ function digits(rng: Rng, n: number): number {
 function addTask(rng: Rng, da: number, db: number): Task {
   const a = digits(rng, da);
   const b = digits(rng, db);
-  return exprTask(bin('+', num(a), num(b)), ['kr.add'], [r(a + b + 10), r(a + b - 10)]);
+  const t = exprTask(bin('+', num(a), num(b)), ['kr.add'], [r(a + b + 10), r(a + b - 10)]);
+  t.tips = T.tipsAdd(a, b);
+  return t;
 }
 
 function subTask(rng: Rng, da: number, db: number, allowNeg = false): Task {
@@ -95,23 +151,33 @@ function subTask(rng: Rng, da: number, db: number, allowNeg = false): Task {
   let b = digits(rng, db);
   if (!allowNeg && b > a) [a, b] = [b, a];
   if (a === b) a += rng.int(1, 9);
-  return exprTask(bin('-', num(a), num(b)), ['kr.sub'], [r(b - a), r(a - b + 10), r(a - b - 10)]);
+  const t = exprTask(
+    bin('-', num(a), num(b)),
+    ['kr.sub'],
+    [r(b - a), r(a - b + 10), r(a - b - 10)],
+  );
+  t.tips = a > b ? T.tipsSub(a, b) : [];
+  return t;
 }
 
 function mulTask(rng: Rng, maxA: number, maxB: number, minA = 2, minB = 2): Task {
   const a = rng.int(minA, maxA);
   const b = rng.int(minB, maxB);
-  return exprTask(
+  const t = exprTask(
     bin('*', num(a), num(b)),
     ['kr.mul'],
     [r(a * b + a), r(a * b - b), r(a * b * 10)],
   );
+  t.tips = T.tipsMul(a, b);
+  return t;
 }
 
 function divTask(rng: Rng, maxQ: number, maxB: number): Task {
   const b = rng.int(2, maxB);
   const q = rng.int(2, maxQ);
-  return exprTask(bin(':', num(q * b), num(b)), ['kr.div'], [r(q + 1), r(q - 1), r(q * 10)]);
+  const t = exprTask(bin(':', num(q * b), num(b)), ['kr.div'], [r(q + 1), r(q - 1), r(q * 10)]);
+  t.tips = T.tipsDiv(q * b, b);
+  return t;
 }
 
 function klammerTask(rng: Rng, level: number): Task {
@@ -136,7 +202,9 @@ function klammerTask(rng: Rng, level: number): Task {
       () => bin('+', bin('-', num(m() + 20), bin('*', num(s()), num(s()))), num(m())),
     );
   }
-  return exprTask(rng.pick(forms)(), ['kr.klammer']);
+  const t = exprTask(rng.pick(forms)(), ['kr.klammer']);
+  t.tips = [...T.tipsOrder(t.invertedLabel ?? null, false), ...subTips(t.expr!)];
+  return t;
 }
 
 const PROZENTE_LEICHT = [10, 20, 25, 50];
@@ -158,6 +226,7 @@ function prozentTask(rng: Rng, level: number): Task {
       explanation: [
         `${p} % von ${formatRational(r(g))} = ${formatRational(r(g))} × ${p} : 100 = ${formatRational(w)}`,
       ],
+      tips: T.tipsProzent(p, g),
       wrongs: [r(wv * 10), r(g - wv), r(wv + g / 10), r(wv * 10, 100)],
     };
   }
@@ -176,6 +245,7 @@ function prozentRueckTask(rng: Rng): Task {
       value: r(g),
       tags: ['kr.prozent'],
       explanation: [`Grundwert = ${wt} × 100 : ${p} = ${formatRational(r(g))}`],
+      tips: T.tipsProzentRueck(toNumber(w), p),
       wrongs: [mul(w, r(p, 100)), r(g * 10), r(g / 2), r(g + p)],
     };
   }
@@ -203,6 +273,7 @@ function bruchTask(rng: Rng, level: number): Task {
       explanation: [
         `${base.n * f}/${base.d * f}: Zähler und Nenner durch ${f * gcd(base.n, base.d)} teilen = ${base.n}/${base.d}`,
       ],
+      tips: T.tipsKuerzen(base.n * f, base.d * f),
       wrongs: [r(base.n * 2, base.d), r(base.n, base.d * 2), r(base.n + 1, base.d)],
       fraction: true,
       requireReducedFraction: true,
@@ -215,6 +286,7 @@ function bruchTask(rng: Rng, level: number): Task {
     const t = exprTask(e, ['kr.bruch'], [r(g / fr.d), r(g - (g * fr.n) / fr.d)]);
     t.text = `${fr.n}/${fr.d} von ${g}`;
     t.explanation = [`${g} : ${fr.d} × ${fr.n} = ${formatRational(t.value)}`];
+    t.tips = T.tipsBruchVon(fr.n, fr.d, g);
     return t;
   }
   for (;;) {
@@ -231,6 +303,12 @@ function bruchTask(rng: Rng, level: number): Task {
     if (op === ':') wrongs.push(mul(a, b));
     if (op === '*') wrongs.push(r(a.n * b.d, a.d * b.n));
     const t = exprTask(e, ['kr.bruch'], wrongs, true);
+    t.tips =
+      op === '+' || op === '-'
+        ? T.tipsBruchAddSub(a, b, op)
+        : op === '*'
+          ? T.tipsBruchMul(a, b)
+          : T.tipsBruchDiv(a, b);
     if (op === '+' || op === '-') {
       const hn = lcm(a.d, b.d);
       t.explanation = [
@@ -255,6 +333,7 @@ function wurzelTask(rng: Rng): Task {
       explanation: [
         `${n} × ${n} = ${formatRational(r(n * n))}, also √${formatRational(r(n * n))} = ${n}`,
       ],
+      tips: T.tipsWurzel(n, false),
       wrongs: [r(n + 1), r(n - 1), r(Math.round((n * n) / 2))],
     };
   }
@@ -266,6 +345,7 @@ function wurzelTask(rng: Rng): Task {
     explanation: [
       `${n} × ${n} × ${n} = ${formatRational(r(n ** 3))}, also ∛${formatRational(r(n ** 3))} = ${n}`,
     ],
+    tips: T.tipsWurzel(n, true),
     wrongs: [r(n + 1), r(n - 1), r(Math.round(n ** 3 / 3))],
   };
 }
@@ -284,6 +364,7 @@ function flaecheTask(rng: Rng, level: number): Task {
       value: r(a * b),
       tags: ['kr.flaeche'],
       explanation: [`A = a × b = ${a} × ${b} = ${a * b} cm²`],
+      tips: T.tipsRechteck(a, b),
       wrongs: [r(2 * (a + b)), r(a * b + a), r(a * b - b)],
     };
   }
@@ -297,6 +378,7 @@ function flaecheTask(rng: Rng, level: number): Task {
       value: v,
       tags: ['kr.flaeche'],
       explanation: [`A = g × h : 2 = ${g} × ${h} : 2 = ${formatRational(v)} cm²`],
+      tips: T.tipsDreieck(g, h),
       wrongs: [r(g * h), r(g + h), r(g * h, 4)],
     };
   }
@@ -311,6 +393,7 @@ function flaecheTask(rng: Rng, level: number): Task {
       value: v,
       tags: ['kr.flaeche'],
       explanation: [`A = (a + c) : 2 × h = (${a} + ${c}) : 2 × ${h} = ${formatRational(v)} cm²`],
+      tips: T.tipsTrapez(a, c, h),
       wrongs: [r((a + c) * h), r(a * c), r(a * h)],
     };
   }
@@ -322,6 +405,7 @@ function flaecheTask(rng: Rng, level: number): Task {
     value: v,
     tags: ['kr.flaeche'],
     explanation: [`A = π × r² = 3,14 × ${rad * rad} = ${formatRational(v)} cm²`],
+    tips: T.tipsKreis(rad),
     wrongs: [r(314 * 4 * rad * rad, 100), r(314 * 2 * rad, 100), r(314 * rad * rad, 1000)],
   };
 }
@@ -355,7 +439,17 @@ function dezimalTask(rng: Rng, level: number): Task {
     const v = evaluate(e);
     if (!isFiniteDecimal(v, 2)) continue;
     const x = toNumber(v);
-    return exprTask(e, ['kr.dezimal'], [r(x * 10), r(x / 10)]);
+    const t = exprTask(e, ['kr.dezimal'], [r(x * 10), r(x / 10)]);
+    if (e.k === 'bin' && e.l.k === 'num' && e.r.k === 'num') {
+      const [lv, rv] = [e.l.v, e.r.v];
+      t.tips =
+        e.op === '+' || e.op === '-'
+          ? T.tipsDezimalAddSub(lv, rv, e.op)
+          : e.op === '*'
+            ? T.tipsDezimalMul(lv, rv)
+            : T.tipsDezimalDiv(lv, rv);
+    }
+    return t;
   }
 }
 
@@ -434,7 +528,9 @@ function mehrschrittTask(rng: Rng, level: number): Task {
     }
     if (!isFiniteDecimal(v, 2) || Math.abs(toNumber(v)) > 2000) continue;
     const x = toNumber(v);
-    return exprTask(e, tags, [r(Math.round(x * 10 * 100), 100), r(x + 1)]);
+    const t = exprTask(e, tags, [r(Math.round(x * 10 * 100), 100), r(x + 1)]);
+    t.tips = [...T.tipsOrder(t.invertedLabel ?? null, tags.includes('kr.bruch')), ...subTips(e)];
+    return t;
   }
   return klammerTask(rng, 7);
 }
@@ -562,7 +658,7 @@ function makeOptions(rng: Rng, t: Task): { options: string[]; correctIndex: numb
 }
 
 export const GENERATOR_ID = 'kopfrechnen';
-export const GENERATOR_VERSION = 1;
+export const GENERATOR_VERSION = 2; // v2: Rechenweg und Kopfrechen-Strategien
 
 export type KrItem = Item<KrPrompt, KrCorrect>;
 
@@ -596,6 +692,8 @@ export const kopfrechnenGenerator: Generator<KrPrompt, KrCorrect> = {
         options,
         correctIndex,
         fraction: !!task.fraction,
+        steps: task.explanation,
+        tips: task.tips,
       },
       correct: {
         n: task.value.n,
@@ -603,7 +701,10 @@ export const kopfrechnenGenerator: Generator<KrPrompt, KrCorrect> = {
         requireReducedFraction: !!task.requireReducedFraction,
       },
       correctLabel,
-      explanation: task.explanation.join('\n'),
+      explanation: [
+        'Rechenweg: ' + task.explanation.join(' '),
+        ...(task.tips.length ? ["So geht's im Kopf:", ...task.tips.map((x) => '• ' + x)] : []),
+      ].join('\n'),
       timeLimitMs: timeForLevel(lvl, 15, 45),
       answerKind: 'number',
     };
@@ -613,6 +714,7 @@ export const kopfrechnenGenerator: Generator<KrPrompt, KrCorrect> = {
     const p = item.prompt;
     if (new Set(p.options).size !== p.options.length) errs.push('Optionen nicht verschieden');
     if (p.options.length !== 4) errs.push(`Optionenzahl ${p.options.length} statt 4`);
+    if (!p.tips?.length) errs.push('keine Kopfrechen-Tipps');
     if (p.options[p.correctIndex] !== item.correctLabel) errs.push('richtige Option fehlt');
     const v = rat(item.correct.n, item.correct.d);
     if (!p.fraction && !isFiniteDecimal(v, 2))

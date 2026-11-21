@@ -122,6 +122,13 @@ Wo der Bau-Prompt nichts festlegt, gilt:
 - Division wird als `:` geschrieben, Brüche als `3/4`, Multiplikation als `×`.
 - Auswahlmodus (4 Optionen) im Testmodus per Schalter. Distraktoren: Strich vor Punkt gerechnet, Stellenfehler (mal oder geteilt durch 10), Vorzeichenfehler, Zehner daneben, plus aufgabentypische Fehler (Umfang statt Fläche, Dreieck ohne „durch 2“, Zähler und Nenner einzeln addiert, Kehrwert vergessen).
 
+- Erklärung in zwei Teilen: „Rechenweg“ und „So geht's im Kopf“ (Zerlegen, Runden und Ausgleichen, Dreisatz bei Prozent und Brüchen, Bausteine wie 15 % = 10 % + 5 %, typische Fallen). Die Tipps entstehen in `src/generators/kopfrechnen-tipps.ts` aus den Zahlen der Aufgabe. Ein Test rechnet jede Rechnung der Form „a + b = c“ in Tipps und Rechenweg nach.
+- Generator-Version 2 (seit den Tipps). Ältere gespeicherte Antworten tragen Version 1.
+
+**Rückmeldung im Lernmodus**
+
+- Bei einem Fehler steht zuerst die richtige Lösung, darunter klein die eigene Antwort. Die Erklärung klappt bei Fehlern automatisch auf.
+
 **Zahlenreihen**
 
 - Zahlengrenzen: bis Stufe 6 nur 0 bis 999, ab Stufe 7 auch negativ, Betrag bis 5.000.

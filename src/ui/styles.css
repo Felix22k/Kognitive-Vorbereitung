@@ -684,7 +684,7 @@ select {
   font-weight: 650;
 }
 .zr-solution .t.missing {
-  color: var(--bad);
+  color: var(--ok);
 }
 .zr-solution .d1 {
   color: var(--info);
@@ -881,4 +881,36 @@ h2 {
 kbd.on-accent {
   color: var(--on-accent);
   border-color: rgba(13, 31, 19, 0.45);
+}
+
+/* ---------- Lösung und Erklärung ---------- */
+.solution-line {
+  margin-top: 10px;
+}
+.solution-line .solution-value {
+  font-family: var(--mono);
+  font-size: 1.5rem;
+  color: var(--ok);
+  margin-left: 4px;
+}
+.sol-head {
+  margin: 12px 0 4px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-strong);
+}
+.solution .sol-head:first-child {
+  margin-top: 0;
+}
+.sol-steps {
+  font-family: var(--mono);
+}
+.sol-tips {
+  margin: 0;
+  padding-left: 18px;
+}
+.sol-tips li + li {
+  margin-top: 4px;
 }

@@ -183,6 +183,7 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
       const res = [...results, { item, answerLabel, correct, timedOut, rtMs }];
       setResults(res);
       if (mode === 'lernen') {
+        setShowExpl(!correct); // bei Fehlern die Erklärung gleich aufklappen
         setPhase('feedback');
       } else if (res.length >= total) {
         void finish(nextStair.level);
@@ -576,15 +577,19 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
               <span className={'verdict ' + (last.correct ? 'ok' : 'bad')}>
                 {last.correct ? 'Richtig' : last.timedOut ? 'Zeit abgelaufen' : 'Falsch'}
               </span>
-              {!last.correct && (
-                <span>
-                  Deine Antwort: <strong>{last.timedOut ? '—' : last.answerLabel}</strong> ·
-                  Richtig: <strong>{item.correctLabel}</strong>
-                </span>
-              )}
               <span className="spacer" />
               <span className="muted small tnum">{fmtS(last.rtMs)}</span>
             </div>
+            {!last.correct && (
+              <div className="solution-line">
+                <div>
+                  Richtige Lösung: <strong className="solution-value">{item.correctLabel}</strong>
+                </div>
+                <div className="muted small">
+                  Deine Antwort: {last.timedOut ? 'keine (Zeit abgelaufen)' : last.answerLabel}
+                </div>
+              </div>
+            )}
             <div className="row" style={{ marginTop: 12 }}>
               <button className="btn primary" onClick={continueAfterFeedback} autoFocus>
                 {results.length >= total ? 'Zur Auswertung' : 'Weiter'}{' '}
