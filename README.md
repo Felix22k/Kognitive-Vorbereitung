@@ -7,7 +7,7 @@ Web-App zum Training der computergestützten kognitiven Tests im Potenzialfestst
 
 Alles läuft lokal im Browser. Kein Backend, keine Anmeldung, kein Tracking.
 
-## Stand: Meilenstein 1 (Gerüst)
+## Stand: Meilenstein 2 (Logik)
 
 | Bereich                                                                                        | Stand                                |
 | ---------------------------------------------------------------------------------------------- | ------------------------------------ |
@@ -138,6 +138,29 @@ Wo der Bau-Prompt nichts festlegt, gilt:
 - Quadratzahlen sind zugleich quadratische Reihen, daher hat `zr.potenz` dieselbe Komplexität wie `zr.diff2`.
 - `zr.steigFaktor`: Eine reine Fakultätsreihe (×1, ×2, ×3 …) erreicht mit 8 Gliedern 5.040 und sprengt die Grenze von 999 auf Stufe 5 bis 6. Deshalb wechselt sich der steigende Faktor mit einer festen Addition ab (z. B. 3, 4, 8, 9, 27, 28, 112, ?).
 - `zr.prim` liegt auf Stufe 4 (im Prompt keiner Stufe zugeordnet).
+
+**Figurale Matrizen**
+
+- Objektmodell mit drei Ebenen-Arten: große Form (Form, Größe, Füllung, Drehung, Linienart), kleine Figuren im 3 × 3 Untergitter (Form, Anzahl, Füllung, Position) und Linien (8 Striche). Ein Feld hat eine oder zwei Ebenen. Code: `src/generators/figuren/`.
+- Drehung gibt es nur bei Formen, deren Drehung in 45°-Schritten immer sichtbar ist (Dreieck, Fünfeck, Pfeil). Gedreht werden nur die Eckpunkte, die Schraffur bleibt gleich ausgerichtet.
+- Linienart hat nur zwei Werte und ist deshalb nie eine aktive Regel, nur ein festes Merkmal.
+- Eindeutigkeit: Für jedes sichtbare Merkmal werden alle fünf Regeln zeilen- und spaltenweise angepasst. Sagen sie unterschiedliche Werte für die Lücke voraus, wird die Aufgabe verworfen.
+- **Abweichung vom Bau-Prompt bei den Antwortoptionen:** Der Prompt verlangt, dass jede falsche Option in genau einem Merkmal abweicht _und_ jeder Merkmalswert unter den Optionen gleich oft vorkommt. Beides zusammen ist nur möglich, wenn sich alle Optionen im selben einzigen Merkmal unterscheiden (Beweis: Bei n Optionen und genau einer Abweichung je falscher Option müsste jedes veränderte Merkmal in n/2 Optionen abweichen, die Summe ergäbe aber n − 1). Dann müsste man nur dieses eine Merkmal ansehen. Umgesetzt ist deshalb die Ausgewogenheit, wie beim Forschungsdatensatz I-RAVEN: Die Optionen entstehen als vollständige Kombination aus 2 oder 3 Merkmalen (6 Optionen = 3 × 2, 8 Optionen = 2 × 2 × 2). Jeder Merkmalswert kommt gleich oft vor, die falschen Optionen weichen in 1 bis 3 Merkmalen ab. Wer nur die Optionen vergleicht, kann die Lösung nicht erschließen. Ein Test prüft das für jede erzeugte Aufgabe.
+- Variiert die Anzahl kleiner Figuren, steht eine einzelne Figur immer in der Mitte.
+
+**Figurenreihen**
+
+- Regeln: gleichmäßige Veränderung (Drehung, Position, Anzahl) und Wechsel zweier Zustände (Form, Füllung, Größe, Linienart, Anzahl). Ab Stufe 9 unterscheiden sich die Schrittweiten der gleichmäßig veränderten Merkmale.
+- 5 Optionen: 2 × 2 ausgewogen nach typischen Fehlern (nicht weitergerechnet, doppelt weitergerechnet, falscher Wechselzustand) plus eine Option mit zwei weiteren Fehlern. Volle Ausgewogenheit ist mit 5 Optionen nicht möglich; die Lösung ist aber nie der einzige Mehrheitswert.
+
+**Debug-Seite**
+
+- Laut Prompt nur im Entwicklungsmodus. Weil die App vor allem über GitHub Pages genutzt wird, lässt sie sich dort unter Einstellungen → Entwicklerwerkzeuge einschalten. Sie zeigt 20 Aufgaben je Generator und Stufe mit Lösung, Regel-Tags, Seed und Prüfergebnis.
+
+**Darstellung**
+
+- Farbschema hell, dunkel oder wie das Betriebssystem. Das Schema wird zusätzlich in `localStorage` gemerkt, damit beim Laden nichts dunkel aufblitzt.
+- Aufgabenfelder und Figuren bleiben in beiden Schemata schwarz auf weiß.
 
 **Daten**
 

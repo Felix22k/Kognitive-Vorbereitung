@@ -117,6 +117,8 @@ export interface Settings {
   disclaimerDismissed: boolean;
   /** Farbschema: dem System folgen, hell oder dunkel. */
   theme: 'system' | 'hell' | 'dunkel';
+  /** Debug-Seite in der Navigation anzeigen */
+  devTools: boolean;
 }
 
 export const DEFAULT_SETTINGS: Settings = {
@@ -128,6 +130,7 @@ export const DEFAULT_SETTINGS: Settings = {
   kopfrechnenAuswahlImTest: false,
   disclaimerDismissed: false,
   theme: 'dunkel',
+  devTools: false,
 };
 
 export interface Generator<P = unknown, C = unknown> {

@@ -8,6 +8,7 @@ import { Bibliothek } from './pages/Bibliothek';
 import { Simulation } from './pages/Simulation';
 import { Fortschritt } from './pages/Fortschritt';
 import { Einstellungen } from './pages/Einstellungen';
+import { Debug } from './pages/Debug';
 import { SessionRunner } from '../session/SessionRunner';
 import { GearIcon, MoonIcon, SunIcon } from './components/Icons';
 
@@ -34,6 +35,7 @@ export function App() {
   }, [theme]);
 
   const isLight = theme ? resolveTheme(theme) === 'light' : false;
+  const showDebug = import.meta.env.DEV || !!settings?.devTools;
   const toggleTheme = () => void saveSettings({ theme: isLight ? 'dunkel' : 'hell' });
   const [page] = route;
 
@@ -67,6 +69,11 @@ export function App() {
               {label}
             </a>
           ))}
+          {showDebug && (
+            <a href="#/debug" className={page === 'debug' ? 'active' : ''}>
+              Debug
+            </a>
+          )}
         </nav>
         <button
           className="icon-btn"
@@ -91,7 +98,17 @@ export function App() {
         {page === 'simulation' && <Simulation />}
         {page === 'fortschritt' && <Fortschritt />}
         {page === 'einstellungen' && <Einstellungen />}
-        {!['heute', 'bibliothek', 'simulation', 'fortschritt', 'einstellungen'].includes(page) && (
+        {page === 'debug' &&
+          (showDebug ? (
+            <Debug />
+          ) : (
+            <div className="page">
+              Debug-Seite ist ausgeschaltet (Einstellungen → Entwicklerwerkzeuge).
+            </div>
+          ))}
+        {!['heute', 'bibliothek', 'simulation', 'fortschritt', 'einstellungen', 'debug'].includes(
+          page,
+        ) && (
           <div className="page">
             <p>Seite nicht gefunden.</p>
             <a href="#/heute">Zur Startseite</a>

@@ -2,6 +2,11 @@ import type { Item } from '../core/types';
 import { formatNumber } from '../core/rational';
 import type { KrItem } from '../generators/kopfrechnen';
 import type { ZrItem } from '../generators/zahlenreihen';
+import type { MxItem } from '../generators/matrizen';
+import type { FrItem } from '../generators/figurenreihen';
+import type { ReactNode } from 'react';
+import { FigureSvg } from './FigureSvg';
+import { MatrixPrompt, MatrixSolution, SequenceRow, SequenceSolution } from './figureViews';
 
 function KopfrechnenPrompt({ item }: { item: KrItem }) {
   return (
@@ -141,6 +146,10 @@ export function PromptView({ item }: { item: Item }) {
       return <KopfrechnenPrompt item={item as KrItem} />;
     case 'zahlenreihen':
       return <ZahlenreihenPrompt item={item as ZrItem} />;
+    case 'matrizen':
+      return <MatrixPrompt item={item as MxItem} />;
+    case 'figurenreihen':
+      return <SequenceRow item={item as FrItem} />;
     default:
       return <div>Unbekanntes Modul</div>;
   }
@@ -176,14 +185,45 @@ function KopfrechnenSolution({ item }: { item: KrItem }) {
 export function SolutionView({ item }: { item: Item }) {
   if (item.moduleId === 'zahlenreihen') return <ZahlenreihenSolution item={item as ZrItem} />;
   if (item.moduleId === 'kopfrechnen') return <KopfrechnenSolution item={item as KrItem} />;
+  if (item.moduleId === 'matrizen') return <MatrixSolution item={item as MxItem} />;
+  if (item.moduleId === 'figurenreihen') return <SequenceSolution item={item as FrItem} />;
   return <div style={{ whiteSpace: 'pre-line' }}>{item.explanation}</div>;
 }
 
-/** Optionen, falls die Aufgabe im Auswahlmodus gezeigt werden kann. */
-export function choiceOptions(item: Item): { options: string[]; correctIndex: number } | null {
+export interface ChoiceInfo {
+  count: number;
+  correctIndex: number;
+  /** Inhalt einer Option (Text oder Figur) */
+  render(i: number): ReactNode;
+  /** Text für Protokoll und Auswertung */
+  label(i: number): string;
+  /** Figuren-Optionen (weißes Feld, größere Kacheln) */
+  figures: boolean;
+}
+
+/** Antwortoptionen, falls die Aufgabe im Auswahlmodus gezeigt werden kann. */
+export function choiceInfo(item: Item): ChoiceInfo | null {
   if (item.moduleId === 'kopfrechnen') {
     const p = (item as KrItem).prompt;
-    return { options: p.options, correctIndex: p.correctIndex };
+    return {
+      count: p.options.length,
+      correctIndex: p.correctIndex,
+      render: (i) => p.options[i],
+      label: (i) => p.options[i],
+      figures: false,
+    };
+  }
+  if (item.moduleId === 'matrizen' || item.moduleId === 'figurenreihen') {
+    const p = (item as MxItem | FrItem).prompt;
+    return {
+      count: p.options.length,
+      correctIndex: p.correctIndex,
+      render: (i) => (
+        <FigureSvg panel={p.options[i]} size={item.moduleId === 'matrizen' ? 96 : 88} />
+      ),
+      label: (i) => 'ABCDEFGH'[i],
+      figures: true,
+    };
   }
   return null;
 }

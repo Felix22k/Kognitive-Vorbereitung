@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { MODULE_BY_ID } from '../modules/catalog';
-import { PromptView, SolutionView, choiceOptions } from '../modules/views';
+import { PromptView, SolutionView, choiceInfo, type ChoiceInfo } from '../modules/views';
 import { getModuleState, getSettings, saveSettings } from '../db/db';
 import { testStartLevel, updateStair, type StairState } from '../core/staircase';
 import { uid } from '../core/ids';
@@ -19,6 +19,7 @@ interface Result {
   correct: boolean;
   timedOut: boolean;
   rtMs: number;
+  answerIndex?: number;
 }
 
 export interface RunnerProps {
@@ -77,8 +78,12 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
 
   const total = mode === 'lernen' ? (mod?.itemsLernen ?? 10) : (mod?.itemsTest ?? 12);
   const timeLimitOn = mode === 'test' || !!settings?.timeLimitInLearning;
-  const useChoice =
+  const kopfAuswahl =
     mode === 'test' && moduleId === 'kopfrechnen' && !!settings?.kopfrechnenAuswahlImTest;
+  const choice: ChoiceInfo | null = useMemo(
+    () => (item && (item.answerKind === 'choice' || kopfAuswahl) ? choiceInfo(item) : null),
+    [item, kopfAuswahl],
+  );
 
   const [loadKey, setLoadKey] = useState(0);
   useEffect(() => {
@@ -146,7 +151,7 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
       const timedOut = answer === null;
       let answerLabel = '';
       if (answer?.type === 'text') answerLabel = answer.raw.trim();
-      if (answer?.type === 'choice') answerLabel = choiceOptions(item)?.options[answer.index] ?? '';
+      if (answer?.type === 'choice') answerLabel = choiceInfo(item)?.label(answer.index) ?? '';
       if (timedOut) answerLabel = '(Zeit abgelaufen)';
       answered.current = true;
       const rtMs = Math.round(performance.now() - shownAt.current);
@@ -180,7 +185,8 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
         .catch((e) => console.error('Speichern fehlgeschlagen', e));
       const nextStair = updateStair(stair, correct, mode);
       setStair(nextStair);
-      const res = [...results, { item, answerLabel, correct, timedOut, rtMs }];
+      const answerIndex = answer?.type === 'choice' ? answer.index : undefined;
+      const res = [...results, { item, answerLabel, correct, timedOut, rtMs, answerIndex }];
       setResults(res);
       if (mode === 'lernen') {
         setShowExpl(!correct); // bei Fehlern die Erklärung gleich aufklappen
@@ -262,14 +268,12 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
         void start();
         return;
       }
-      if (phase === 'run' && useChoice && item) {
-        const opts = choiceOptions(item);
-        if (!opts) return;
+      if (phase === 'run' && choice) {
         const k = e.key.toUpperCase();
         let idx = -1;
         if (/^[1-8]$/.test(k)) idx = parseInt(k, 10) - 1;
         else if (LETTERS.includes(k) && k.length === 1) idx = LETTERS.indexOf(k);
-        if (idx >= 0 && idx < opts.options.length) {
+        if (idx >= 0 && idx < choice.count) {
           e.preventDefault();
           setSelected(idx);
           return;
@@ -291,7 +295,7 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [phase, useChoice, item, selected, submit, start, abort, continueAfterFeedback]);
+  }, [phase, choice, selected, submit, start, abort, continueAfterFeedback]);
 
   if (!mod || !gen) {
     return (
@@ -465,7 +469,6 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
   if (!item) return null;
 
   // ---------- Aufgabe ----------
-  const opts = useChoice ? choiceOptions(item) : null;
   const last = results[results.length - 1];
   const number = phase === 'feedback' ? results.length : results.length + 1;
 
@@ -510,20 +513,28 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
 
         {phase === 'run' && (
           <div className="answer-area">
-            {opts ? (
+            {choice ? (
               <>
-                <div className="options" role="radiogroup" aria-label="Antworten">
-                  {opts.options.map((o, i) => (
+                <div
+                  className={'options' + (choice.figures ? ' figures' : '')}
+                  role="radiogroup"
+                  aria-label="Antworten"
+                >
+                  {Array.from({ length: choice.count }, (_, i) => (
                     <button
                       key={i}
                       role="radio"
                       aria-checked={selected === i}
-                      className={'option' + (selected === i ? ' selected' : '')}
+                      className={
+                        'option' +
+                        (choice.figures ? ' figure' : '') +
+                        (selected === i ? ' selected' : '')
+                      }
                       onClick={() => setSelected(i)}
                       onDoubleClick={() => submit({ type: 'choice', index: i })}
                     >
                       <span className="key">{LETTERS[i]}</span>
-                      {o}
+                      {choice.render(i)}
                     </button>
                   ))}
                 </div>
@@ -571,6 +582,28 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
           </div>
         )}
 
+        {phase === 'feedback' && last && choice && (
+          <div
+            className={'options' + (choice.figures ? ' figures' : '')}
+            style={{ marginTop: 22 }}
+            aria-label="Antworten mit Lösung"
+          >
+            {Array.from({ length: choice.count }, (_, i) => (
+              <div
+                key={i}
+                className={
+                  'option' +
+                  (choice.figures ? ' figure' : '') +
+                  (i === choice.correctIndex ? ' is-correct' : '') +
+                  (i === last.answerIndex && !last.correct ? ' is-wrong' : '')
+                }
+              >
+                <span className="key">{LETTERS[i]}</span>
+                {choice.render(i)}
+              </div>
+            ))}
+          </div>
+        )}
         {phase === 'feedback' && last && (
           <div className={'feedback ' + (last.correct ? 'ok' : 'bad')}>
             <div className="row">

@@ -37,6 +37,14 @@ export function Einstellungen() {
             <option value="dunkel">Dunkel</option>
           </select>
         </label>
+        <label className="check" style={{ marginTop: 14, marginBottom: 0 }}>
+          <input
+            type="checkbox"
+            checked={settings.devTools}
+            onChange={(e) => set({ devTools: e.target.checked })}
+          />
+          Entwicklerwerkzeuge (Debug-Seite mit Beispielaufgaben und Lösungen)
+        </label>
       </section>
 
       <section className="card section">

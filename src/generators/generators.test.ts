@@ -2,6 +2,9 @@ import { describe, expect, it } from 'vitest';
 import type { Generator, Item } from '../core/types';
 import { kopfrechnenGenerator } from './kopfrechnen';
 import { zahlenreihenGenerator, checkUnique } from './zahlenreihen';
+import { matrizenGenerator } from './matrizen';
+import { figurenreihenGenerator } from './figurenreihen';
+import { renderKey } from './figuren/model';
 import { RULE_BY_ID, RULES } from './zahlenreihen/rules';
 import { pickUniqueItem } from '../session/engine';
 import { deriveSeed } from '../core/rng';
@@ -10,6 +13,8 @@ const N = 2000;
 const GENS: [string, Generator][] = [
   ['Kopfrechnen', kopfrechnenGenerator as Generator],
   ['Zahlenreihen', zahlenreihenGenerator as Generator],
+  ['Figurale Matrizen', matrizenGenerator as Generator],
+  ['Figurenreihen', figurenreihenGenerator as Generator],
 ];
 
 for (const [name, gen] of GENS) {
@@ -32,10 +37,15 @@ for (const [name, gen] of GENS) {
             const again = gen.generate(seed, level);
             expect(JSON.stringify(again)).toBe(JSON.stringify(item));
           }
-          // Die richtige Lösung wird als richtig erkannt
-          expect(gen.check(item, { type: 'text', raw: item.correctLabel.replace(/\./g, '') })).toBe(
-            true,
-          );
+          // Die richtige Lösung wird als richtig erkannt, bei Auswahl genau eine Option
+          if (item.answerKind === 'choice') {
+            const opts = (item.prompt as { options: unknown[] }).options;
+            const right = opts.filter((_, k) => gen.check(item, { type: 'choice', index: k }));
+            expect(right.length).toBe(1);
+          } else
+            expect(
+              gen.check(item, { type: 'text', raw: item.correctLabel.replace(/\./g, '') }),
+            ).toBe(true);
         }
         expect(maxMs).toBeLessThan(50);
         expect(tags.size).toBeGreaterThan(0);
@@ -131,5 +141,30 @@ describe('Zahlenreihen: Eindeutigkeit', () => {
     // Arithmetische Reihe als "Wechsel" ausgegeben: zu einfach
     expect(checkUnique([1, 4, 7, 10, 13, 16, 19, 22], 7, RULE_BY_ID.wechsel).ok).toBe(false);
     expect(checkUnique([1, 4, 7, 10, 13, 16, 19, 22], 7, RULE_BY_ID.arith).ok).toBe(true);
+  });
+});
+
+describe('Figurale Matrizen: Aufbau', () => {
+  it('Stufenmerkmale: Optionenzahl, Regelanzahl, schwere Regeln, Spalten, andere Lücke', () => {
+    const seen = { spalte: false, otherMissing: false, xor: false, addSub: false };
+    for (let level = 1; level <= 10; level++)
+      for (let i = 0; i < 300; i++) {
+        const it = matrizenGenerator.generate(deriveSeed(level * 13, i), level);
+        const p = it.prompt;
+        expect(p.options.length).toBe(level <= 5 ? 6 : 8);
+        if (level === 1) expect(p.rules.length).toBe(1);
+        if (level >= 9) {
+          expect(p.rules.length).toBe(4);
+          expect(p.rules.some((r) => r.rule === 'xor' || r.rule === 'addSub')).toBe(true);
+        }
+        if (level <= 6) expect(p.rules.every((r) => r.orientation === 'zeile')).toBe(true);
+        if (level <= 7) expect(p.missing).toBe(8);
+        if (p.rules.some((r) => r.orientation === 'spalte')) seen.spalte = true;
+        if (p.missing !== 8) seen.otherMissing = true;
+        if (p.rules.some((r) => r.rule === 'xor')) seen.xor = true;
+        if (p.rules.some((r) => r.rule === 'addSub')) seen.addSub = true;
+        expect(renderKey(p.options[p.correctIndex])).toBe(renderKey(p.solution));
+      }
+    expect(seen).toEqual({ spalte: true, otherMissing: true, xor: true, addSub: true });
   });
 });

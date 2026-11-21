@@ -1,6 +1,8 @@
 import type { AreaId, Generator } from '../core/types';
 import { kopfrechnenGenerator } from '../generators/kopfrechnen';
 import { zahlenreihenGenerator } from '../generators/zahlenreihen';
+import { matrizenGenerator } from '../generators/matrizen';
+import { figurenreihenGenerator } from '../generators/figurenreihen';
 
 export interface AreaDef {
   id: AreaId;
@@ -98,8 +100,15 @@ export const MODULES: ModuleDef[] = [
     id: 'matrizen',
     areaId: 'logik',
     name: 'Figurale Matrizen',
-    description: '3 × 3 Raster, ein Feld fehlt.',
+    description: '3 × 3 Raster, ein Feld fehlt. Finde die Regeln je Merkmal.',
     milestone: 2,
+    generator: matrizenGenerator as Generator,
+    instructions:
+      'In jeder Zeile (ab Stufe 7 auch in jeder Spalte) gelten Regeln für einzelne Merkmale: Form, Anzahl, Füllung, Größe, Drehung, Linien. Finde für jedes Merkmal die Regel und wähle die Figur, die in das leere Feld gehört. Auswahl mit A bis H oder 1 bis 8, Enter bestätigt. Ab Stufe 8 kann auch ein anderes Feld als unten rechts fehlen.',
+    exampleLevels: [1, 4],
+    itemsLernen: 8,
+    itemsTest: 12,
+    timeText: '45 bis 90 s',
   },
   {
     id: 'figurenreihen',
@@ -107,6 +116,13 @@ export const MODULES: ModuleDef[] = [
     name: 'Figurenreihen',
     description: 'Welche Figur setzt die Reihe fort?',
     milestone: 2,
+    generator: figurenreihenGenerator as Generator,
+    instructions:
+      'Die fünf Figuren verändern sich nach festen Regeln: gleichmäßig (zum Beispiel jedes Mal 45° weiter gedreht) oder im Wechsel zwischen zwei Zuständen. Wähle die Figur, die an Stelle 6 kommt. Auswahl mit A bis E oder 1 bis 5, Enter bestätigt.',
+    exampleLevels: [1, 5],
+    itemsLernen: 8,
+    itemsTest: 10,
+    timeText: '30 bis 60 s',
   },
   {
     id: 'technik',
@@ -259,4 +275,31 @@ export const TAG_NAMES: Record<string, string> = {
   'zr.diffZweiReihen': 'verschränkte Differenzen',
 };
 
-export const tagName = (t: string) => TAG_NAMES[t] ?? t;
+const FIG_RULES: Record<string, string> = {
+  konstant: 'konstant in der Zeile',
+  progression: 'Progression',
+  vert3: 'Verteilung von drei Werten',
+  addSub: 'Addition/Subtraktion',
+  xor: 'XOR',
+  wechsel: 'Wechsel',
+};
+const FIG_ATTRS: Record<string, string> = {
+  form: 'Form',
+  anzahl: 'Anzahl',
+  fuellung: 'Füllung',
+  groesse: 'Größe',
+  drehung: 'Drehung',
+  position: 'Position',
+  linien: 'Linien',
+  linienart: 'Linienart',
+};
+
+export function tagName(t: string): string {
+  if (TAG_NAMES[t]) return TAG_NAMES[t];
+  const [area, rule, attr] = t.split('.');
+  if ((area === 'mx' || area === 'fr') && FIG_RULES[rule]) {
+    const prefix = area === 'mx' ? 'Matrix' : 'Reihe';
+    return `${prefix}: ${FIG_RULES[rule]}${attr ? ` (${FIG_ATTRS[attr] ?? attr})` : ''}`;
+  }
+  return t;
+}
