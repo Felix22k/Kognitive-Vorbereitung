@@ -6,6 +6,18 @@ import { figurenreihenGenerator } from '../generators/figurenreihen';
 import { rotation4Generator, rotationGenerator } from '../generators/rotation';
 import { wuerfelGenerator } from '../generators/wuerfel';
 import { wuerfelZaehlenGenerator } from '../generators/wuerfelZaehlen';
+import {
+  blockspanneGenerator,
+  faktenGenerator,
+  nbackGenerator,
+  wegeGenerator,
+  zahlenspanneGenerator,
+} from '../generators/gedaechtnis';
+import {
+  durchstreichenGenerator,
+  rechenketteGenerator,
+  symbolZahlGenerator,
+} from '../generators/konzentration';
 
 export interface AreaDef {
   id: AreaId;
@@ -30,6 +42,10 @@ export interface ModuleDef {
   itemsTest?: number;
   /** Zeitspanne für die Anzeige, z. B. "15 bis 45 s". */
   timeText?: string;
+  /** Treppenregel (Spannen-Aufgaben: +1 nach richtig, −1 nach zwei Fehlern) */
+  stair?: 'standard' | 'span';
+  /** Startstufe im Lernmodus beim ersten Mal (Standard 1) */
+  startLevel?: number;
 }
 
 export const AREAS: AreaDef[] = [
@@ -196,6 +212,13 @@ export const MODULES: ModuleDef[] = [
     name: 'Zahlenspanne',
     description: 'Ziffern merken, vorwärts und rückwärts.',
     milestone: 4,
+    generator: zahlenspanneGenerator as Generator,
+    stair: 'span',
+    instructions:
+      'Ziffern erscheinen nacheinander im Sekundentakt. Danach tippst du sie ein: vorwärts in der gezeigten Reihenfolge oder rückwärts, je nach Ansage. Die Länge passt sich an: eine Ziffer mehr nach einer richtigen Antwort, eine weniger nach zwei Fehlern in Folge.',
+    itemsLernen: 12,
+    itemsTest: 14,
+    timeText: '1 Ziffer pro Sekunde',
   },
   {
     id: 'blockspanne',
@@ -203,6 +226,13 @@ export const MODULES: ModuleDef[] = [
     name: 'Blockspanne',
     description: 'Reihenfolge aufleuchtender Felder merken.',
     milestone: 4,
+    generator: blockspanneGenerator as Generator,
+    stair: 'span',
+    instructions:
+      'Neun Felder sind unregelmäßig verteilt. Sie leuchten nacheinander auf. Danach klickst du sie in derselben Reihenfolge an oder rückwärts, je nach Ansage. Tasten 1 bis 9 gehen auch, die Rücktaste nimmt den letzten Klick zurück.',
+    itemsLernen: 10,
+    itemsTest: 12,
+    timeText: 'je Feld knapp 1 s',
   },
   {
     id: 'nback',
@@ -210,6 +240,12 @@ export const MODULES: ModuleDef[] = [
     name: 'n-back',
     description: 'Stimmt die Position mit der von n Schritten vorher überein?',
     milestone: 4,
+    generator: nbackGenerator as Generator,
+    instructions:
+      'Ein Feld im 3 × 3 Raster leuchtet alle 2,5 Sekunden auf. Drücke J, wenn die Position dieselbe ist wie n Reize vorher (Stufe 1 bis 3: 1-back, 4 bis 6: 2-back, ab 7: 3-back). Etwa 30 % der Reize sind Treffer. Im Lernmodus blinkt das Raster grün oder rot.',
+    itemsLernen: 2,
+    itemsTest: 3,
+    timeText: '2,5 s pro Reiz',
   },
   {
     id: 'fakten',
@@ -217,6 +253,12 @@ export const MODULES: ModuleDef[] = [
     name: 'Fakten merken',
     description: 'Lagemeldung einprägen, später Fragen beantworten.',
     milestone: 4,
+    generator: faktenGenerator as Generator,
+    instructions:
+      'Du bekommst eine erfundene Lagemeldung mit 11 bis 20 Fakten (Namen, Dienstgrade, Uhrzeiten, Planquadrate, Kennzeichen, Funkrufnamen, Zahlen) und 90 Sekunden zum Einprägen. Danach rechnest du 1 bis 3 Minuten zur Ablenkung, dann folgen 10 Fragen mit je 4 Antworten. Ab Stufe 6 kommen ähnlich klingende Namen vor.',
+    itemsLernen: 1,
+    itemsTest: 1,
+    timeText: '4 bis 6 min je Durchgang',
   },
   {
     id: 'wege',
@@ -224,6 +266,12 @@ export const MODULES: ModuleDef[] = [
     name: 'Wege merken',
     description: 'Route auf dem Stadtplan merken.',
     milestone: 4,
+    generator: wegeGenerator as Generator,
+    instructions:
+      'Auf einem Stadtplan mit 8 × 8 Kreuzungen wird eine Route Stück für Stück gezeigt (30 bis 60 Sekunden). Danach verschwindet sie. Bis Stufe 5 klickst du den Endpunkt an, ab Stufe 6 alle Abbiegepunkte in der richtigen Reihenfolge. Pfeiltasten und Leertaste gehen auch.',
+    itemsLernen: 3,
+    itemsTest: 4,
+    timeText: '30 bis 60 s Route',
   },
   {
     id: 'durchstreichen',
@@ -231,6 +279,12 @@ export const MODULES: ModuleDef[] = [
     name: 'Durchstreichtest',
     description: 'Zielzeichen in Zeilen aus b, d, p, q markieren.',
     milestone: 4,
+    generator: durchstreichenGenerator as Generator,
+    instructions:
+      'Eigener Durchstreichtest: 14 Zeilen mit je 40 Zeichen aus b, d, p, q mit 1 bis 4 Strichen. Markiere jedes Zielzeichen (die Regel steht oben und wechselt je Durchgang). Nach Ablauf der Zeit springt die Zeile automatisch weiter. Gemessen werden bearbeitete Zeichen, Auslassungen, Verwechslungen, Konzentrationsleistung und Schwankung.',
+    itemsLernen: 1,
+    itemsTest: 1,
+    timeText: '20 bis 12 s je Zeile',
   },
   {
     id: 'symbolZahl',
@@ -238,6 +292,12 @@ export const MODULES: ModuleDef[] = [
     name: 'Symbol-Zahl-Kodierung',
     description: 'Symbole mit Hilfe der Schlüsseltabelle verrechnen.',
     milestone: 4,
+    generator: symbolZahlGenerator as Generator,
+    instructions:
+      'Eine Schlüsseltabelle ordnet 9 Symbolen Ziffern zu (neue Zuordnung je Block). Rechne die Aufgaben wie ◆ + ▲ so schnell wie möglich und bestätige mit Enter. Ein Block dauert 2 Minuten.',
+    itemsLernen: 1,
+    itemsTest: 2,
+    timeText: '2 min je Block',
   },
   {
     id: 'rechenkette',
@@ -245,6 +305,12 @@ export const MODULES: ModuleDef[] = [
     name: 'Rechenkette',
     description: 'Fortlaufend addieren, nur die Einerstelle eintippen.',
     milestone: 4,
+    generator: rechenketteGenerator as Generator,
+    instructions:
+      'Zwei benachbarte Zahlen sind markiert. Addiere sie und tippe nur die Einerstelle als Taste (zum Beispiel 7 + 8 = 15 → 5). Danach rückt die Markierung eine Zahl weiter. Die Auswertung zeigt die richtigen Antworten je 30 Sekunden, so wird die Ermüdung sichtbar.',
+    itemsLernen: 1,
+    itemsTest: 1,
+    timeText: '3 bis 5 min',
   },
   {
     id: 'wahlreaktion',
@@ -320,6 +386,24 @@ export const TAG_NAMES: Record<string, string> = {
   'wd.netz': 'Würfel aus Faltvorlage',
   'wz.zaehlen': 'Würfel zählen',
   'wz.kontakt': 'Würfel mit genau zwei Nachbarn',
+  'gd.zahlenspanne': 'Zahlenspanne',
+  'gd.zahlenspanne.vor': 'Zahlenspanne vorwärts',
+  'gd.zahlenspanne.rueck': 'Zahlenspanne rückwärts',
+  'gd.blockspanne': 'Blockspanne',
+  'gd.blockspanne.vor': 'Blockspanne vorwärts',
+  'gd.blockspanne.rueck': 'Blockspanne rückwärts',
+  'gd.nback': 'n-back',
+  'gd.nback.1': '1-back',
+  'gd.nback.2': '2-back',
+  'gd.nback.3': '3-back',
+  'gd.fakten': 'Fakten merken',
+  'gd.fakten.aehnlich': 'Fakten mit ähnlichen Namen',
+  'gd.wege': 'Wege merken',
+  'gd.wege.ende': 'Wege: Endpunkt',
+  'gd.wege.folge': 'Wege: Abbiegepunkte',
+  'ko.durchstreichen': 'Durchstreichtest',
+  'ko.symbolZahl': 'Symbol-Zahl-Kodierung',
+  'ko.rechenkette': 'Rechenkette',
 };
 
 const FIG_RULES: Record<string, string> = {

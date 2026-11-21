@@ -5,7 +5,9 @@ import type { Rng } from '../core/rng';
 export type AnswerValue =
   | { type: 'text'; raw: string }
   | { type: 'choice'; index: number }
-  | { type: 'multi'; indices: number[] };
+  | { type: 'multi'; indices: number[] }
+  /** Block-Aufgaben: das Modul liefert sein Ergebnis selbst */
+  | { type: 'block'; data: Record<string, unknown>; rtMs?: number };
 
 /** Linear zwischen zwei Werten je nach Stufe (1 bis 10) interpolieren, auf 1 s gerundet. */
 export function timeForLevel(level: number, minS: number, maxS: number): number {

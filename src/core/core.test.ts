@@ -73,6 +73,18 @@ describe('Treppenverfahren', () => {
     expect(updateStair({ level: 1, streak: 0 }, false, 'test').level).toBe(1);
     expect(updateStair({ level: 5, streak: 0 }, true, 'test').level).toBe(6);
   });
+  it('Spannen-Regel: +1 nach richtig, −1 erst nach zwei Fehlern', () => {
+    let s = { level: 3, streak: 0 };
+    s = updateStair(s, true, 'test', 'span');
+    expect(s.level).toBe(4);
+    s = updateStair(s, false, 'test', 'span');
+    expect(s.level).toBe(4);
+    s = updateStair(s, false, 'test', 'span');
+    expect(s.level).toBe(3);
+    s = updateStair(s, false, 'test', 'span');
+    s = updateStair(s, true, 'test', 'span');
+    expect(s).toEqual({ level: 4, streak: 0 });
+  });
   it('Teststart auf 4 oder letztes Niveau minus 1', () => {
     expect(testStartLevel(null)).toBe(4);
     expect(testStartLevel(8)).toBe(7);

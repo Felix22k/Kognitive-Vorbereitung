@@ -17,7 +17,23 @@ export function clampLevel(l: number): number {
  * Lernmodus: 2 richtige in Folge → +1, eine falsche → −1 (pendelt bei ca. 70 %).
  * Testmodus/Simulation: jede richtige +1, jede falsche oder abgelaufene −1.
  */
-export function updateStair(state: StairState, correct: boolean, mode: Mode): StairState {
+export type StairRule = 'standard' | 'span';
+
+/**
+ * Spannen-Regel (Zahlen- und Blockspanne): eine Stelle mehr nach richtig,
+ * eine weniger nach zwei Fehlern in Folge. streak < 0 zählt die Fehler.
+ */
+export function updateStair(
+  state: StairState,
+  correct: boolean,
+  mode: Mode,
+  rule: StairRule = 'standard',
+): StairState {
+  if (rule === 'span') {
+    if (correct) return { level: clampLevel(state.level + 1), streak: 0 };
+    if (state.streak <= -1) return { level: clampLevel(state.level - 1), streak: 0 };
+    return { level: state.level, streak: -1 };
+  }
   if (mode === 'lernen') {
     if (correct) {
       const streak = state.streak + 1;

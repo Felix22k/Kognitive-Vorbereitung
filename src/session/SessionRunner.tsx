@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { MODULE_BY_ID } from '../modules/catalog';
 import { PromptView, SolutionView, choiceInfo, type ChoiceInfo } from '../modules/views';
 import { RotationAngleSummary } from '../modules/raumViews';
+import { BlockResultView, BlockView } from '../modules/blocks';
 import { getModuleState, getSettings, saveSettings } from '../db/db';
 import { testStartLevel, updateStair, type StairState } from '../core/staircase';
 import { uid } from '../core/ids';
@@ -22,6 +23,7 @@ interface Result {
   rtMs: number;
   answerIndex?: number;
   answerIndices?: number[];
+  answer?: AnswerValue | null;
 }
 
 export interface RunnerProps {
@@ -162,9 +164,18 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
           .sort((a, b) => a - b)
           .map((i) => choiceInfo(item)?.label(i) ?? '')
           .join(' und ');
+      if (answer?.type === 'block') {
+        const d = answer.data;
+        if (typeof d.input === 'string') answerLabel = d.input.split('').join(' ') || '–';
+        else if (Array.isArray(d.clicks) && d.clicks.every((c) => typeof c === 'number'))
+          answerLabel = (d.clicks as number[]).map((c) => c + 1).join(' → ') || '–';
+      }
       if (timedOut) answerLabel = '(Zeit abgelaufen)';
       answered.current = true;
-      const rtMs = Math.round(performance.now() - shownAt.current);
+      const rtMs =
+        answer?.type === 'block' && answer.rtMs !== undefined
+          ? answer.rtMs
+          : Math.round(performance.now() - shownAt.current);
       const correct = !timedOut && gen.check(item, answer);
       const attempt: Attempt = {
         id: uid('a-'),
@@ -193,13 +204,13 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
       pending.current = pending.current
         .then(() => recordAttempt(attempt, fp))
         .catch((e) => console.error('Speichern fehlgeschlagen', e));
-      const nextStair = updateStair(stair, correct, mode);
+      const nextStair = updateStair(stair, correct, mode, mod?.stair ?? 'standard');
       setStair(nextStair);
       const answerIndex = answer?.type === 'choice' ? answer.index : undefined;
       const answerIndices = answer?.type === 'multi' ? answer.indices : undefined;
       const res = [
         ...results,
-        { item, answerLabel, correct, timedOut, rtMs, answerIndex, answerIndices },
+        { item, answerLabel, correct, timedOut, rtMs, answerIndex, answerIndices, answer },
       ];
       setResults(res);
       if (mode === 'lernen') {
@@ -211,12 +222,25 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
         presentNext(nextStair.level);
       }
     },
-    [item, gen, session, moduleId, mode, belastet, stair, results, total, finish, presentNext],
+    [
+      item,
+      gen,
+      session,
+      moduleId,
+      mode,
+      belastet,
+      stair,
+      results,
+      total,
+      finish,
+      presentNext,
+      mod?.stair,
+    ],
   );
 
   // Zeitlimit
   useEffect(() => {
-    if (phase !== 'run' || !item || !timeLimitOn) return;
+    if (phase !== 'run' || !item || !timeLimitOn || item.answerKind === 'block') return;
     const t = window.setTimeout(() => submit(null), item.timeLimitMs);
     return () => window.clearTimeout(t);
   }, [phase, item, timeLimitOn, submit]);
@@ -485,6 +509,17 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
           </div>
         )}
         {moduleId === 'rotation' && <RotationAngleSummary results={results} />}
+        {results.length <= 3 &&
+          results.some((x) => x.item.answerKind === 'block') &&
+          results.map((x, i) => (
+            <div key={i} className="section card">
+              {results.length > 1 && <h2>Durchgang {i + 1}</h2>}
+              <BlockResultView
+                item={x.item}
+                data={x.answer?.type === 'block' ? x.answer.data : undefined}
+              />
+            </div>
+          ))}
         <ReviewTable results={results} />
         <div className="row section">
           <button
@@ -538,7 +573,7 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
         </button>
       </div>
       <div className="timebar">
-        {timeLimitOn && phase === 'run' && (
+        {timeLimitOn && phase === 'run' && item.answerKind !== 'block' && (
           <div
             key={item.id + results.length}
             style={{ animation: `timebar ${item.timeLimitMs}ms linear forwards`, width: '100%' }}
@@ -546,11 +581,24 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
         )}
       </div>
       <div className="task-main">
-        <div className="paper">
-          <PromptView item={item} />
-        </div>
+        {item.answerKind === 'block' ? (
+          phase === 'run' && (
+            <div className="paper block-paper">
+              <BlockView
+                key={item.id + '-' + results.length}
+                item={item}
+                mode={mode}
+                onDone={(data, rt) => submit({ type: 'block', data, rtMs: rt })}
+              />
+            </div>
+          )
+        ) : (
+          <div className="paper">
+            <PromptView item={item} />
+          </div>
+        )}
 
-        {phase === 'run' && (
+        {phase === 'run' && item.answerKind !== 'block' && (
           <div className="answer-area">
             {choice ? (
               <>
@@ -690,7 +738,7 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
               <span className="spacer" />
               <span className="muted small tnum">{fmtS(last.rtMs)}</span>
             </div>
-            {!last.correct && (
+            {!last.correct && item.correctLabel && (
               <div className="solution-line">
                 <div>
                   Richtige Lösung: <strong className="solution-value">{item.correctLabel}</strong>
@@ -715,9 +763,16 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
               <span className="spacer" />
               <ReportLink item={item} reported={reported} onReported={() => setReported(true)} />
             </div>
-            {showExpl && (
+            {(showExpl || item.answerKind === 'block') && (
               <div className="explanation">
-                <SolutionView item={item} />
+                {item.answerKind === 'block' ? (
+                  <BlockResultView
+                    item={item}
+                    data={last.answer?.type === 'block' ? last.answer.data : undefined}
+                  />
+                ) : (
+                  <SolutionView item={item} />
+                )}
               </div>
             )}
           </div>
@@ -832,7 +887,14 @@ function ReviewTable({ results }: { results: Result[] }) {
                   <td></td>
                   <td colSpan={6}>
                     <div className="explanation" style={{ marginTop: 0 }}>
-                      <SolutionView item={r.item} />
+                      {r.item.answerKind === 'block' ? (
+                        <BlockResultView
+                          item={r.item}
+                          data={r.answer?.type === 'block' ? r.answer.data : undefined}
+                        />
+                      ) : (
+                        <SolutionView item={r.item} />
+                      )}
                     </div>
                   </td>
                 </tr>

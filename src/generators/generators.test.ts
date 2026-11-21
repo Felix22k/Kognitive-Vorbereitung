@@ -10,6 +10,52 @@ import { wuerfelGenerator, NETS, fold, isPossible, knownOf } from './wuerfel';
 import { wuerfelZaehlenGenerator, toPoints, contactCount } from './wuerfelZaehlen';
 import { canonical, isChiral, mirror } from './raum/voxel';
 import { choiceInfo } from '../modules/views';
+import {
+  blockspanneGenerator,
+  faktenGenerator,
+  nbackGenerator,
+  wegeGenerator,
+  zahlenspanneGenerator,
+  type NbItem,
+} from './gedaechtnis';
+import {
+  durchstreichenGenerator,
+  dsScore,
+  isTarget,
+  rechenketteGenerator,
+  symbolZahlGenerator,
+  type DsItem,
+} from './konzentration';
+
+/** Bestmögliche Antwort einer Block-Aufgabe (für die Prüfung der Auswertung). */
+function perfectBlock(item: Item): Record<string, unknown> {
+  switch (item.moduleId) {
+    case 'zahlenspanne':
+      return { input: item.correct };
+    case 'blockspanne':
+    case 'wege':
+      return { clicks: item.correct };
+    case 'nback':
+      return { responses: (item as NbItem).prompt.targets };
+    case 'fakten':
+      return { answers: item.correct };
+    case 'durchstreichen': {
+      const p = (item as DsItem).prompt;
+      return {
+        marks: p.rows.map((row) =>
+          row
+            .map((g, i) => (isTarget(g, p.target) ? i : -1))
+            .filter((i) => i >= 0)
+            .concat(39),
+        ),
+      };
+    }
+    default:
+      return {
+        results: Array.from({ length: 20 }, (_, t) => ({ correct: true, t: t * 1000, rtMs: 900 })),
+      };
+  }
+}
 import { RULE_BY_ID, RULES } from './zahlenreihen/rules';
 import { pickUniqueItem } from '../session/engine';
 import { deriveSeed } from '../core/rng';
@@ -24,6 +70,14 @@ const GENS: [string, Generator][] = [
   ['Mentale Rotation B', rotation4Generator as Generator],
   ['Würfel drehen', wuerfelGenerator as Generator],
   ['Würfel zählen', wuerfelZaehlenGenerator as Generator],
+  ['Zahlenspanne', zahlenspanneGenerator as Generator],
+  ['Blockspanne', blockspanneGenerator as Generator],
+  ['n-back', nbackGenerator as Generator],
+  ['Fakten merken', faktenGenerator as Generator],
+  ['Wege merken', wegeGenerator as Generator],
+  ['Durchstreichtest', durchstreichenGenerator as Generator],
+  ['Symbol-Zahl-Kodierung', symbolZahlGenerator as Generator],
+  ['Rechenkette', rechenketteGenerator as Generator],
 ];
 
 for (const [name, gen] of GENS) {
@@ -47,7 +101,10 @@ for (const [name, gen] of GENS) {
             expect(JSON.stringify(again)).toBe(JSON.stringify(item));
           }
           // Die richtige Lösung wird als richtig erkannt, bei Auswahl genau eine Option
-          if (Array.isArray(item.correct)) {
+          if (item.answerKind === 'block') {
+            expect(gen.check(item, { type: 'block', data: perfectBlock(item) })).toBe(true);
+            expect(gen.check(item, { type: 'block', data: {} })).toBe(false);
+          } else if (Array.isArray(item.correct)) {
             const c = item.correct as number[];
             expect(gen.check(item, { type: 'multi', indices: c })).toBe(true);
             // jede andere Zweierauswahl ist falsch
@@ -292,5 +349,30 @@ describe('Rotation in der Bildebene', () => {
       expect(sig(R, false)).toBe(sig(L, true));
     }
     expect(checked).toBeGreaterThan(20);
+  });
+});
+
+describe('Konzentration: Durchstreichtest-Kennwerte', () => {
+  it('KL, Auslassungen, Verwechslungen, Schwankung', () => {
+    const T = { l: 'd' as const, top: 1, bottom: 1 }; // Ziel: d mit 2 Strichen
+    const N = { l: 'd' as const, top: 1, bottom: 0 }; // d mit 1 Strich
+    const B = { l: 'b' as const, top: 1, bottom: 1 }; // b mit 2 Strichen
+    const p = {
+      target: { l: 'd' as const, strokes: 2 },
+      rowMs: 15000,
+      rows: [
+        [T, N, T, B, T, N], // Ziele bei 0, 2, 4
+        [B, T, T, N, N, T], // Ziele bei 1, 2, 5
+      ],
+    };
+    // Zeile 1: 0 und 4 markiert, 2 ausgelassen, 3 (b) fälschlich markiert → bearbeitet bis 4
+    // Zeile 2: 1 markiert, bearbeitet bis 1
+    const sc = dsScore(p, [[0, 3, 4], [1]]);
+    expect(sc.processed).toBe(5 + 2);
+    expect(sc.hits).toBe(3);
+    expect(sc.omissions).toBe(1);
+    expect(sc.confusions).toBe(1);
+    expect(sc.kl).toBe(2);
+    expect(sc.schwankung).toBe(3);
   });
 });

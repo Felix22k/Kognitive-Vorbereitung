@@ -1353,3 +1353,258 @@ button.icon-btn {
   grid-template-columns: repeat(4, minmax(0, 1fr));
   max-width: 900px;
 }
+
+/* ---------- Block-Aufgaben (Gedächtnis, Konzentration) ---------- */
+.paper.block-paper {
+  display: block;
+  text-align: left;
+  min-height: 360px;
+}
+.ink {
+  color: #111;
+}
+.muted-ink {
+  color: #555;
+}
+.block-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  color: #111;
+}
+.block-wide {
+  color: #111;
+}
+.block-hint {
+  font-size: 0.95rem;
+  color: #444;
+  text-align: center;
+}
+.block-timebar {
+  width: 100%;
+  max-width: 520px;
+  height: 5px;
+  background: #e5e5e5;
+  border-radius: 3px;
+  overflow: hidden;
+}
+.block-wide .block-timebar {
+  max-width: none;
+}
+.block-timebar > div {
+  height: 100%;
+  background: var(--accent-on-paper);
+}
+.span-digit {
+  font-size: 5rem;
+  font-weight: 700;
+  min-height: 1.3em;
+  font-family: var(--mono);
+  color: #111;
+  text-align: center;
+}
+.paper .answer-input {
+  background: #fff;
+  color: #111;
+  border-color: #bbb;
+}
+.paper .option {
+  background: #fff;
+  color: #111;
+  border-color: #ccc;
+}
+.paper .option.selected {
+  border-color: var(--accent-on-paper);
+  box-shadow: 0 0 0 2px var(--accent-on-paper);
+}
+.paper .btn:not(.primary) {
+  background: #f3f3f3;
+  color: #111;
+  border-color: #ccc;
+}
+.paper kbd {
+  color: #555;
+  border-color: #bbb;
+}
+.corsi {
+  position: relative;
+  width: min(460px, 86vw);
+  height: min(380px, 72vw);
+  background: #2f3136;
+  border-radius: 8px;
+}
+.corsi-block {
+  position: absolute;
+  width: 15%;
+  height: 17%;
+  transform: translate(0, 0);
+  background: #6b7280;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  font-weight: 700;
+  cursor: default;
+}
+.corsi-block:not(:disabled) {
+  cursor: pointer;
+}
+.corsi-block.lit {
+  background: #facc15;
+}
+.corsi-block.picked {
+  background: #3ec46d;
+}
+.corsi-num {
+  position: absolute;
+  left: 4px;
+  top: 2px;
+  font-size: 0.7rem;
+  opacity: 0.8;
+}
+.corsi-order {
+  font-size: 1.2rem;
+}
+.nback-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 86px);
+  grid-template-rows: repeat(3, 86px);
+  gap: 6px;
+  padding: 8px;
+  border-radius: 8px;
+  border: 3px solid transparent;
+}
+.nback-grid.flash-ok {
+  border-color: #157f43;
+}
+.nback-grid.flash-bad {
+  border-color: #c2410c;
+}
+.nback-cell {
+  background: #e7e7e7;
+  border-radius: 6px;
+}
+.nback-cell.on {
+  background: #1f2937;
+}
+.fact-list {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  margin: 0 0 16px;
+  padding-left: 20px;
+}
+.fact-q {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+.citymap {
+  max-width: 100%;
+  height: auto;
+}
+.ds-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1px;
+  justify-content: center;
+  margin-top: 10px;
+}
+.ds-glyph {
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+}
+.sz-key {
+  display: grid;
+  grid-template-columns: repeat(9, 52px);
+  border: 2px solid #111;
+}
+.sz-pair {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-right: 1px solid #111;
+}
+.sz-pair:last-child {
+  border-right: none;
+}
+.sz-sym {
+  font-size: 1.6rem;
+  padding: 4px 0;
+}
+.sz-num {
+  border-top: 1px solid #111;
+  width: 100%;
+  text-align: center;
+  font-weight: 700;
+  font-family: var(--mono);
+}
+.rk-row {
+  display: flex;
+  gap: 10px;
+  font-family: var(--mono);
+  font-size: 2.6rem;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 3px solid transparent;
+  color: #111;
+}
+.rk-row.flash-ok {
+  border-color: #157f43;
+}
+.rk-row.flash-bad {
+  border-color: #c2410c;
+}
+.rk-d.past {
+  color: #bbb;
+}
+.rk-d.on {
+  background: #fde68a;
+  border-radius: 4px;
+  padding: 0 4px;
+  font-weight: 700;
+}
+.stat-row.compact .stat {
+  padding: 10px 12px;
+}
+.stat-row.compact .stat .v {
+  font-size: 1.25rem;
+}
+.mini-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 90px;
+  margin-top: 6px;
+}
+.mini-bar {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  font-size: 0.65rem;
+  color: var(--muted);
+}
+.mini-bar > div {
+  width: 100%;
+  background: var(--accent);
+  border-radius: 2px 2px 0 0;
+}
+@media (max-width: 720px) {
+  .sz-key {
+    grid-template-columns: repeat(9, 34px);
+  }
+  .span-digit {
+    font-size: 3.4rem;
+  }
+  .rk-row {
+    font-size: 1.7rem;
+    gap: 6px;
+  }
+  .nback-grid {
+    grid-template-columns: repeat(3, 70px);
+    grid-template-rows: repeat(3, 70px);
+  }
+}

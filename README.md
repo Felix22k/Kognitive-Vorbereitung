@@ -7,7 +7,7 @@ Web-App zum Training der computergestützten kognitiven Tests im Potenzialfestst
 
 Alles läuft lokal im Browser. Kein Backend, keine Anmeldung, kein Tracking.
 
-## Stand: Meilenstein 3 (Räumliches Denken)
+## Stand: Meilenstein 4 (Gedächtnis und Konzentration)
 
 | Bereich                                                                                        | Stand                                |
 | ---------------------------------------------------------------------------------------------- | ------------------------------------ |
@@ -176,6 +176,17 @@ Wo der Bau-Prompt nichts festlegt, gilt:
 - Höhenkarten werden als Treppe mit Zufall erzeugt (hinten höher). Geprüft wird an 25 Punkten je Oberseite, dass jede Säulenoberseite zu mindestens 45 % sichtbar ist.
 - Blickwinkel bewusst nicht exakt isometrisch, sonst wären Höhe und Tiefe verwechselbar. Ein Bodenraster zeigt die Grundfläche.
 - Ab Stufe 7 die Kontaktfrage (genau zwei Nachbarn über eine ganze Fläche), dann auf höchstens 4 × 4 Grundfläche.
+
+**Gedächtnis und Konzentration (Block-Aufgaben)**
+
+- Diese Module sind „Block-Aufgaben“: Das Modul steuert Darbietung, Zeit und Eingabe selbst (`src/modules/blocks/`) und liefert sein Ergebnis als Datenobjekt. Die Sitzungs-Engine speichert es wie jede Antwort, ohne eigenes Zeitlimit.
+- Zahlen- und Blockspanne nutzen die Treppenregel aus dem Prompt: eine Stelle mehr nach richtig, eine weniger nach zwei Fehlern in Folge. Stufe = Länge − 2 (Zahlenspanne 3 bis 12, Blockspanne 3 bis 9, ab Stufe 8 schnellere Darbietung). Vorwärts und rückwärts werden zufällig gemischt; bei der Blockspanne schon ab Stufe 1, weil es sonst nur 504 verschiedene Aufgaben gäbe.
+- n-back: Stufe 1 bis 3 = 1-back, 4 bis 6 = 2-back, ab 7 = 3-back; innerhalb einer Stufe mehr Reize. Ein Block gilt als geschafft bei mindestens 75 % erkannten Treffern und höchstens 2 Fehlalarmen. Im Lernmodus blinkt das Raster nach jedem Tastendruck grün oder rot.
+- Fakten merken: Lagemeldung mit 11 bis 20 erfundenen Fakten, 90 s Einprägen (vorzeitig beendbar), Ablenkung 1 bis 3 Minuten (steigt mit der Stufe), 10 Fragen mit je 4 Antworten und 20 s Zeit. Geschafft ab 7 richtigen. Ab Stufe 6 ähnlich klingende Namen (Meier/Maier/Mayer).
+- Wege merken: Routen werden mit Rücksprung-Suche erzeugt (5 bis 14 Abbiegungen auf 8 × 8 Kreuzungen). Bis Stufe 5 wird der Endpunkt gefragt, ab Stufe 6 alle Abbiegepunkte in Reihenfolge. Bedienbar mit Maus oder Pfeiltasten und Leertaste.
+- Durchstreichtest: eigene Umsetzung, kein geschützter Test. 14 × 40 Zeichen, Zielregel wechselt je Durchgang (Buchstabe und Strichzahl). Zeit pro Zeile: 20 s (Stufe 1 bis 3), 15 s (4 bis 7), 12 s (ab 8), weil der Prompt nur 15 s nennt, aber Stufen verlangt. Kennwerte: bearbeitete Zeichen (bis zur letzten Markierung je Zeile), Auslassungen, Verwechslungen, KL = Treffer − Verwechslungen, Fehlerprozent, Schwankungsbreite. Geschafft bei höchstens 10 % Fehlern.
+- Symbol-Zahl-Kodierung: neue Zuordnung je Block, 2 Minuten. Stufe 1 bis 2 ein Symbol, 3 bis 5 zwei, ab 6 auch drei und Malnehmen. Geschafft ab 85 % richtig (mindestens 8 bearbeitet).
+- Rechenkette: Einerstelle als einzelner Tastendruck, ohne Enter. Dauer 3, 4 oder 5 Minuten je Stufe. Geschafft ab 90 % richtig. Die Auswertung zeigt die richtigen Antworten je 30 Sekunden (Ermüdungskurve).
 
 **Debug-Seite**
 

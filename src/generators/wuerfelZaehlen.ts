@@ -153,7 +153,8 @@ export function generateZaehlen(seed: number, level: number): WzItem {
         const back = [z > 0 ? h[z - 1][x] : null, x > 0 ? h[z][x - 1] : null].filter(
           (v): v is number => v !== null && v > 0,
         );
-        if (back.length) h[z][x] = Math.min(h[z][x], Math.min(...back) + 1);
+        // nach 30 Fehlversuchen strenge Treppe (nie höher als hinten): Oberseiten garantiert sichtbar
+        if (back.length) h[z][x] = Math.min(h[z][x], Math.min(...back) + (attempt >= 30 ? 0 : 1));
       }
     const pts = toPoints(h);
     if (pts.length < 4 + lvl) continue;

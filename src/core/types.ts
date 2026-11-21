@@ -10,7 +10,7 @@ export type AreaId =
   | 'wachsamkeit';
 
 /** Wie eine Aufgabe beantwortet wird. */
-export type AnswerKind = 'number' | 'choice';
+export type AnswerKind = 'number' | 'choice' | 'block';
 
 export interface Item<P = unknown, C = unknown> {
   id: string;
