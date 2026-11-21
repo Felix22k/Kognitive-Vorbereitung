@@ -427,6 +427,7 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
                   <div className="paper" style={{ minHeight: 0, padding: 22 }}>
                     <PromptView item={ex} />
                   </div>
+                  <ExampleOptions item={ex} />
                   <div className="explanation">
                     <strong>Lösung: {ex.correctLabel}</strong>
                     <div style={{ marginTop: 6 }}>
@@ -722,6 +723,35 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
           </div>
         )}
       </div>
+    </div>
+  );
+}
+
+/** Antwortoptionen eines Beispiels mit markierter Lösung (nur Auswahlaufgaben). */
+function ExampleOptions({ item }: { item: Item }) {
+  if (item.answerKind !== 'choice') return null;
+  const ch = choiceInfo(item);
+  if (!ch) return null;
+  const right = ch.correctIndices ?? [ch.correctIndex];
+  return (
+    <div
+      className={'options' + (ch.figures ? ' figures' : '') + (ch.large ? ' large' : '')}
+      aria-label="Antwortoptionen des Beispiels"
+    >
+      {Array.from({ length: ch.count }, (_, i) => (
+        <div
+          key={i}
+          className={
+            'option' +
+            (ch.figures ? ' figure' : '') +
+            (ch.keys ? ' keyed' : '') +
+            (right.includes(i) ? ' is-correct' : '')
+          }
+        >
+          <span className="key">{ch.keys ? ch.keys[i] : LETTERS[i]}</span>
+          {ch.render(i)}
+        </div>
+      ))}
     </div>
   );
 }
