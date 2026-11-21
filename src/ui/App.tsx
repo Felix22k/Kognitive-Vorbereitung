@@ -1,11 +1,15 @@
-import { useRoute, navigate } from './hooks';
+import { useEffect } from 'react';
+import { useLive, useRoute, navigate } from './hooks';
+import { getSettings, saveSettings } from '../db/db';
+import { applyTheme, resolveTheme } from './theme';
+import type { Settings } from '../core/types';
 import { Heute } from './pages/Heute';
 import { Bibliothek } from './pages/Bibliothek';
 import { Simulation } from './pages/Simulation';
 import { Fortschritt } from './pages/Fortschritt';
 import { Einstellungen } from './pages/Einstellungen';
 import { SessionRunner } from '../session/SessionRunner';
-import { GearIcon } from './components/Icons';
+import { GearIcon, MoonIcon, SunIcon } from './components/Icons';
 
 const NAV = [
   ['heute', 'Heute'],
@@ -16,6 +20,21 @@ const NAV = [
 
 export function App() {
   const route = useRoute();
+  const settings = useLive<Settings | null>(getSettings, [], null);
+  const theme = settings?.theme;
+
+  useEffect(() => {
+    if (!theme) return;
+    applyTheme(theme);
+    if (theme !== 'system') return;
+    const mq = window.matchMedia('(prefers-color-scheme: light)');
+    const onChange = () => applyTheme('system');
+    mq.addEventListener('change', onChange);
+    return () => mq.removeEventListener('change', onChange);
+  }, [theme]);
+
+  const isLight = theme ? resolveTheme(theme) === 'light' : false;
+  const toggleTheme = () => void saveSettings({ theme: isLight ? 'dunkel' : 'hell' });
   const [page] = route;
 
   if (page === 'modul' && route[1]) {
@@ -49,6 +68,14 @@ export function App() {
             </a>
           ))}
         </nav>
+        <button
+          className="icon-btn"
+          onClick={toggleTheme}
+          aria-label={isLight ? 'Dunkles Design' : 'Helles Design'}
+          title={isLight ? 'Dunkles Design' : 'Helles Design'}
+        >
+          {isLight ? <MoonIcon /> : <SunIcon />}
+        </button>
         <a
           href="#/einstellungen"
           className={'icon-btn' + (page === 'einstellungen' ? ' active' : '')}

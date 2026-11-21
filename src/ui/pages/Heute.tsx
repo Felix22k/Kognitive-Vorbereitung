@@ -8,27 +8,81 @@ import {
   daysUntil,
   difficultyLabel,
   isoWeek,
+  streak,
   weekDays,
+  weekOverview,
+  type DayInfo,
 } from '../../core/progress';
-import { AreaIcon, CheckIcon } from '../components/Icons';
+import { AreaIcon, CheckIcon, FlameIcon } from '../components/Icons';
 import { DEFAULT_SETTINGS, type AreaId, type Settings } from '../../core/types';
 
 const DAY_NAMES = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'];
 
+function DayTile({ d, name }: { d: DayInfo; name: string }) {
+  const state = d.done
+    ? 'done'
+    : d.rest
+      ? 'rest'
+      : d.isFuture
+        ? 'future'
+        : d.isToday
+          ? 'open'
+          : 'past';
+  const label = d.done
+    ? `${d.n} Aufg.`
+    : d.rest
+      ? 'Ruhetag'
+      : d.isToday
+        ? 'heute offen'
+        : d.isFuture
+          ? ''
+          : '–';
+  return (
+    <div
+      className={`day-tile ${state}${d.isToday ? ' today' : ''}`}
+      title={
+        d.done
+          ? `${d.n} Aufgaben, ${d.correct} richtig, ${d.minutes} min`
+          : d.rest
+            ? 'Ruhetag'
+            : undefined
+      }
+    >
+      <span className="dow">{name}</span>
+      <span className="date tnum">{d.date.getDate()}</span>
+      <span className="mark">{d.done ? <CheckIcon /> : <span className="pip" />}</span>
+      <span className="meta">{label}</span>
+    </div>
+  );
+}
+
 export function Heute() {
   const sessions = useLive(() => db.sessions.toArray(), [], []);
+  const states = useLive(() => db.moduleStates.toArray(), [], []);
+  const now = new Date();
+  const days = weekDays(now);
+  const weekStartIso = days[0].toISOString();
+  const weekAttempts = useLive(
+    () => db.attempts.where('timestamp').aboveOrEqual(weekStartIso).toArray(),
+    [weekStartIso],
+    [],
+  );
   const loadedSettings = useLive<Settings | null>(getSettings, [], null);
   const settings = loadedSettings ?? DEFAULT_SETTINGS;
 
-  const now = new Date();
   const moduleArea = Object.fromEntries(MODULES.map((m) => [m.id, m.areaId])) as Record<
     string,
     AreaId
   >;
   const stats = areaStats(sessions, moduleArea, now);
-  const doneDays = new Set(sessions.filter(completed).map((s) => dayKey(s.endedAt!)));
-  const days = weekDays(now);
-  const todayKey = dayKey(now);
+  const doneKeys = new Set(sessions.filter(completed).map((s) => dayKey(s.endedAt!)));
+  const week = weekOverview(days, sessions, weekAttempts, settings.restDay, now);
+  const serie = streak(doneKeys, settings.restDay, now);
+  const plannedDays = week.filter((d) => !d.rest).length;
+  const trainedDays = week.filter((d) => d.done).length;
+  const weekN = week.reduce((s, d) => s + d.n, 0);
+  const weekCorrect = week.reduce((s, d) => s + d.correct, 0);
+  const weekMin = week.reduce((s, d) => s + d.minutes, 0);
   const countdown = settings.testDate ? daysUntil(settings.testDate, now) : null;
 
   // FOKUS: schwächster Bereich unter den Bereichen mit verfügbaren Modulen
@@ -41,10 +95,19 @@ export function Heute() {
           return !best || v < best.v ? { id: a.id, v } : best;
         }, null)?.id;
 
+  // Weiter trainieren: verfügbare Module, Empfehlung = noch nie geübt oder schwächstes Niveau
+  const latestNiveau: Record<string, number> = {};
+  for (const s of sessions.filter(completed).sort((a, b) => (a.endedAt! < b.endedAt! ? -1 : 1)))
+    for (const [m, sum] of Object.entries(s.summary)) latestNiveau[m] = sum.niveau;
+  const stateById = Object.fromEntries(states.map((s) => [s.moduleId, s]));
+  const available = MODULES.filter(isAvailable)
+    .map((m) => ({ m, niveau: latestNiveau[m.id] ?? -1, st: stateById[m.id] }))
+    .sort((a, b) => a.niveau - b.niveau);
+
   const recent = sessions
     .filter(completed)
     .sort((a, b) => (a.endedAt! < b.endedAt! ? 1 : -1))
-    .slice(0, 6);
+    .slice(0, 5);
 
   return (
     <div className="page">
@@ -78,51 +141,98 @@ export function Heute() {
         </div>
         <span className="spacer" />
         {countdown !== null && countdown >= 0 ? (
-          <div className="countdown" title="Tage bis zum Testtermin">
-            <span className="v">T−{countdown}</span>
-            <span className="muted small">Tage bis zum PFV</span>
+          <div className="countdown-chip" title="Tage bis zum Testtermin">
+            <span className="v tnum">T−{countdown}</span>
+            <span className="l">Tage bis zum PFV</span>
           </div>
         ) : (
           loadedSettings &&
           !settings.testDate && (
-            <a className="muted small" href="#/einstellungen">
+            <a className="btn small" href="#/einstellungen">
               Testtermin festlegen
             </a>
           )
         )}
       </div>
 
-      <div className="card" style={{ marginBottom: 14 }}>
-        <div className="week" aria-label="Wochenübersicht">
-          {days.map((d, i) => {
-            const k = dayKey(d);
-            const rest = d.getDay() === settings.restDay;
-            const done = doneDays.has(k);
-            return (
-              <div key={k} className={'day' + (k === todayKey ? ' today' : '')}>
-                <div
-                  className={'dot' + (done ? ' done' : rest ? ' rest' : '')}
-                  title={done ? 'erledigt' : rest ? 'Ruhetag' : 'offen'}
-                >
-                  {done && <CheckIcon />}
+      <div className="hero">
+        <section className="card week-card" aria-label="Diese Woche">
+          <div className="row" style={{ marginBottom: 14 }}>
+            <h2 style={{ margin: 0 }}>Diese Woche</h2>
+            <span className="spacer" />
+            {serie > 0 && (
+              <span className="streak" title="Trainingstage in Folge (Ruhetage zählen nicht)">
+                <FlameIcon /> {serie} {serie === 1 ? 'Tag' : 'Tage'} in Folge
+              </span>
+            )}
+          </div>
+          <div className="week-grid">
+            {week.map((d, i) => (
+              <DayTile key={d.key} d={d} name={DAY_NAMES[i]} />
+            ))}
+          </div>
+          <div className="week-progress">
+            <div className="bar" aria-hidden>
+              <div style={{ width: `${Math.min(100, (trainedDays / plannedDays) * 100)}%` }} />
+            </div>
+            <span className="muted small tnum">
+              {trainedDays} von {plannedDays} Trainingstagen
+            </span>
+          </div>
+        </section>
+
+        <section className="card next-card" aria-label="Weiter trainieren">
+          <h2>Weiter trainieren</h2>
+          <ul className="list">
+            {available.map(({ m, niveau, st }, i) => (
+              <li key={m.id}>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div className="row" style={{ gap: 8 }}>
+                    <strong>{m.name}</strong>
+                    {i === 0 && <span className="pill accent">Empfohlen</span>}
+                  </div>
+                  <div className="muted small">
+                    {niveau < 0
+                      ? 'noch nicht geübt'
+                      : `Niveau ${niveau} % · Stufe ${st?.levelLernen ?? 1}`}
+                  </div>
                 </div>
-                {DAY_NAMES[i]}
-              </div>
-            );
-          })}
-        </div>
+                <button
+                  className={'btn small' + (i === 0 ? ' primary' : '')}
+                  onClick={() => navigate(`modul/${m.id}/lernen`)}
+                >
+                  Üben
+                </button>
+                <button className="btn small" onClick={() => navigate(`modul/${m.id}/test`)}>
+                  Test
+                </button>
+              </li>
+            ))}
+          </ul>
+          <p className="muted small" style={{ margin: '10px 0 0' }}>
+            Tageseinheit mit {settings.dailyMinutes} min und Wochenplan folgen in Meilenstein 7.
+          </p>
+        </section>
       </div>
 
-      <button className="btn big" disabled title="Folgt in Meilenstein 7">
-        <span style={{ textAlign: 'left' }}>
-          Tageseinheit starten
-          <span className="muted small" style={{ display: 'block', fontWeight: 400 }}>
-            {settings.dailyMinutes} min · Tageseinheit, Wochenplan und Phasen folgen in Meilenstein
-            7. Bis dahin einzelne Module in der Bibliothek üben.
-          </span>
-        </span>
-        <span>→</span>
-      </button>
+      <div className="stat-row" style={{ marginTop: 14 }}>
+        <div className="stat">
+          <div className="v">{weekN}</div>
+          <div className="l">Aufgaben diese Woche</div>
+        </div>
+        <div className="stat">
+          <div className="v">{weekN ? Math.round((weekCorrect / weekN) * 100) : 0} %</div>
+          <div className="l">Trefferquote diese Woche</div>
+        </div>
+        <div className="stat">
+          <div className="v">{weekMin} min</div>
+          <div className="l">Trainingszeit diese Woche</div>
+        </div>
+        <div className="stat">
+          <div className="v">{serie}</div>
+          <div className="l">Tage in Folge</div>
+        </div>
+      </div>
 
       <div className="section">
         <div className="row" style={{ alignItems: 'baseline' }}>
@@ -134,10 +244,13 @@ export function Heute() {
             const st = stats[a.id];
             const mods = modulesOfArea(a.id);
             const best = st?.best30 ?? 0;
+            const trainable = mods.some(isAvailable);
             return (
               <button
                 key={a.id}
-                className={'card area-card' + (focus === a.id ? ' fokus' : '')}
+                className={
+                  'card area-card' + (focus === a.id ? ' fokus' : '') + (trainable ? '' : ' locked')
+                }
                 style={{ textAlign: 'left', cursor: 'pointer' }}
                 onClick={() => navigate('bibliothek?bereich=' + a.id)}
               >
@@ -153,7 +266,9 @@ export function Heute() {
                   <div style={{ width: `${best}%` }} />
                 </div>
                 <div className="sub">
-                  {st?.practiced ?? 0} von {mods.length} Modulen geübt
+                  {trainable
+                    ? `${st?.practiced ?? 0} von ${mods.length} Modulen geübt`
+                    : `folgt in Meilenstein ${Math.min(...mods.map((m) => m.milestone))}`}
                 </div>
               </button>
             );
@@ -165,7 +280,7 @@ export function Heute() {
         <h2>Zuletzt</h2>
         {recent.length === 0 ? (
           <p className="muted">
-            Noch keine abgeschlossenen Durchgänge. Starte in der Bibliothek mit einem Modul.
+            Noch keine abgeschlossenen Durchgänge. Starte oben bei „Weiter trainieren“.
           </p>
         ) : (
           <div className="card" style={{ paddingTop: 4, paddingBottom: 4 }}>

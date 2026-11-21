@@ -25,6 +25,21 @@ export function Einstellungen() {
       <h1>Einstellungen</h1>
 
       <section className="card section" style={{ marginTop: 0 }}>
+        <h2>Darstellung</h2>
+        <label className="field" style={{ marginBottom: 0 }}>
+          <span>Farbschema</span>
+          <select
+            value={settings.theme}
+            onChange={(e) => set({ theme: e.target.value as Settings['theme'] })}
+          >
+            <option value="system">Wie das Betriebssystem</option>
+            <option value="hell">Hell</option>
+            <option value="dunkel">Dunkel</option>
+          </select>
+        </label>
+      </section>
+
+      <section className="card section">
         <h2>Training</h2>
         <label className="field">
           <span>Testtermin</span>

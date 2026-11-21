@@ -5,6 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#2B2D31" />
     <title>PFV Kognitionstrainer</title>
+    <script>
+      // Farbschema vor dem ersten Zeichnen setzen (kein Aufblitzen)
+      (function () {
+        var t = 'dunkel';
+        try {
+          t = localStorage.getItem('pfv-theme') || 'dunkel';
+        } catch (e) {}
+        var light =
+          t === 'hell' ||
+          (t === 'system' && window.matchMedia('(prefers-color-scheme: light)').matches);
+        document.documentElement.dataset.theme = light ? 'light' : 'dark';
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

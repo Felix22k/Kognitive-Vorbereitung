@@ -115,6 +115,8 @@ export interface Settings {
   timeLimitInLearning: boolean;
   kopfrechnenAuswahlImTest: boolean;
   disclaimerDismissed: boolean;
+  /** Farbschema: dem System folgen, hell oder dunkel. */
+  theme: 'system' | 'hell' | 'dunkel';
 }
 
 export const DEFAULT_SETTINGS: Settings = {
@@ -125,6 +127,7 @@ export const DEFAULT_SETTINGS: Settings = {
   timeLimitInLearning: false,
   kopfrechnenAuswahlImTest: false,
   disclaimerDismissed: false,
+  theme: 'dunkel',
 };
 
 export interface Generator<P = unknown, C = unknown> {

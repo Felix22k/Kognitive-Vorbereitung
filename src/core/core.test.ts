@@ -3,7 +3,7 @@ import { createRng, deriveSeed } from './rng';
 import { parseAnswer, rat, eq, formatRational, formatNumber } from './rational';
 import { updateStair, testStartLevel } from './staircase';
 import { median, niveau, trefferquote } from './stats';
-import { areaStats, daysUntil, isoWeek, tagStats, weekDays } from './progress';
+import { areaStats, daysUntil, isoWeek, streak, tagStats, weekDays } from './progress';
 import type { Session } from './types';
 
 describe('rng', () => {
@@ -149,6 +149,20 @@ describe('Fortschritt', () => {
     expect(isoWeek(new Date('2027-01-01T12:00:00'))).toBe(53);
     expect(daysUntil('2026-11-28', new Date('2026-11-21T23:30:00'))).toBe(7);
     expect(daysUntil('2026-11-21', new Date('2026-11-21T08:00:00'))).toBe(0);
+  });
+  it('Serie: Ruhetag unterbricht nicht, offener heutiger Tag auch nicht', () => {
+    const now = new Date('2026-11-21T12:00:00'); // Samstag
+    // Do, Fr trainiert, Sa (heute) noch offen
+    expect(streak(new Set(['2026-11-19', '2026-11-20']), 0, now)).toBe(2);
+    // Sa, Mo trainiert, So Ruhetag dazwischen
+    expect(streak(new Set(['2026-11-14', '2026-11-16']), 0, new Date('2026-11-16T12:00:00'))).toBe(
+      2,
+    );
+    // Lücke am Mittwoch beendet die Serie
+    expect(streak(new Set(['2026-11-17', '2026-11-19', '2026-11-20', '2026-11-21']), 0, now)).toBe(
+      3,
+    );
+    expect(streak(new Set(), 0, now)).toBe(0);
   });
   it('Woche beginnt am Montag', () => {
     const d = weekDays(new Date('2026-11-21T12:00:00')); // Samstag

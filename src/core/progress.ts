@@ -133,3 +133,66 @@ export function dayStats(attempts: Attempt[]): DayStat[] {
   for (const s of list) s.rate = s.n ? s.errors / s.n : 0;
   return list.sort((a, b) => (a.day < b.day ? 1 : -1));
 }
+
+export interface DayInfo {
+  key: string;
+  date: Date;
+  /** beantwortete Aufgaben */
+  n: number;
+  correct: number;
+  /** Trainingszeit in Minuten (aus Start und Ende der Durchgänge) */
+  minutes: number;
+  /** mindestens ein abgeschlossener Durchgang */
+  done: boolean;
+  rest: boolean;
+  isToday: boolean;
+  isFuture: boolean;
+}
+
+export function weekOverview(
+  days: Date[],
+  sessions: Session[],
+  attempts: Pick<Attempt, 'timestamp' | 'correct'>[],
+  restDay: number,
+  now: Date,
+): DayInfo[] {
+  const todayKey = dayKey(now);
+  return days.map((date) => {
+    const key = dayKey(date);
+    const att = attempts.filter((a) => dayKey(a.timestamp) === key);
+    const ses = sessions.filter((s) => s.endedAt && dayKey(s.endedAt) === key);
+    const ms = ses.reduce(
+      (sum, s) =>
+        sum + Math.max(0, new Date(s.endedAt!).getTime() - new Date(s.startedAt).getTime()),
+      0,
+    );
+    return {
+      key,
+      date,
+      n: att.length,
+      correct: att.filter((a) => a.correct).length,
+      minutes: Math.round(ms / 60000),
+      done: ses.some(completed),
+      rest: date.getDay() === restDay,
+      isToday: key === todayKey,
+      isFuture: key > todayKey,
+    };
+  });
+}
+
+/**
+ * Trainingsserie in Tagen. Ruhetage ohne Training unterbrechen die Serie
+ * nicht. Ist heute noch nicht trainiert, zählt die Serie bis gestern.
+ */
+export function streak(doneKeys: Set<string>, restDay: number, now: Date): number {
+  const d = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  if (!doneKeys.has(dayKey(d))) d.setDate(d.getDate() - 1);
+  let n = 0;
+  for (let i = 0; i < 800; i++) {
+    const k = dayKey(d);
+    if (doneKeys.has(k)) n++;
+    else if (d.getDay() !== restDay) break;
+    d.setDate(d.getDate() - 1);
+  }
+  return n;
+}

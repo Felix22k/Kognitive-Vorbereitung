@@ -100,7 +100,10 @@ export function Fortschritt() {
                 </div>
                 <div>
                   <div className="muted small">Trefferquote</div>
-                  <LineChart points={pts((s) => s.summary[id].trefferquote)} color="var(--sand)" />
+                  <LineChart
+                    points={pts((s) => s.summary[id].trefferquote)}
+                    color="var(--chart-2)"
+                  />
                 </div>
                 <div>
                   <div className="muted small">Median-Zeit pro Aufgabe</div>
