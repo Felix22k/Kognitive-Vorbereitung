@@ -1,0 +1,142 @@
+export type Mode = 'lernen' | 'test' | 'simulation';
+
+export type AreaId =
+  | 'sprache'
+  | 'logik'
+  | 'raum'
+  | 'gedaechtnis'
+  | 'konzentration'
+  | 'reaktion'
+  | 'wachsamkeit';
+
+/** Wie eine Aufgabe beantwortet wird. */
+export type AnswerKind = 'number' | 'choice';
+
+export interface Item<P = unknown, C = unknown> {
+  id: string;
+  moduleId: string;
+  generatorId: string;
+  generatorVersion: number;
+  seed: number;
+  level: number; // 1 bis 10
+  tags: string[];
+  prompt: P; // modulspezifisch
+  options?: unknown[];
+  correct: C; // Index, Indizes oder Wert
+  /** Anzeigetext der richtigen Lösung. */
+  correctLabel: string;
+  explanation: string;
+  timeLimitMs: number;
+  answerKind: AnswerKind;
+}
+
+export interface Attempt {
+  id: string;
+  sessionId: string;
+  itemId: string;
+  moduleId: string;
+  mode: Mode;
+  generatorId: string;
+  generatorVersion: number;
+  seed: number;
+  level: number;
+  tags: string[];
+  answer: unknown;
+  answerLabel: string;
+  correctAnswer: unknown;
+  correctLabel: string;
+  correct: boolean;
+  timedOut: boolean;
+  rtMs: number;
+  timestamp: string; // ISO
+  belastet: boolean;
+  puls?: number;
+  muedigkeit?: number;
+}
+
+export type SessionType = 'tag' | 'modul' | 'kurzsim' | 'vollsim' | 'vigilanz';
+
+export interface ModuleSummary {
+  niveau: number; // 0 bis 100
+  trefferquote: number; // 0 bis 100
+  medianMs: number;
+  anzahl: number;
+  endLevel: number;
+}
+
+export interface Session {
+  id: string;
+  type: SessionType;
+  mode: Mode;
+  moduleIds: string[];
+  startedAt: string;
+  endedAt?: string;
+  /** Abgebrochene Durchgänge zählen nicht in die Bestwerte. */
+  aborted?: boolean;
+  belastet: boolean;
+  puls?: number;
+  muedigkeit?: 1 | 2 | 3 | 4 | 5;
+  schlafStunden?: number;
+  protokoll?: 'extern' | 'app' | 'wechsel';
+  summary: Record<string, ModuleSummary>;
+}
+
+export interface ModuleState {
+  moduleId: string;
+  /** Stufe im Lernmodus. */
+  levelLernen: number;
+  /** Zuletzt erreichte Stufe im Testmodus. */
+  levelTest: number | null;
+  solved: number;
+  attempts: number;
+  introSeen: boolean;
+  lastPlayed?: string;
+  /** Fingerabdrücke der zuletzt gezeigten Aufgaben (gegen Wiederholung). */
+  recent: string[];
+}
+
+export interface Report {
+  id: string;
+  moduleId: string;
+  generatorId: string;
+  generatorVersion: number;
+  seed: number;
+  level: number;
+  timestamp: string;
+  promptText: string;
+  note?: string;
+}
+
+export interface Settings {
+  testDate: string | null; // YYYY-MM-DD
+  dailyMinutes: 5 | 8 | 10;
+  restDay: number; // 0 = So, 1 = Mo ... 6 = Sa
+  sound: boolean;
+  timeLimitInLearning: boolean;
+  kopfrechnenAuswahlImTest: boolean;
+  disclaimerDismissed: boolean;
+}
+
+export const DEFAULT_SETTINGS: Settings = {
+  testDate: null,
+  dailyMinutes: 8,
+  restDay: 0,
+  sound: true,
+  timeLimitInLearning: false,
+  kopfrechnenAuswahlImTest: false,
+  disclaimerDismissed: false,
+};
+
+export interface Generator<P = unknown, C = unknown> {
+  id: string;
+  version: number;
+  generate(seed: number, level: number, opts?: Record<string, unknown>): Item<P, C>;
+  /** Leere Liste = gültig. */
+  validate(item: Item<P, C>): string[];
+  /** Prüft eine gegebene Antwort. */
+  check(item: Item<P, C>, answer: unknown): boolean;
+  /** Fingerabdruck zum Erkennen von Wiederholungen. */
+  fingerprint(item: Item<P, C>): string;
+  /** Text für Meldungen und Protokoll. */
+  promptText(item: Item<P, C>): string;
+}
