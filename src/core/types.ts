@@ -1,3 +1,4 @@
+import { DEFAULT_WEEK_PLAN } from './plan';
 export type Mode = 'lernen' | 'test' | 'simulation';
 
 export type AreaId =
@@ -78,6 +79,12 @@ export interface Session {
   muedigkeit?: 1 | 2 | 3 | 4 | 5;
   schlafStunden?: number;
   protokoll?: 'extern' | 'app' | 'wechsel';
+  /** Teile einer Tageseinheit oder Simulation teilen sich eine Gruppe */
+  groupId?: string;
+  /** letzter Teil einer vollständig abgeschlossenen Tageseinheit oder Simulation */
+  groupDone?: boolean;
+  /** Block einer Simulation (Name) */
+  block?: string;
   summary: Record<string, ModuleSummary>;
 }
 
@@ -125,6 +132,10 @@ export interface Settings {
   moduleOptions: Record<string, Record<string, string>>;
   /** Tastenbelegung Determinationstest: rot, gelb, grün, blau, weiß, hoher Ton, tiefer Ton */
   dtKeys: string[];
+  /** Wochenplan: Wochentag (0 = So … 6 = Sa) → Module */
+  weekPlan: Record<string, string[]>;
+  /** Pausen in der Vollsimulation: keine („Ernstfall“) oder 5 Minuten */
+  simPause: 'ernstfall' | '5';
 }
 
 export const DEFAULT_SETTINGS: Settings = {
@@ -139,6 +150,8 @@ export const DEFAULT_SETTINGS: Settings = {
   devTools: false,
   moduleOptions: {},
   dtKeys: ['a', 's', 'd', 'f', ' ', 'j', 'k'],
+  weekPlan: DEFAULT_WEEK_PLAN,
+  simPause: '5',
 };
 
 export interface Generator<P = unknown, C = unknown> {

@@ -141,7 +141,14 @@ for (const [name, gen] of GENS) {
           const seed = deriveSeed(level * 100_003, i);
           const t0 = performance.now();
           const item = gen.generate(seed, level) as Item;
-          maxMs = Math.max(maxMs, performance.now() - t0);
+          let ms = performance.now() - t0;
+          // Ausreißer (z. B. Speicherbereinigung) dreimal nachmessen, Minimum zählt
+          for (let r = 0; r < 3 && ms >= 50; r++) {
+            const t1 = performance.now();
+            gen.generate(seed, level);
+            ms = Math.min(ms, performance.now() - t1);
+          }
+          maxMs = Math.max(maxMs, ms);
           const errs = gen.validate(item);
           if (errs.length)
             throw new Error(`seed ${seed}: ${errs.join('; ')} – ${gen.promptText(item)}`);

@@ -12,6 +12,8 @@ export async function startSession(p: {
   muedigkeit?: 1 | 2 | 3 | 4 | 5;
   schlafStunden?: number;
   protokoll?: Session['protokoll'];
+  groupId?: string;
+  block?: string;
 }): Promise<Session> {
   const s: Session = {
     id: uid('s-'),
@@ -24,6 +26,8 @@ export async function startSession(p: {
     muedigkeit: p.muedigkeit,
     schlafStunden: p.schlafStunden,
     protokoll: p.protokoll,
+    groupId: p.groupId,
+    block: p.block,
     summary: {},
   };
   await db.sessions.put(s);
@@ -75,4 +79,10 @@ export async function markIntroSeen(moduleId: string): Promise<void> {
 
 export async function addReport(r: Omit<Report, 'id' | 'timestamp'>): Promise<void> {
   await db.reports.put({ ...r, id: uid('r-'), timestamp: new Date().toISOString() });
+}
+
+/** Markiert die Gruppe (Tageseinheit, Simulation) als vollständig abgeschlossen. */
+export async function markGroupDone(sessionId: string): Promise<void> {
+  const s = await db.sessions.get(sessionId);
+  if (s) await db.sessions.put({ ...s, groupDone: true });
 }

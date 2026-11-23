@@ -1,12 +1,53 @@
 import { useState } from 'react';
 import { db } from '../../db/db';
-import { useLive } from '../hooks';
+import { navigate, useLive } from '../hooks';
+import { median } from '../../core/stats';
+import type { Attempt } from '../../core/types';
 import { MODULES, MODULE_BY_ID, isAvailable, tagName } from '../../modules/catalog';
 import { completed, dayStats, tagStats } from '../../core/progress';
 import { LineChart } from '../components/LineChart';
 import { attemptsToCsv, downloadFile, exportAll } from '../../db/exportImport';
 
 const pct = (x: number) => Math.round(x * 100) + ' %';
+const sec = (ms: number) =>
+  (ms / 1000).toLocaleString('de-DE', { maximumFractionDigits: 1 }) + ' s';
+
+/** Kennwerte ausgeruht gegen belastet je Modul (nur Testmodus). */
+function stressCompare(attempts: Attempt[]) {
+  const rows: {
+    moduleId: string;
+    rest: { n: number; rate: number; med: number };
+    load: { n: number; rate: number; med: number };
+  }[] = [];
+  const mods = new Set(attempts.filter((a) => a.belastet).map((a) => a.moduleId));
+  for (const m of mods) {
+    const list = attempts.filter((a) => a.moduleId === m && a.mode !== 'lernen');
+    const k = (xs: Attempt[]) => ({
+      n: xs.length,
+      rate: xs.length ? xs.filter((a) => a.correct).length / xs.length : 0,
+      med: xs.length ? median(xs.map((a) => a.rtMs)) : 0,
+    });
+    rows.push({
+      moduleId: m,
+      rest: k(list.filter((a) => !a.belastet)),
+      load: k(list.filter((a) => a.belastet)),
+    });
+  }
+  return rows;
+}
+
+/** Mittlere Stufe der Fehler eines Tags (Startstufe für „Schwächen üben“). */
+function errLevel(attempts: Attempt[], tag: string): number {
+  const lv = attempts.filter((a) => !a.correct && a.tags.includes(tag)).map((a) => a.level);
+  return lv.length ? Math.round(lv.reduce((s, x) => s + x, 0) / lv.length) : 3;
+}
+
+/** Modul, in dem ein Tag zuletzt vorkam. */
+function tagModule(attempts: Attempt[], tag: string): string | undefined {
+  for (let i = attempts.length - 1; i >= 0; i--)
+    if (attempts[i].tags.includes(tag)) return attempts[i].moduleId;
+  return undefined;
+}
 const stamp = () => new Date().toISOString().slice(0, 10);
 
 export function Fortschritt() {
@@ -27,6 +68,7 @@ export function Fortschritt() {
   );
   const tags = tagStats(filteredAttempts);
   const days = dayStats(filteredAttempts).slice(0, 14);
+  const stress = stressCompare(attempts);
 
   return (
     <div className="page">
@@ -172,7 +214,8 @@ export function Fortschritt() {
       <section className="section">
         <h2>Fehlerprotokoll nach Regel</h2>
         <p className="muted small">
-          Die schwächsten Regeln stehen oben. „Schwächen üben“ folgt in Meilenstein 7.
+          Die schwächsten Regeln stehen oben. „Üben“ startet 10 neue Aufgaben genau dieser Regel im
+          Lernmodus, beginnend auf der Stufe, auf der die Fehler passiert sind.
         </p>
         {tags.length === 0 ? (
           <p className="muted">Noch keine Antworten.</p>
@@ -186,6 +229,7 @@ export function Fortschritt() {
                   <th className="num">Aufgaben</th>
                   <th className="num">Fehler</th>
                   <th className="num">Fehlerquote</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
@@ -200,6 +244,20 @@ export function Fortschritt() {
                       style={{ color: t.rate >= 0.5 ? 'var(--bad)' : undefined }}
                     >
                       {pct(t.rate)}
+                    </td>
+                    <td>
+                      {t.errors > 0 && tagModule(filteredAttempts, t.tag) && (
+                        <button
+                          className="btn small"
+                          onClick={() =>
+                            navigate(
+                              `schwaechen/${tagModule(filteredAttempts, t.tag)}/${encodeURIComponent(t.tag)}/${errLevel(filteredAttempts, t.tag)}`,
+                            )
+                          }
+                        >
+                          Üben
+                        </button>
+                      )}
                     </td>
                   </tr>
                 ))}
@@ -247,7 +305,58 @@ export function Fortschritt() {
 
       <section className="section">
         <h2>Ausgeruht gegen belastet</h2>
-        <p className="muted">Der Vergleich kommt mit dem Belastungsmodus in Meilenstein 7.</p>
+        {stress.length === 0 ? (
+          <p className="muted">
+            Noch keine Durchgänge unter Belastung. Starte einen unter Simulation → Belastungsmodus.
+          </p>
+        ) : (
+          <>
+            <p className="muted small">
+              Nur Testmodus. Differenz = belastet minus ausgeruht. Eine Treffer-Differenz unter 5
+              Prozentpunkten ist bei wenigen Aufgaben meist Zufall.
+            </p>
+            <div className="card" style={{ padding: 0, overflowX: 'auto' }}>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Modul</th>
+                    <th className="num">Aufgaben ausgeruht / belastet</th>
+                    <th className="num">Treffer ausgeruht</th>
+                    <th className="num">Treffer belastet</th>
+                    <th className="num">Differenz</th>
+                    <th className="num">Median ausgeruht</th>
+                    <th className="num">Median belastet</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {stress.map((r) => {
+                    const d = Math.round((r.load.rate - r.rest.rate) * 100);
+                    return (
+                      <tr key={r.moduleId}>
+                        <td>{MODULE_BY_ID[r.moduleId]?.name ?? r.moduleId}</td>
+                        <td className="num tnum">
+                          {r.rest.n} / {r.load.n}
+                        </td>
+                        <td className="num tnum">{r.rest.n ? pct(r.rest.rate) : '–'}</td>
+                        <td className="num tnum">{pct(r.load.rate)}</td>
+                        <td
+                          className="num tnum"
+                          style={{
+                            color: r.rest.n ? (d < 0 ? 'var(--bad)' : 'var(--ok)') : undefined,
+                          }}
+                        >
+                          {r.rest.n ? `${d > 0 ? '+' : ''}${d} %-Pkt.` : '–'}
+                        </td>
+                        <td className="num tnum">{r.rest.n ? sec(r.rest.med) : '–'}</td>
+                        <td className="num tnum">{sec(r.load.med)}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </>
+        )}
       </section>
 
       <section className="section">

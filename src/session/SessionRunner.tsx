@@ -7,7 +7,7 @@ import { unlockAudio } from '../core/audio';
 import { db, getModuleState, getSettings, saveSettings } from '../db/db';
 import { testStartLevel, updateStair, type StairState } from '../core/staircase';
 import { uid } from '../core/ids';
-import type { Attempt, Item, ModuleState, Session, Settings } from '../core/types';
+import type { Attempt, Item, ModuleState, Session, SessionType, Settings } from '../core/types';
 import type { AnswerValue } from '../generators/common';
 import { LETTERS } from '../generators/common';
 import { pickUniqueItem } from './engine';
@@ -16,7 +16,7 @@ import { difficultyLabel } from '../core/progress';
 
 type Phase = 'loading' | 'setup' | 'run' | 'feedback' | 'done';
 
-interface Result {
+export interface Result {
   item: Item;
   answerLabel: string;
   correct: boolean;
@@ -27,11 +27,36 @@ interface Result {
   answer?: AnswerValue | null;
 }
 
+/** Einbettung in Tageseinheit, Simulation, Belastungsmodus oder „Schwächen üben“. */
+export interface EmbedConfig {
+  sessionType: SessionType;
+  /** feste Aufgabenzahl */
+  count?: number;
+  /** Zeitbudget: nach Ablauf endet der Teil mit der laufenden Aufgabe */
+  timeBudgetMs?: number;
+  /** nur Aufgaben mit mindestens einem dieser Regel-Tags */
+  tags?: string[];
+  /** Startstufe (z. B. für Tag-Übung) */
+  startLevel?: number;
+  /** Moduloptionen überschreiben (z. B. Dauer) */
+  opts?: Record<string, string>;
+  /** Startbildschirm überspringen */
+  autoStart?: boolean;
+  groupId?: string;
+  block?: string;
+  sessionExtra?: Partial<Pick<Session, 'puls' | 'muedigkeit' | 'schlafStunden' | 'protokoll'>>;
+  /** Kopfzeile, z. B. „Tageseinheit 2 von 3“ */
+  label?: string;
+  /** statt der Auswertungsseite zurück an den übergeordneten Ablauf */
+  onDone?: (session: Session, results: Result[]) => void;
+}
+
 export interface RunnerProps {
   moduleId: string;
   mode: 'lernen' | 'test';
   onExit: () => void;
   belastet?: boolean;
+  embed?: EmbedConfig;
 }
 
 const fmtS = (ms: number) =>
@@ -55,7 +80,7 @@ function isTextInput(t: EventTarget | null): boolean {
   );
 }
 
-export function SessionRunner({ moduleId, mode, onExit, belastet = false }: RunnerProps) {
+export function SessionRunner({ moduleId, mode, onExit, belastet = false, embed }: RunnerProps) {
   const mod = MODULE_BY_ID[moduleId];
   const gen = mod?.generator;
 
@@ -84,13 +109,34 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
   /** Kette der Speichervorgänge, damit die Auswertung erst nach dem letzten Speichern läuft. */
   const pending = useRef<Promise<void>>(Promise.resolve());
 
-  const total = mode === 'lernen' ? (mod?.itemsLernen ?? 10) : (mod?.itemsTest ?? 12);
+  const total =
+    embed?.count ??
+    (embed?.timeBudgetMs
+      ? 999
+      : mode === 'lernen'
+        ? (mod?.itemsLernen ?? 10)
+        : (mod?.itemsTest ?? 12));
+  /** Beginn des Zeitbudgets (performance.now) */
+  const budgetStart = useRef(0);
+  const [nowTick, setNowTick] = useState(0);
+  const budgetOver = useCallback(
+    () =>
+      !!embed?.timeBudgetMs &&
+      budgetStart.current > 0 &&
+      performance.now() - budgetStart.current >= embed.timeBudgetMs,
+    [embed?.timeBudgetMs],
+  );
+  const accept = useMemo(() => {
+    const tags = embed?.tags;
+    if (!tags?.length) return undefined;
+    return (it: Item) => it.tags.some((t) => tags.includes(t));
+  }, [embed?.tags]);
   const timeLimitOn = mode === 'test' || !!settings?.timeLimitInLearning;
   const modOpts = useMemo(() => {
     const o: Record<string, string> = {};
     for (const opt of mod?.options ?? []) o[opt.key] = opt.default;
-    return { ...o, ...(settings?.moduleOptions?.[moduleId] ?? {}) };
-  }, [mod, settings, moduleId]);
+    return { ...o, ...(settings?.moduleOptions?.[moduleId] ?? {}), ...(embed?.opts ?? {}) };
+  }, [mod, settings, moduleId, embed?.opts]);
   const kopfAuswahl =
     mode === 'test' && moduleId === 'kopfrechnen' && !!settings?.kopfrechnenAuswahlImTest;
   const choice: ChoiceInfo | null = useMemo(
@@ -128,7 +174,15 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
   const presentNext = useCallback(
     (level: number) => {
       if (!gen) return;
-      const it = pickUniqueItem(gen, level, recent.current, modOpts, undefined, blocked.current);
+      const it = pickUniqueItem(
+        gen,
+        level,
+        recent.current,
+        modOpts,
+        undefined,
+        blocked.current,
+        accept,
+      );
       recent.current.add(gen.fingerprint(it));
       answered.current = false;
       setItem(it);
@@ -141,7 +195,7 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
       setInputError('');
       setPhase('run');
     },
-    [gen, modOpts],
+    [gen, modOpts, accept],
   );
 
   // Zeitpunkt der Darstellung messen (nach dem Zeichnen)
@@ -155,14 +209,16 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
   }, [phase, item]);
 
   const finish = useCallback(
-    async (lvl: number, aborted = false) => {
+    async (lvl: number, aborted = false, res?: Result[]) => {
       if (!session) return;
       await pending.current;
       const done = await finishSession(session, { [moduleId]: lvl }, aborted);
       setFinalSession(done);
-      if (!aborted) setPhase('done');
+      if (aborted) return;
+      if (embed?.onDone) embed.onDone(done, res ?? []);
+      else setPhase('done');
     },
-    [session, moduleId],
+    [session, moduleId, embed],
   );
 
   const submit = useCallback(
@@ -229,8 +285,8 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
       if (mode === 'lernen') {
         setShowExpl(!correct); // bei Fehlern die Erklärung gleich aufklappen
         setPhase('feedback');
-      } else if (res.length >= total) {
-        void finish(nextStair.level);
+      } else if (res.length >= total || budgetOver()) {
+        void finish(nextStair.level, false, res);
       } else {
         presentNext(nextStair.level);
       }
@@ -248,6 +304,7 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
       finish,
       presentNext,
       mod?.stair,
+      budgetOver,
     ],
   );
 
@@ -262,13 +319,32 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
     if (!mstate || !gen) return;
     unlockAudio();
     await markIntroSeen(moduleId);
-    const s = await startSession({ type: 'modul', mode, moduleIds: [moduleId], belastet });
+    const s = await startSession({
+      type: embed?.sessionType ?? 'modul',
+      mode,
+      moduleIds: [moduleId],
+      belastet,
+      groupId: embed?.groupId,
+      block: embed?.block,
+      ...(embed?.sessionExtra ?? {}),
+    });
     setSession(s);
-    const lvl = mode === 'test' ? testStartLevel(mstate.levelTest) : mstate.levelLernen;
+    budgetStart.current = performance.now();
+    const lvl =
+      embed?.startLevel ??
+      (mode === 'test' ? testStartLevel(mstate.levelTest) : mstate.levelLernen);
     setStair({ level: lvl, streak: 0 });
     setResults([]);
     setFinalSession(null);
-    const it = pickUniqueItem(gen, lvl, recent.current, modOpts, undefined, blocked.current);
+    const it = pickUniqueItem(
+      gen,
+      lvl,
+      recent.current,
+      modOpts,
+      undefined,
+      blocked.current,
+      accept,
+    );
     recent.current.add(gen.fingerprint(it));
     answered.current = false;
     setItem(it);
@@ -278,12 +354,28 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
     setShowExpl(false);
     setReported(false);
     setPhase('run');
-  }, [mstate, gen, moduleId, mode, belastet, modOpts]);
+  }, [mstate, gen, moduleId, mode, belastet, modOpts, embed, accept]);
+
+  // Eingebettet: Startbildschirm überspringen
+  const autoStarted = useRef(false);
+  useEffect(() => {
+    if (phase === 'setup' && embed?.autoStart && !autoStarted.current) {
+      autoStarted.current = true;
+      void start();
+    }
+  }, [phase, embed?.autoStart, start]);
+
+  // Restzeit des Zeitbudgets anzeigen
+  useEffect(() => {
+    if (!embed?.timeBudgetMs || (phase !== 'run' && phase !== 'feedback')) return;
+    const t = window.setInterval(() => setNowTick(performance.now()), 1000);
+    return () => window.clearInterval(t);
+  }, [embed?.timeBudgetMs, phase]);
 
   const continueAfterFeedback = useCallback(() => {
-    if (results.length >= total) void finish(stair.level);
+    if (results.length >= total || budgetOver()) void finish(stair.level, false, results);
     else presentNext(stair.level);
-  }, [results.length, total, finish, stair.level, presentNext]);
+  }, [results, total, finish, stair.level, presentNext, budgetOver]);
 
   const abort = useCallback(async () => {
     if (phase === 'run' || phase === 'feedback') {
@@ -389,7 +481,9 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
 
   // ---------- Startbildschirm ----------
   if (phase === 'setup') {
-    const startLevel = mode === 'test' ? testStartLevel(mstate.levelTest) : mstate.levelLernen;
+    const startLevel =
+      embed?.startLevel ??
+      (mode === 'test' ? testStartLevel(mstate.levelTest) : mstate.levelLernen);
     return (
       <div className="page" style={{ maxWidth: 860 }}>
         <button className="linklike" onClick={onExit}>
@@ -399,6 +493,7 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
           {mod.name} <span className="muted">· {modeName}</span>
         </h1>
         <p className="muted">{mod.description}</p>
+        {embed?.label && <p className="pill accent">{embed.label}</p>}
 
         <div className="card stack">
           <div className="row">
@@ -587,14 +682,31 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
   return (
     <div className="task-shell">
       <div className="task-top">
+        {embed?.label && <span className="muted hide-mobile">{embed.label}</span>}
         <strong className="task-name">{mod.name}</strong>
         <span className="muted hide-mobile">{modeName}</span>
-        <span className="muted tnum hide-mobile">
-          Aufgabe {number} von {total}
-        </span>
-        <span className="muted tnum only-mobile">
-          {number}/{total}
-        </span>
+        {embed?.timeBudgetMs ? (
+          <span className="muted tnum">
+            Aufgabe {number} · noch{' '}
+            {Math.max(
+              0,
+              Math.ceil(
+                (embed.timeBudgetMs - ((nowTick || performance.now()) - budgetStart.current)) /
+                  60000,
+              ),
+            )}{' '}
+            min
+          </span>
+        ) : (
+          <>
+            <span className="muted tnum hide-mobile">
+              Aufgabe {number} von {total}
+            </span>
+            <span className="muted tnum only-mobile">
+              {number}/{total}
+            </span>
+          </>
+        )}
         <span className="muted tnum">Stufe {item.level}</span>
         <span className="spacer" />
         <button

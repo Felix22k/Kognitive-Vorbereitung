@@ -7,18 +7,21 @@ Web-App zum Training der computergestützten kognitiven Tests im Potenzialfestst
 
 Alles läuft lokal im Browser. Kein Backend, keine Anmeldung, kein Tracking.
 
-## Stand: Meilenstein 6 (Sprache, Technik, Textaufgaben)
+## Stand: Meilenstein 7 (alle Meilensteine gebaut)
 
-| Bereich                                                                                               | Stand         |
-| ----------------------------------------------------------------------------------------------------- | ------------- |
-| Navigation, Datenmodell (IndexedDB), Export und Import (JSON), CSV-Export                             | fertig        |
-| Sitzungs-Engine: Lern- und Testmodus, Zeitlimit, Treppenverfahren, Protokoll je Antwort               | fertig        |
-| Sprache und Zahlen: Kopfrechnen, Textaufgaben, Zahlenreihen, Wortanalogien, Begriffe, Rechtschreibung | fertig        |
-| Logik und Technik: Matrizen, Figurenreihen, Technisches Verständnis                                   | fertig        |
-| Räumliches Denken: Rotation (zwei Formate), Würfel drehen, Würfel zählen                              | fertig        |
-| Gedächtnis, Konzentration, Reaktion, Vigilanz                                                         | fertig        |
-| Fortschritt, Fehlerprotokoll, gemeldete Aufgaben (werden danach nicht mehr gezeigt), Debug-Seite      | fertig        |
-| Tageseinheit, Wochenplan, Phasen, Simulationen, Belastungsmodus, „Schwächen üben“                     | Meilenstein 7 |
+| Bereich                                                                                               | Stand                        |
+| ----------------------------------------------------------------------------------------------------- | ---------------------------- |
+| Navigation, Datenmodell (IndexedDB), Export und Import (JSON), CSV-Export                             | fertig                       |
+| Sitzungs-Engine: Lern- und Testmodus, Zeitlimit, Treppenverfahren, Protokoll je Antwort               | fertig                       |
+| Sprache und Zahlen: Kopfrechnen, Textaufgaben, Zahlenreihen, Wortanalogien, Begriffe, Rechtschreibung | fertig                       |
+| Logik und Technik: Matrizen, Figurenreihen, Technisches Verständnis                                   | fertig                       |
+| Räumliches Denken: Rotation (zwei Formate), Würfel drehen, Würfel zählen                              | fertig                       |
+| Gedächtnis, Konzentration, Reaktion, Vigilanz                                                         | fertig                       |
+| Tageseinheit, Wochenplan, Phasen bis zum Testtermin, „offen diese Woche“                              | fertig                       |
+| Kurz- und Vollsimulation mit Bericht und Vergleich, Vigilanz einzeln                                  | fertig                       |
+| Belastungsmodus, Vergleich ausgeruht gegen belastet, „Schwächen üben“                                 | fertig                       |
+| Fortschritt, Fehlerprotokoll, gemeldete Aufgaben, Debug-Seite, Offline-Nutzung (PWA)                  | fertig                       |
+| Gestaltung von Heute und Dashboard                                                                    | offen (gemeinsam am Schluss) |
 
 ## Start
 
@@ -53,7 +56,9 @@ src/
     rational.ts    exakte Bruchrechnung, Eingaben lesen, deutsche Zahlformate
     staircase.ts   Treppenverfahren
     stats.ts       Median, Niveau, Trefferquote
-    progress.ts    Bereichswerte, Wochenleiste, Fehlerprotokoll
+    progress.ts    Bereichswerte, Wochenleiste, Fehlerprotokoll, erledigte Tage
+    plan.ts        Wochenplan, Phasen, Tageseinheit (70 % Plan, 30 % Fokus)
+    simulation.ts  Ablauf der Kurz- und Vollsimulation
     types.ts       Datenmodell (Item, Attempt, Session, …)
   generators/
     expr.ts        Term-Engine für Kopfrechnen (Auswertung, Rechenweg, Strich-vor-Punkt-Fehler)
@@ -196,7 +201,7 @@ Wo der Bau-Prompt nichts festlegt, gilt:
 - Reizzeit: Ein Reiz gilt ab dem übernächsten Bildschirmframe als sichtbar (requestAnimationFrame), Reaktionszeiten zählen ab dort. Browser messen etwa einen Frame ungenau (8 bis 17 ms).
 - Determinationstest-ähnlich: Ein Reiz ist 75 % der Taktzeit sichtbar, danach kurz leer. Richtige Antworten in der Lücke zählen als „verspätet“. Adaptiv: −5 % nach richtig, +10 % nach Fehler oder Auslassung, Start 1,2 s, Grenzen 0,25 bis 3 s. Aktion: fester Takt je Stufe (1,2 s bis 0,66 s). Reaktion: nächster Reiz nach der Antwort, höchstens 3 s Wartezeit. Tastenbelegung in den Einstellungen änderbar.
 - Wahlreaktion: 60 Durchgänge, Antwortfenster 1,5 s bis 0,78 s je Stufe. Go/No-Go: etwa 40 % Go-Reize (Gelb plus Ton), Ablenker sind Gelb ohne Ton oder Blau mit oder ohne Ton.
-- Vigilanz-Uhr: Der Takt hängt an requestAnimationFrame; jede Taktabweichung vom Soll wird gemessen und in der Auswertung angezeigt. Signale haben mindestens 20 Schritte Abstand. Original-nah ergibt bei 1 s Takt im Mittel rund 11 Signale in 30 min (Test).
+- Vigilanz-Uhr: Der Takt hängt an requestAnimationFrame; jede Taktabweichung vom Soll wird gemessen und in der Auswertung angezeigt. Signale haben mindestens 20 Schritte Abstand. Original-nah ergibt bei 1 s Takt im Mittel rund 11 Signale in 30 min (Test). Gemessen in einem echten 30-Minuten-Lauf (Chromium, ohne Vorspulen): mittlere Taktabweichung 8,8 ms über 1.799 Takte, also unter einem halben Bildschirmframe.
 
 **Textaufgaben**
 
@@ -223,6 +228,38 @@ Wo der Bau-Prompt nichts festlegt, gilt:
 - „Aufgabe fehlerhaft?“ speichert jetzt auch den Fingerabdruck. Gemeldete Aufgaben werden in diesem Modul nicht mehr gezeigt, solange es Alternativen gibt.
 - Wortbanken und feste Sammlungen haben je Stufe nur einige hundert verschiedene Aufgaben (Rechtschreibung etwa 100 bis 370, Analogien 270 bis 1.000). Für sie prüft der Test „keine Wiederholung“, bis die Hälfte des Aufgabenraums der Stufe gezeigt wurde, statt starr 500.
 
+**Tageseinheit und Wochenplan**
+
+- Die Tageseinheit (5, 8 oder 10 min, Lernmodus) besteht zu rund 70 % aus den Modulen des Wochenplans für den Tag und zu 30 % aus einem Fokus-Teil. Der Fokus zieht zufällig einen Regel-Tag der letzten 30 Tage mit Gewicht 1 + 2 × Fehlerquote (mindestens 3 Versuche je Tag) und übt genau diese Regel, ab der Stufe, auf der die Fehler lagen. Ohne Daten: das am längsten nicht geübte Modul.
+- Aufgabenzahl je Teil aus Erfahrungswerten pro Aufgabe (`ESTIMATE` in `plan.ts`). Lange Blöcke (Durchstreichtest, Fakten, Determination …) werden weggelassen, wenn sie nicht in die Zeit passen; ihre Zeit geht an die anderen Module.
+- Die Zusammenstellung hängt an einem festen Zufallswert je Kalendertag, damit Heute-Seite und Tageseinheit dasselbe zeigen. „Fokus neu wählen“ würfelt neu.
+- Ein Tag gilt als erledigt bei abgeschlossener Tageseinheit oder mindestens 5 Minuten Training in abgeschlossenen Durchgängen. Freies Training zählt also mit, nur ein einzelner kurzer Durchgang nicht.
+- Standard-Wochenplan laut Prompt; Donnerstag „Sprache“ = Wortanalogien, Begriffe, Rechtschreibung; Samstag „Gedächtnis/Konzentration“ = Zahlenspanne, n-back, Symbol-Zahl. Änderbar in den Einstellungen.
+
+**Phasen**
+
+- Aus dem Testtermin: Grundlage (mehr als 8 Wochen), Aufbau (8 bis 3 Wochen), Peak (3 bis 1 Woche), Taper (letzte Woche, in den letzten 3 Tagen keine Simulation). Jede Phase hat Wochenziele (Tageseinheiten, Kurz-/Vollsimulationen, Belastungstest), die Heute-Seite zeigt, was diese Woche noch offen ist. Die Schwellen sind eigene Festlegungen, keine offizielle Empfehlung.
+
+**Simulationen**
+
+- Alle Teile laufen im Testmodus (adaptiv, Zeitlimit, keine Rückmeldung) mit eigener Anleitungsseite je Block. Teile mit Zeitbudget enden nach Ablauf mit der laufenden Aufgabe.
+- Kurzsimulation 30 min: Zahlenreihen 6, Matrizen 8, Rotation 5, Kopfrechnen 5, Wortanalogien 3, Determination 3 (Minuten).
+- Vollsimulation: 9 Blöcke, 140 min Aufgabenzeit, am Ende 30 min Vigilanz (original-nah). Pausen 5 min oder „Ernstfall“ ohne Pause. Mit Anleitungsseiten und Pausen rund 2,5 bis 3 Stunden.
+- Jeder Teil ist eine eigene Sitzung mit gemeinsamer Gruppen-ID. Der Bericht zeigt je Block Niveau, Treffer, Median, den Vergleich zur letzten vollständigen Simulation gleicher Art und die Vigilanz-Kurve. Abgebrochene Simulationen bleiben mit ihren erledigten Blöcken sichtbar.
+
+**Belastungsmodus**
+
+- Vorher: Müdigkeit (1 bis 5), Schlaf, Bestätigung „gesund und belastbar“ (ohne sie startet nichts). Abläufe: geführt (4 × 40 s Übung, 20 s Pause, mit Ton), eigene Belastung, oder im Wechsel (3 × 60 s Belastung, dann je ein Drittel der Aufgaben). Puls optional nach der Belastung.
+- Alle Antworten tragen `belastet = true` plus Puls und Müdigkeit. Fortschritt vergleicht je Modul Trefferquote und Median-Zeit im Testmodus ausgeruht gegen belastet.
+
+**Schwächen üben**
+
+- Im Fehlerprotokoll startet „Üben“ 10 neue Aufgaben mit genau diesem Regel-Tag. Die Engine erzeugt dafür Aufgaben, bis der Tag passt (höchstens 250 ms je Aufgabe), sonst nimmt sie eine beliebige des Moduls.
+
+**Offline (PWA)**
+
+- Manifest und Service Worker: Die Seite selbst wird zuerst aus dem Netz geladen (Updates kommen sofort), gebaute Dateien aus dem Cache. Nach dem ersten Besuch läuft die App ohne Netz und lässt sich auf dem Handy zum Startbildschirm hinzufügen.
+
 **Debug-Seite**
 
 - Laut Prompt nur im Entwicklungsmodus. Weil die App vor allem über GitHub Pages genutzt wird, lässt sie sich dort unter Einstellungen → Entwicklerwerkzeuge einschalten. Sie zeigt 20 Aufgaben je Generator und Stufe mit Lösung, Regel-Tags, Seed und Prüfergebnis.
@@ -242,5 +279,6 @@ Wo der Bau-Prompt nichts festlegt, gilt:
 - Browser-Zeitmessung ist etwa einen Bildschirmframe ungenau (rund 8 bis 17 ms). Für Tempo-Vergleiche über Wochen reicht das, für Millisekunden-Diagnostik nicht.
 - Die Daten liegen nur in diesem Browser. Privates Fenster, Browserwechsel oder „Websitedaten löschen“ entfernen sie. Regelmäßig exportieren.
 - Die Treppenlogik misst ein relatives Niveau innerhalb der App. Es ist nicht mit Punktwerten des echten Tests vergleichbar.
-- Noch nicht gebaut: Tageseinheit, Wochenplan, Phasen, Simulationen, Belastungsmodus, „Schwächen üben“, PWA (Meilenstein 7).
+- Die Gestaltung von Heute und Dashboard ist noch nicht überarbeitet (geplant als letzter Schritt).
+- Simulationen bilden Ablauf und Zeitdruck nach, nicht die echten Aufgaben oder deren Bewertung.
 - Sprach- und Technikbanken sind von Hand geschrieben und damit begrenzt. Sie wiederholen sich bei intensivem Training nach einigen Wochen.

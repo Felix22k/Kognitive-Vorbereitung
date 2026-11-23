@@ -1,10 +1,14 @@
+import { useEffect, useState } from 'react';
 import { db, getSettings, saveSettings } from '../../db/db';
+import { phaseFor, weekDone, type DayUnit } from '../../core/plan';
+import { loadDayUnit, partText } from './Tageseinheit';
 import { useLive, navigate } from '../hooks';
 import { AREAS, MODULES, MODULE_BY_ID, isAvailable, modulesOfArea } from '../../modules/catalog';
 import {
   areaStats,
   completed,
   dayKey,
+  trainedDayKeys,
   daysUntil,
   difficultyLabel,
   isoWeek,
@@ -75,7 +79,28 @@ export function Heute() {
     AreaId
   >;
   const stats = areaStats(sessions, moduleArea, now);
-  const doneKeys = new Set(sessions.filter(completed).map((s) => dayKey(s.endedAt!)));
+  const doneKeys = trainedDayKeys(sessions);
+  const phase = phaseFor(settings.testDate, now);
+  const wDone = weekDone(sessions, now);
+  const todayUnitDone = sessions.some(
+    (s) => s.type === 'tag' && s.groupDone && s.endedAt && dayKey(s.endedAt) === dayKey(now),
+  );
+  const [unit, setUnit] = useState<DayUnit | null>(null);
+  const unitDeps = `${settings.dailyMinutes}|${JSON.stringify(settings.weekPlan)}|${settings.restDay}|${sessions.length}`;
+  useEffect(() => {
+    if (!loadedSettings) return;
+    void loadDayUnit().then((d) => setUnit(d.unit));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [unitDeps, !!loadedSettings]);
+  const goals = (
+    [
+      ['Tageseinheiten', wDone.tag, phase.goals.tag],
+      ['Kurzsimulationen', wDone.kurzsim, phase.goals.kurzsim],
+      ['Vollsimulation', wDone.vollsim, phase.goals.vollsim],
+      ['Belastungstest', wDone.belastung, phase.goals.belastung],
+    ] as const
+  ).filter(([, , n]) => n > 0);
+  const offen = goals.filter(([, d, n]) => d < n);
   const week = weekOverview(days, sessions, weekAttempts, settings.restDay, now);
   const serie = streak(doneKeys, settings.restDay, now);
   const plannedDays = week.filter((d) => !d.rest).length;
@@ -155,6 +180,62 @@ export function Heute() {
         )}
       </div>
 
+      <section className="card unit-card" aria-label="Tageseinheit">
+        <div className="unit-main">
+          <div className="eyebrow">
+            Phase {phase.name}
+            {phase.daysLeft !== null && phase.daysLeft >= 0 ? ` · noch ${phase.daysLeft} Tage` : ''}
+          </div>
+          <h2 style={{ margin: '4px 0 6px' }}>
+            {todayUnitDone
+              ? 'Tageseinheit erledigt'
+              : unit?.rest
+                ? 'Ruhetag'
+                : `Tageseinheit · ${settings.dailyMinutes} min`}
+          </h2>
+          <p className="unit-summary">
+            {unit && unit.parts.length
+              ? unit.parts.map((p) => partText(p)).join(' · ')
+              : unit
+                ? 'Heute ist nichts geplant.'
+                : '…'}
+          </p>
+          <p className="muted small" style={{ margin: 0 }}>
+            {phase.text}
+          </p>
+        </div>
+        <div className="unit-side">
+          <button
+            className={'btn' + (todayUnitDone ? '' : ' primary')}
+            onClick={() => navigate('tageseinheit')}
+            disabled={!unit?.parts.length}
+          >
+            {todayUnitDone
+              ? 'Noch eine Einheit'
+              : unit?.rest
+                ? 'Trotzdem trainieren'
+                : 'Tageseinheit starten'}
+          </button>
+          {goals.length > 0 && (
+            <div className="goals">
+              <div className="small muted">
+                {offen.length ? 'Offen diese Woche' : 'Wochenziele erreicht'}
+              </div>
+              <ul>
+                {goals.map(([name, d, n]) => (
+                  <li key={name} className={d >= n ? 'ok' : ''}>
+                    <span className="tnum">
+                      {Math.min(d, n)}/{n}
+                    </span>{' '}
+                    {name}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      </section>
+
       <div className="hero">
         <section className="card week-card" aria-label="Diese Woche">
           <div className="row" style={{ marginBottom: 14 }}>
@@ -181,8 +262,8 @@ export function Heute() {
           </div>
         </section>
 
-        <section className="card next-card" aria-label="Weiter trainieren">
-          <h2>Weiter trainieren</h2>
+        <section className="card next-card" aria-label="Frei trainieren">
+          <h2>Frei trainieren</h2>
           <ul className="list">
             {available.map(({ m, niveau, st }, i) => (
               <li key={m.id}>
@@ -209,9 +290,6 @@ export function Heute() {
               </li>
             ))}
           </ul>
-          <p className="muted small" style={{ margin: '10px 0 0' }}>
-            Tageseinheit mit {settings.dailyMinutes} min und Wochenplan folgen in Meilenstein 7.
-          </p>
         </section>
       </div>
 
@@ -280,7 +358,7 @@ export function Heute() {
         <h2>Zuletzt</h2>
         {recent.length === 0 ? (
           <p className="muted">
-            Noch keine abgeschlossenen Durchgänge. Starte oben bei „Weiter trainieren“.
+            Noch keine abgeschlossenen Durchgänge. Starte oben die Tageseinheit oder trainiere frei.
           </p>
         ) : (
           <div className="card" style={{ paddingTop: 4, paddingBottom: 4 }}>

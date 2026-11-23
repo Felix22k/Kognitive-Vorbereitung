@@ -1,7 +1,9 @@
 import { useRef, useState } from 'react';
 import { getSettings, saveSettings } from '../../db/db';
 import { useLive } from '../hooks';
-import type { Settings } from '../../core/types';
+import { DEFAULT_SETTINGS, type Settings } from '../../core/types';
+import { MODULES, MODULE_BY_ID, isAvailable } from '../../modules/catalog';
+import { DEFAULT_WEEK_PLAN, ESTIMATE } from '../../core/plan';
 import {
   deleteAll,
   downloadFile,
@@ -107,11 +109,10 @@ export function Einstellungen() {
           />
           Ton an (wird ab den Reaktionstests genutzt)
         </label>
-        <p className="muted small" style={{ marginBottom: 0 }}>
-          Wochenplan und Tastenbelegung folgen mit der Tageseinheit (Meilenstein 7) bzw. den
-          Reaktionstests (Meilenstein 5).
-        </p>
       </section>
+
+      <WeekPlanEditor settings={settings} />
+      <KeyMapEditor settings={settings} />
 
       <section className="card section">
         <h2>Daten</h2>
@@ -198,5 +199,133 @@ export function Einstellungen() {
         )}
       </section>
     </div>
+  );
+}
+
+/** Wochenplan: je Tag Module der Tageseinheit (70 % der Zeit). */
+function WeekPlanEditor({ settings }: { settings: Settings }) {
+  const plan = settings.weekPlan;
+  const avail = MODULES.filter(isAvailable);
+  const update = (day: number, mods: string[]) =>
+    void saveSettings({ weekPlan: { ...plan, [String(day)]: mods } });
+  return (
+    <section className="card section">
+      <div className="row">
+        <h2 style={{ margin: 0 }}>Wochenplan</h2>
+        <span className="spacer" />
+        <button
+          className="linklike"
+          onClick={() => void saveSettings({ weekPlan: DEFAULT_WEEK_PLAN })}
+        >
+          Standard wiederherstellen
+        </button>
+      </div>
+      <p className="muted small">
+        Diese Module füllen rund 70 % der Tageseinheit, der Rest geht an deine schwächsten Regeln.
+        Lange Blöcke (zum Beispiel Durchstreichtest) passen nur in längere Einheiten.
+      </p>
+      <div className="stack">
+        {[1, 2, 3, 4, 5, 6, 0].map((d) => {
+          const mods = plan[String(d)] ?? [];
+          return (
+            <div key={d} className="plan-row">
+              <div className="plan-day">
+                {WEEKDAYS[d]}
+                {d === settings.restDay && <span className="muted small"> · Ruhetag</span>}
+              </div>
+              <div className="plan-mods">
+                {mods.map((m) => (
+                  <span key={m} className="chip">
+                    {MODULE_BY_ID[m]?.name ?? m}
+                    {ESTIMATE[m]?.block && <span className="muted"> (Block)</span>}
+                    <button
+                      className="chip-x"
+                      aria-label={`${MODULE_BY_ID[m]?.name ?? m} entfernen`}
+                      onClick={() =>
+                        update(
+                          d,
+                          mods.filter((x) => x !== m),
+                        )
+                      }
+                    >
+                      ×
+                    </button>
+                  </span>
+                ))}
+                <select
+                  className="chip-add"
+                  value=""
+                  aria-label={`Modul für ${WEEKDAYS[d]} hinzufügen`}
+                  onChange={(e) => e.target.value && update(d, [...mods, e.target.value])}
+                >
+                  <option value="">+ Modul</option>
+                  {avail
+                    .filter((m) => !mods.includes(m.id))
+                    .map((m) => (
+                      <option key={m.id} value={m.id}>
+                        {m.name}
+                      </option>
+                    ))}
+                </select>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+const DT_NAMES = ['Rot', 'Gelb', 'Grün', 'Blau', 'Weiß', 'Hoher Ton', 'Tiefer Ton'];
+const keyLabel = (k: string) => (k === ' ' ? 'Leertaste' : k.toUpperCase());
+
+/** Tastenbelegung des Determinationstests: Feld anklicken, dann Taste drücken. */
+function KeyMapEditor({ settings }: { settings: Settings }) {
+  const [active, setActive] = useState<number | null>(null);
+  const keys = settings.dtKeys;
+  const dup = keys.filter((k, i) => keys.indexOf(k) !== i);
+  return (
+    <section className="card section">
+      <div className="row">
+        <h2 style={{ margin: 0 }}>Tastenbelegung Determinationstest</h2>
+        <span className="spacer" />
+        <button
+          className="linklike"
+          onClick={() => void saveSettings({ dtKeys: DEFAULT_SETTINGS.dtKeys })}
+        >
+          Standard wiederherstellen
+        </button>
+      </div>
+      <p className="muted small">Feld anklicken, dann die gewünschte Taste drücken.</p>
+      <div className="keymap">
+        {DT_NAMES.map((n, i) => (
+          <label key={n} className="keymap-row">
+            <span>{n}</span>
+            <button
+              className={'btn small keycap' + (active === i ? ' selected' : '')}
+              onClick={() => setActive(i)}
+              onKeyDown={(e) => {
+                if (active !== i || e.key === 'Tab' || e.key === 'Escape') return;
+                e.preventDefault();
+                if (e.key.length !== 1) return;
+                const next = [...keys];
+                next[i] = e.key.toLowerCase();
+                void saveSettings({ dtKeys: next });
+                setActive(null);
+              }}
+              onBlur={() => setActive((a) => (a === i ? null : a))}
+            >
+              {active === i ? 'Taste drücken …' : keyLabel(keys[i])}
+            </button>
+          </label>
+        ))}
+      </div>
+      {dup.length > 0 && (
+        <p className="small" style={{ color: 'var(--bad)' }}>
+          Doppelt belegt: {[...new Set(dup)].map(keyLabel).join(', ')}. Jede Taste darf nur einmal
+          vorkommen.
+        </p>
+      )}
+    </section>
   );
 }

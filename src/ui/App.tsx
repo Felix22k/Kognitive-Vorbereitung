@@ -10,6 +10,10 @@ import { Fortschritt } from './pages/Fortschritt';
 import { Einstellungen } from './pages/Einstellungen';
 import { Debug } from './pages/Debug';
 import { SessionRunner } from '../session/SessionRunner';
+import { Tageseinheit } from './pages/Tageseinheit';
+import { SimReport, SimRunner } from './pages/SimRunner';
+import { Belastung } from './pages/Belastung';
+import { tagName } from '../modules/catalog';
 import { GearIcon, MoonIcon, SunIcon } from './components/Icons';
 
 const NAV = [
@@ -47,6 +51,30 @@ export function App() {
         moduleId={route[1]}
         mode={mode}
         onExit={() => navigate('bibliothek')}
+      />
+    );
+  }
+
+  if (page === 'tageseinheit') return <Tageseinheit key={route.join('/')} />;
+  if (page === 'belastung') return <Belastung key={route.join('/')} />;
+  if (page === 'sim' && (route[1] === 'kurz' || route[1] === 'voll'))
+    return <SimRunner key={route.join('/')} simId={route[1]} />;
+  if (page === 'schwaechen' && route[1] && route[2]) {
+    const tag = decodeURIComponent(route[2]);
+    const lvl = Number(route[3]);
+    return (
+      <SessionRunner
+        key={route.join('/')}
+        moduleId={route[1]}
+        mode="lernen"
+        onExit={() => navigate('fortschritt')}
+        embed={{
+          sessionType: 'modul',
+          count: 10,
+          tags: [tag],
+          startLevel: lvl >= 1 && lvl <= 10 ? lvl : undefined,
+          label: `Schwächen üben: ${tagName(tag)}`,
+        }}
       />
     );
   }
@@ -96,6 +124,15 @@ export function App() {
         {page === 'heute' && <Heute />}
         {page === 'bibliothek' && <Bibliothek />}
         {page === 'simulation' && <Simulation />}
+        {page === 'sim' && route[1] === 'bericht' && route[2] && (
+          <div className="page">
+            <button className="linklike" onClick={() => navigate('fortschritt')}>
+              ← zurück
+            </button>
+            <h1 style={{ marginTop: 12 }}>Simulationsbericht</h1>
+            <SimReport groupId={route[2]} />
+          </div>
+        )}
         {page === 'fortschritt' && <Fortschritt />}
         {page === 'einstellungen' && <Einstellungen />}
         {page === 'debug' &&
@@ -106,9 +143,15 @@ export function App() {
               Debug-Seite ist ausgeschaltet (Einstellungen → Entwicklerwerkzeuge).
             </div>
           ))}
-        {!['heute', 'bibliothek', 'simulation', 'fortschritt', 'einstellungen', 'debug'].includes(
-          page,
-        ) && (
+        {![
+          'heute',
+          'bibliothek',
+          'simulation',
+          'fortschritt',
+          'einstellungen',
+          'debug',
+          'sim',
+        ].includes(page) && (
           <div className="page">
             <p>Seite nicht gefunden.</p>
             <a href="#/heute">Zur Startseite</a>

@@ -44,6 +44,27 @@ export function difficultyLabel(level: number): 'leicht' | 'mittel' | 'schwer' {
 export const completed = (s: Session) =>
   !!s.endedAt && !s.aborted && Object.keys(s.summary).length > 0;
 
+/** Mindest-Trainingszeit, damit ein Tag ohne Tageseinheit als erledigt gilt. */
+export const MIN_DAY_MINUTES = 5;
+
+/**
+ * Erledigte Trainingstage: abgeschlossene Tageseinheit oder mindestens
+ * MIN_DAY_MINUTES Minuten in abgeschlossenen Durchgängen.
+ */
+export function trainedDayKeys(sessions: Session[]): Set<string> {
+  const minutes = new Map<string, number>();
+  const keys = new Set<string>();
+  for (const s of sessions) {
+    if (!completed(s)) continue;
+    const k = dayKey(s.endedAt!);
+    if (s.type === 'tag' && s.groupDone) keys.add(k);
+    const ms = Math.max(0, new Date(s.endedAt!).getTime() - new Date(s.startedAt).getTime());
+    minutes.set(k, (minutes.get(k) ?? 0) + ms / 60000);
+  }
+  for (const [k, m] of minutes) if (m >= MIN_DAY_MINUTES) keys.add(k);
+  return keys;
+}
+
 export interface AreaStat {
   /** Höchster Bereichswert der letzten 30 Tage (0 bis 100). */
   best30: number;
@@ -142,8 +163,10 @@ export interface DayInfo {
   correct: number;
   /** Trainingszeit in Minuten (aus Start und Ende der Durchgänge) */
   minutes: number;
-  /** mindestens ein abgeschlossener Durchgang */
+  /** Tageseinheit erledigt oder mindestens MIN_DAY_MINUTES Minuten trainiert */
   done: boolean;
+  /** Tageseinheit vollständig */
+  unit: boolean;
   rest: boolean;
   isToday: boolean;
   isFuture: boolean;
@@ -157,6 +180,7 @@ export function weekOverview(
   now: Date,
 ): DayInfo[] {
   const todayKey = dayKey(now);
+  const trained = trainedDayKeys(sessions);
   return days.map((date) => {
     const key = dayKey(date);
     const att = attempts.filter((a) => dayKey(a.timestamp) === key);
@@ -172,7 +196,8 @@ export function weekOverview(
       n: att.length,
       correct: att.filter((a) => a.correct).length,
       minutes: Math.round(ms / 60000),
-      done: ses.some(completed),
+      done: trained.has(key),
+      unit: ses.some((s) => s.type === 'tag' && !!s.groupDone),
       rest: date.getDay() === restDay,
       isToday: key === todayKey,
       isFuture: key > todayKey,
