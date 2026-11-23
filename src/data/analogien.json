@@ -1,0 +1,1049 @@
+{
+  "beschreibung": "Wortpaare je Beziehung; der Generator kombiniert zwei Paare derselben Beziehung zu einer Analogie A : B = C : D. Ablenker beziehen sich auf das Wort C, passen aber zu einer anderen Beziehung.",
+  "beziehungen": [
+    {
+      "id": "synonym",
+      "name": "Synonym (gleiche Bedeutung)",
+      "paare": [
+        {
+          "stufe": 1,
+          "wort": "Auto",
+          "ziel": "Wagen",
+          "ablenker": ["Fahrrad", "Straße", "Motor", "Garage"]
+        },
+        {
+          "stufe": 1,
+          "wort": "beginnen",
+          "ziel": "anfangen",
+          "ablenker": ["aufhören", "Ende", "warten", "schnell"]
+        },
+        {
+          "stufe": 1,
+          "wort": "schnell",
+          "ziel": "rasch",
+          "ablenker": ["langsam", "Tempo", "laufen", "spät"]
+        },
+        {
+          "stufe": 2,
+          "wort": "Gefahr",
+          "ziel": "Risiko",
+          "ablenker": ["Sicherheit", "Angst", "Unfall", "Schutz"]
+        },
+        {
+          "stufe": 2,
+          "wort": "klug",
+          "ziel": "schlau",
+          "ablenker": ["dumm", "Wissen", "Schule", "groß"]
+        },
+        {
+          "stufe": 2,
+          "wort": "Hilfe",
+          "ziel": "Unterstützung",
+          "ablenker": ["Hindernis", "Not", "Arzt", "Schaden"]
+        },
+        {
+          "stufe": 3,
+          "wort": "leise",
+          "ziel": "still",
+          "ablenker": ["laut", "Ohr", "flüstern", "Lärm"]
+        },
+        {
+          "stufe": 3,
+          "wort": "Antwort",
+          "ziel": "Erwiderung",
+          "ablenker": ["Frage", "Brief", "Schweigen", "Rätsel"]
+        },
+        {
+          "stufe": 4,
+          "wort": "mutig",
+          "ziel": "tapfer",
+          "ablenker": ["feige", "Mut", "Held", "ängstlich"]
+        },
+        {
+          "stufe": 4,
+          "wort": "Ziel",
+          "ziel": "Zweck",
+          "ablenker": ["Anfang", "Weg", "Pfeil", "Start"]
+        },
+        {
+          "stufe": 5,
+          "wort": "beharrlich",
+          "ziel": "hartnäckig",
+          "ablenker": ["nachgiebig", "Ausdauer", "schnell", "launisch"]
+        },
+        {
+          "stufe": 6,
+          "wort": "Vorschrift",
+          "ziel": "Regel",
+          "ablenker": ["Ausnahme", "Gesetzbuch", "Strafe", "Freiheit"]
+        },
+        {
+          "stufe": 6,
+          "wort": "Erlass",
+          "ziel": "Verordnung",
+          "ablenker": ["Aufhebung", "Gesetzgeber", "Erlös", "Anlass"]
+        },
+        {
+          "stufe": 7,
+          "wort": "ambivalent",
+          "ziel": "zwiespältig",
+          "ablenker": ["eindeutig", "Ambiente", "zweifach", "gleichgültig"]
+        },
+        {
+          "stufe": 7,
+          "wort": "evident",
+          "ziel": "offensichtlich",
+          "ablenker": ["unklar", "Evidenz", "wichtig", "elegant"]
+        },
+        {
+          "stufe": 8,
+          "wort": "obsolet",
+          "ziel": "veraltet",
+          "ablenker": ["modern", "absolut", "nützlich", "selten"]
+        },
+        {
+          "stufe": 8,
+          "wort": "Diskrepanz",
+          "ziel": "Widerspruch",
+          "ablenker": ["Übereinstimmung", "Diskretion", "Diskussion", "Gleichklang"]
+        },
+        {
+          "stufe": 9,
+          "wort": "Prämisse",
+          "ziel": "Voraussetzung",
+          "ablenker": ["Folgerung", "Prämie", "Beweis", "Ergebnis"]
+        },
+        {
+          "stufe": 10,
+          "wort": "lakonisch",
+          "ziel": "wortkarg",
+          "ablenker": ["geschwätzig", "ironisch", "launisch", "lackiert"]
+        }
+      ]
+    },
+    {
+      "id": "gegenteil",
+      "name": "Gegenteil",
+      "paare": [
+        {
+          "stufe": 1,
+          "wort": "hell",
+          "ziel": "dunkel",
+          "ablenker": ["Licht", "Lampe", "hellblau", "weiß"]
+        },
+        {
+          "stufe": 1,
+          "wort": "oben",
+          "ziel": "unten",
+          "ablenker": ["Dach", "hoch", "Treppe", "drüben"]
+        },
+        {
+          "stufe": 1,
+          "wort": "warm",
+          "ziel": "kalt",
+          "ablenker": ["heiß", "Sonne", "Ofen", "Wärme"]
+        },
+        {
+          "stufe": 1,
+          "wort": "voll",
+          "ziel": "leer",
+          "ablenker": ["Glas", "mehr", "satt", "ganz"]
+        },
+        {
+          "stufe": 2,
+          "wort": "ehrlich",
+          "ziel": "verlogen",
+          "ablenker": ["Wahrheit", "treu", "offen", "Lüge"]
+        },
+        {
+          "stufe": 2,
+          "wort": "gewinnen",
+          "ziel": "verlieren",
+          "ablenker": ["Sieg", "spielen", "siegen", "Preis"]
+        },
+        {
+          "stufe": 2,
+          "wort": "Freund",
+          "ziel": "Feind",
+          "ablenker": ["Kamerad", "Freundschaft", "Partner", "Bruder"]
+        },
+        {
+          "stufe": 3,
+          "wort": "Einfuhr",
+          "ziel": "Ausfuhr",
+          "ablenker": ["Zoll", "Hafen", "Ware", "Durchfuhr"]
+        },
+        {
+          "stufe": 3,
+          "wort": "vorsichtig",
+          "ziel": "leichtsinnig",
+          "ablenker": ["sorgfältig", "Vorsicht", "langsam", "ängstlich"]
+        },
+        {
+          "stufe": 4,
+          "wort": "Mangel",
+          "ziel": "Überfluss",
+          "ablenker": ["Not", "Fehler", "Bedarf", "Armut"]
+        },
+        {
+          "stufe": 5,
+          "wort": "konkret",
+          "ziel": "abstrakt",
+          "ablenker": ["genau", "Beton", "deutlich", "real"]
+        },
+        {
+          "stufe": 6,
+          "wort": "Theorie",
+          "ziel": "Praxis",
+          "ablenker": ["Lehre", "These", "Wissenschaft", "Modell"]
+        },
+        {
+          "stufe": 6,
+          "wort": "zentral",
+          "ziel": "dezentral",
+          "ablenker": ["Zentrum", "mittig", "wichtig", "zentriert"]
+        },
+        {
+          "stufe": 7,
+          "wort": "Konsens",
+          "ziel": "Dissens",
+          "ablenker": ["Zustimmung", "Konsum", "Vertrag", "Debatte"]
+        },
+        {
+          "stufe": 7,
+          "wort": "Expansion",
+          "ziel": "Kontraktion",
+          "ablenker": ["Ausdehnung", "Explosion", "Wachstum", "Export"]
+        },
+        {
+          "stufe": 8,
+          "wort": "optimistisch",
+          "ziel": "pessimistisch",
+          "ablenker": ["zuversichtlich", "optimal", "realistisch", "Optiker"]
+        },
+        {
+          "stufe": 8,
+          "wort": "explizit",
+          "ziel": "implizit",
+          "ablenker": ["ausdrücklich", "explosiv", "deutlich", "komplex"]
+        },
+        {
+          "stufe": 9,
+          "wort": "Synthese",
+          "ziel": "Analyse",
+          "ablenker": ["Synthesizer", "Verbindung", "These", "Kunststoff"]
+        },
+        {
+          "stufe": 10,
+          "wort": "Altruismus",
+          "ziel": "Egoismus",
+          "ablenker": ["Nächstenliebe", "Altertum", "Humanismus", "Realismus"]
+        }
+      ]
+    },
+    {
+      "id": "teilGanzes",
+      "name": "Teil und Ganzes",
+      "paare": [
+        {
+          "stufe": 1,
+          "wort": "Blatt",
+          "ziel": "Baum",
+          "ablenker": ["grün", "Herbst", "Papier", "fallen"]
+        },
+        {
+          "stufe": 1,
+          "wort": "Finger",
+          "ziel": "Hand",
+          "ablenker": ["Ring", "Daumen", "greifen", "Nagel"]
+        },
+        {
+          "stufe": 1,
+          "wort": "Seite",
+          "ziel": "Buch",
+          "ablenker": ["lesen", "Zeile", "Papier", "Autor"]
+        },
+        {
+          "stufe": 1,
+          "wort": "Rad",
+          "ziel": "Auto",
+          "ablenker": ["rund", "Reifen", "fahren", "Straße"]
+        },
+        {
+          "stufe": 2,
+          "wort": "Zimmer",
+          "ziel": "Wohnung",
+          "ablenker": ["Bett", "Tür", "wohnen", "Miete"]
+        },
+        {
+          "stufe": 2,
+          "wort": "Tag",
+          "ziel": "Woche",
+          "ablenker": ["Stunde", "Sonntag", "Morgen", "Kalender"]
+        },
+        {
+          "stufe": 2,
+          "wort": "Spieler",
+          "ziel": "Mannschaft",
+          "ablenker": ["Ball", "Tor", "spielen", "Pokal"]
+        },
+        {
+          "stufe": 3,
+          "wort": "Soldat",
+          "ziel": "Kompanie",
+          "ablenker": ["Waffe", "Uniform", "Offizier", "kämpfen"]
+        },
+        {
+          "stufe": 3,
+          "wort": "Strophe",
+          "ziel": "Gedicht",
+          "ablenker": ["Reim", "Dichter", "Vers", "lesen"]
+        },
+        {
+          "stufe": 3,
+          "wort": "Ziegel",
+          "ziel": "Dach",
+          "ablenker": ["rot", "Ton", "decken", "Regen"]
+        },
+        {
+          "stufe": 4,
+          "wort": "Kapitel",
+          "ziel": "Roman",
+          "ablenker": ["Absatz", "Autor", "Seite", "Handlung"]
+        },
+        {
+          "stufe": 4,
+          "wort": "Insel",
+          "ziel": "Archipel",
+          "ablenker": ["Meer", "Strand", "Halbinsel", "Leuchtturm"]
+        },
+        {
+          "stufe": 5,
+          "wort": "Zelle",
+          "ziel": "Gewebe",
+          "ablenker": ["Kern", "Biologie", "Gefängnis", "teilen"]
+        },
+        {
+          "stufe": 6,
+          "wort": "Wort",
+          "ziel": "Satz",
+          "ablenker": ["Buchstabe", "sprechen", "Silbe", "Grammatik"]
+        },
+        {
+          "stufe": 7,
+          "wort": "Bundesland",
+          "ziel": "Bundesrepublik",
+          "ablenker": ["Landtag", "Hauptstadt", "Kreis", "Regierung"]
+        },
+        {
+          "stufe": 8,
+          "wort": "Organ",
+          "ziel": "Organismus",
+          "ablenker": ["Orgel", "Herz", "Organisation", "Gewebe"]
+        },
+        {
+          "stufe": 9,
+          "wort": "Fraktion",
+          "ziel": "Parlament",
+          "ablenker": ["Partei", "Bruch", "Abgeordneter", "Wahl"]
+        },
+        {
+          "stufe": 10,
+          "wort": "Glied",
+          "ziel": "Kette",
+          "ablenker": ["Gelenk", "Mitglied", "Bein", "schmieden"]
+        }
+      ]
+    },
+    {
+      "id": "oberUnter",
+      "name": "Unter- und Oberbegriff",
+      "paare": [
+        {
+          "stufe": 1,
+          "wort": "Apfel",
+          "ziel": "Obst",
+          "ablenker": ["Birne", "rot", "Baum", "Saft"]
+        },
+        {
+          "stufe": 1,
+          "wort": "Hund",
+          "ziel": "Tier",
+          "ablenker": ["Katze", "bellen", "Hütte", "Welpe"]
+        },
+        {
+          "stufe": 1,
+          "wort": "Rose",
+          "ziel": "Blume",
+          "ablenker": ["Dorn", "Tulpe", "rot", "Garten"]
+        },
+        {
+          "stufe": 1,
+          "wort": "Hammer",
+          "ziel": "Werkzeug",
+          "ablenker": ["Nagel", "Zange", "schlagen", "Werkstatt"]
+        },
+        {
+          "stufe": 2,
+          "wort": "Gitarre",
+          "ziel": "Instrument",
+          "ablenker": ["Saite", "Geige", "spielen", "Konzert"]
+        },
+        {
+          "stufe": 2,
+          "wort": "Eiche",
+          "ziel": "Baum",
+          "ablenker": ["Buche", "Holz", "Eichel", "Wald"]
+        },
+        {
+          "stufe": 2,
+          "wort": "Bus",
+          "ziel": "Fahrzeug",
+          "ablenker": ["Fahrer", "Haltestelle", "Straßenbahn", "fahren"]
+        },
+        {
+          "stufe": 3,
+          "wort": "Forelle",
+          "ziel": "Fisch",
+          "ablenker": ["Bach", "Karpfen", "Angel", "schwimmen"]
+        },
+        {
+          "stufe": 3,
+          "wort": "Gold",
+          "ziel": "Metall",
+          "ablenker": ["Silber", "Ring", "glänzen", "Barren"]
+        },
+        {
+          "stufe": 4,
+          "wort": "Pistole",
+          "ziel": "Waffe",
+          "ablenker": ["Gewehr", "Holster", "schießen", "Patrone"]
+        },
+        {
+          "stufe": 4,
+          "wort": "Bariton",
+          "ziel": "Stimmlage",
+          "ablenker": ["Tenor", "Sänger", "Oper", "tief"]
+        },
+        {
+          "stufe": 5,
+          "wort": "Mars",
+          "ziel": "Planet",
+          "ablenker": ["Venus", "rot", "Mond", "Krieg"]
+        },
+        {
+          "stufe": 6,
+          "wort": "Sonett",
+          "ziel": "Gedicht",
+          "ablenker": ["Strophe", "Ballade", "Dichter", "Reim"]
+        },
+        {
+          "stufe": 7,
+          "wort": "Diktatur",
+          "ziel": "Staatsform",
+          "ablenker": ["Diktator", "Monarchie", "Unterdrückung", "Gesetz"]
+        },
+        {
+          "stufe": 8,
+          "wort": "Deduktion",
+          "ziel": "Schlussfolgerung",
+          "ablenker": ["Induktion", "Beweis", "Abzug", "Detektiv"]
+        },
+        {
+          "stufe": 9,
+          "wort": "Allegorie",
+          "ziel": "Stilmittel",
+          "ablenker": ["Metapher", "Allergie", "Allee", "Rede"]
+        },
+        {
+          "stufe": 10,
+          "wort": "Oligarchie",
+          "ziel": "Herrschaftsform",
+          "ablenker": ["Oligarch", "Monarchie", "Reichtum", "Olympiade"]
+        }
+      ]
+    },
+    {
+      "id": "funktion",
+      "name": "Werkzeug und Tätigkeit",
+      "paare": [
+        {
+          "stufe": 1,
+          "wort": "Schere",
+          "ziel": "schneiden",
+          "ablenker": ["Papier", "Messer", "spitz", "Friseur"]
+        },
+        {
+          "stufe": 1,
+          "wort": "Besen",
+          "ziel": "fegen",
+          "ablenker": ["Schaufel", "Staub", "Stiel", "Boden"]
+        },
+        {
+          "stufe": 1,
+          "wort": "Pinsel",
+          "ziel": "malen",
+          "ablenker": ["Farbe", "Bild", "Maler", "Stift"]
+        },
+        {
+          "stufe": 1,
+          "wort": "Schlüssel",
+          "ziel": "schließen",
+          "ablenker": ["Schloss", "Tür", "Bund", "Schlosser"]
+        },
+        {
+          "stufe": 2,
+          "wort": "Nadel",
+          "ziel": "nähen",
+          "ablenker": ["Faden", "spitz", "Stoff", "Schneider"]
+        },
+        {
+          "stufe": 2,
+          "wort": "Thermometer",
+          "ziel": "messen",
+          "ablenker": ["Temperatur", "Fieber", "warm", "Arzt"]
+        },
+        {
+          "stufe": 2,
+          "wort": "Lupe",
+          "ziel": "vergrößern",
+          "ablenker": ["Glas", "Detektiv", "klein", "Brille"]
+        },
+        {
+          "stufe": 3,
+          "wort": "Kompass",
+          "ziel": "orientieren",
+          "ablenker": ["Norden", "Nadel", "Karte", "Wanderer"]
+        },
+        {
+          "stufe": 3,
+          "wort": "Wecker",
+          "ziel": "wecken",
+          "ablenker": ["Uhr", "Morgen", "Bett", "Schlaf"]
+        },
+        {
+          "stufe": 4,
+          "wort": "Stethoskop",
+          "ziel": "abhören",
+          "ablenker": ["Arzt", "Herz", "Schlauch", "Praxis"]
+        },
+        {
+          "stufe": 5,
+          "wort": "Kran",
+          "ziel": "heben",
+          "ablenker": ["Baustelle", "Haken", "Last", "Kranführer"]
+        },
+        {
+          "stufe": 5,
+          "wort": "Fernglas",
+          "ziel": "beobachten",
+          "ablenker": ["Linse", "Jäger", "weit", "Ferne"]
+        },
+        {
+          "stufe": 6,
+          "wort": "Katalysator",
+          "ziel": "beschleunigen",
+          "ablenker": ["Auto", "Abgas", "Chemie", "Platin"]
+        },
+        {
+          "stufe": 7,
+          "wort": "Barometer",
+          "ziel": "messen",
+          "ablenker": ["Luftdruck", "Wetter", "Quecksilber", "Hoch"]
+        },
+        {
+          "stufe": 8,
+          "wort": "Zentrifuge",
+          "ziel": "trennen",
+          "ablenker": ["Labor", "schnell", "Kraft", "Zentrum"]
+        },
+        {
+          "stufe": 9,
+          "wort": "Transformator",
+          "ziel": "umspannen",
+          "ablenker": ["Strom", "Spule", "Kraftwerk", "Transport"]
+        }
+      ]
+    },
+    {
+      "id": "ursacheWirkung",
+      "name": "Ursache und Wirkung",
+      "paare": [
+        {
+          "stufe": 1,
+          "wort": "Regen",
+          "ziel": "nass",
+          "ablenker": ["Wolke", "Schirm", "Wetter", "trocken"]
+        },
+        {
+          "stufe": 1,
+          "wort": "Feuer",
+          "ziel": "Rauch",
+          "ablenker": ["Kamin", "Holz", "löschen", "Feuerwehr"]
+        },
+        {
+          "stufe": 1,
+          "wort": "Kälte",
+          "ziel": "frieren",
+          "ablenker": ["Winter", "Schnee", "Mütze", "warm"]
+        },
+        {
+          "stufe": 2,
+          "wort": "Sturm",
+          "ziel": "Schaden",
+          "ablenker": ["Wind", "Gewitter", "Meer", "ruhig"]
+        },
+        {
+          "stufe": 2,
+          "wort": "Virus",
+          "ziel": "Krankheit",
+          "ablenker": ["Arzt", "Bakterie", "klein", "Impfung"]
+        },
+        {
+          "stufe": 2,
+          "wort": "Übung",
+          "ziel": "Können",
+          "ablenker": ["Lehrer", "Schule", "Fehler", "Prüfung"]
+        },
+        {
+          "stufe": 3,
+          "wort": "Reibung",
+          "ziel": "Wärme",
+          "ablenker": ["Hände", "Kraft", "glatt", "Bewegung"]
+        },
+        {
+          "stufe": 3,
+          "wort": "Lüge",
+          "ziel": "Misstrauen",
+          "ablenker": ["Wahrheit", "Lügner", "sprechen", "Märchen"]
+        },
+        {
+          "stufe": 4,
+          "wort": "Dürre",
+          "ziel": "Hungersnot",
+          "ablenker": ["Sommer", "Regen", "Sonne", "Sand"]
+        },
+        {
+          "stufe": 5,
+          "wort": "Inflation",
+          "ziel": "Geldentwertung",
+          "ablenker": ["Bank", "Euro", "Sparen", "Zins"]
+        },
+        {
+          "stufe": 5,
+          "wort": "Stress",
+          "ziel": "Erschöpfung",
+          "ablenker": ["Arbeit", "Termin", "Urlaub", "Hektik"]
+        },
+        {
+          "stufe": 6,
+          "wort": "Bewegungsmangel",
+          "ziel": "Übergewicht",
+          "ablenker": ["Sofa", "Sport", "Fernsehen", "Diät"]
+        },
+        {
+          "stufe": 7,
+          "wort": "Provokation",
+          "ziel": "Eskalation",
+          "ablenker": ["Provinz", "Frieden", "Diplomatie", "Proviant"]
+        },
+        {
+          "stufe": 8,
+          "wort": "Isolation",
+          "ziel": "Einsamkeit",
+          "ablenker": ["Isolierband", "Gefängnis", "Gesellschaft", "Insel"]
+        },
+        {
+          "stufe": 10,
+          "wort": "Vakzination",
+          "ziel": "Immunität",
+          "ablenker": ["Vakuum", "Infektion", "Spritze", "Arzt"]
+        }
+      ]
+    },
+    {
+      "id": "ort",
+      "name": "Person und Ort",
+      "paare": [
+        {
+          "stufe": 1,
+          "wort": "Lehrer",
+          "ziel": "Schule",
+          "ablenker": ["Schüler", "Tafel", "unterrichten", "Direktor"]
+        },
+        {
+          "stufe": 1,
+          "wort": "Koch",
+          "ziel": "Küche",
+          "ablenker": ["Topf", "kochen", "Rezept", "Kellner"]
+        },
+        {
+          "stufe": 1,
+          "wort": "Bäcker",
+          "ziel": "Backstube",
+          "ablenker": ["Brot", "Mehl", "backen", "Ofen"]
+        },
+        {
+          "stufe": 2,
+          "wort": "Richter",
+          "ziel": "Gericht",
+          "ablenker": ["Urteil", "Anwalt", "Gesetz", "Robe"]
+        },
+        {
+          "stufe": 2,
+          "wort": "Matrose",
+          "ziel": "Schiff",
+          "ablenker": ["Anker", "Kapitän", "segeln", "Uniform"]
+        },
+        {
+          "stufe": 2,
+          "wort": "Arzt",
+          "ziel": "Praxis",
+          "ablenker": ["Patient", "Spritze", "Krankenschwester", "heilen"]
+        },
+        {
+          "stufe": 3,
+          "wort": "Mönch",
+          "ziel": "Kloster",
+          "ablenker": ["Kutte", "beten", "Abt", "Bibel"]
+        },
+        {
+          "stufe": 3,
+          "wort": "Astronaut",
+          "ziel": "Raumstation",
+          "ablenker": ["Helm", "Schwerelosigkeit", "Countdown", "Raumanzug"]
+        },
+        {
+          "stufe": 4,
+          "wort": "Soldat",
+          "ziel": "Kaserne",
+          "ablenker": ["Uniform", "Gewehr", "Offizier", "marschieren"]
+        },
+        {
+          "stufe": 4,
+          "wort": "Bergmann",
+          "ziel": "Bergwerk",
+          "ablenker": ["Kohle", "Helm", "Hacke", "Gold"]
+        },
+        {
+          "stufe": 5,
+          "wort": "Abgeordneter",
+          "ziel": "Parlament",
+          "ablenker": ["Wahl", "Partei", "Rede", "Minister"]
+        },
+        {
+          "stufe": 6,
+          "wort": "Kurator",
+          "ziel": "Museum",
+          "ablenker": ["Kunst", "Bild", "Kurort", "Besucher"]
+        },
+        {
+          "stufe": 7,
+          "wort": "Croupier",
+          "ziel": "Spielbank",
+          "ablenker": ["Karten", "Chips", "Roulette", "Glück"]
+        },
+        {
+          "stufe": 8,
+          "wort": "Archivar",
+          "ziel": "Archiv",
+          "ablenker": ["Akten", "Arche", "Dokument", "ordnen"]
+        },
+        {
+          "stufe": 9,
+          "wort": "Diplomat",
+          "ziel": "Botschaft",
+          "ablenker": ["Vertrag", "Diplom", "Nachricht", "Minister"]
+        }
+      ]
+    },
+    {
+      "id": "material",
+      "name": "Gegenstand und Material",
+      "paare": [
+        {
+          "stufe": 1,
+          "wort": "Tisch",
+          "ziel": "Holz",
+          "ablenker": ["Stuhl", "Bein", "Tischler", "essen"]
+        },
+        {
+          "stufe": 1,
+          "wort": "Fenster",
+          "ziel": "Glas",
+          "ablenker": ["Rahmen", "Vorhang", "durchsichtig", "Haus"]
+        },
+        {
+          "stufe": 1,
+          "wort": "Schuh",
+          "ziel": "Leder",
+          "ablenker": ["Socke", "Schnürsenkel", "laufen", "Schuster"]
+        },
+        {
+          "stufe": 1,
+          "wort": "Brot",
+          "ziel": "Mehl",
+          "ablenker": ["Butter", "Bäcker", "Scheibe", "backen"]
+        },
+        {
+          "stufe": 2,
+          "wort": "Pullover",
+          "ziel": "Wolle",
+          "ablenker": ["Schaf", "warm", "Ärmel", "stricken"]
+        },
+        {
+          "stufe": 2,
+          "wort": "Münze",
+          "ziel": "Metall",
+          "ablenker": ["Geld", "rund", "Euro", "Bank"]
+        },
+        {
+          "stufe": 2,
+          "wort": "Kerze",
+          "ziel": "Wachs",
+          "ablenker": ["Docht", "Licht", "Flamme", "Advent"]
+        },
+        {
+          "stufe": 3,
+          "wort": "Ziegel",
+          "ziel": "Ton",
+          "ablenker": ["Dach", "rot", "Mauer", "brennen"]
+        },
+        {
+          "stufe": 3,
+          "wort": "Reifen",
+          "ziel": "Gummi",
+          "ablenker": ["Rad", "Luft", "rund", "Auto"]
+        },
+        {
+          "stufe": 4,
+          "wort": "Glas",
+          "ziel": "Sand",
+          "ablenker": ["Fenster", "Flasche", "durchsichtig", "zerbrechlich"]
+        },
+        {
+          "stufe": 4,
+          "wort": "Papier",
+          "ziel": "Holz",
+          "ablenker": ["Buch", "schreiben", "Blatt", "Druck"]
+        },
+        {
+          "stufe": 5,
+          "wort": "Bronze",
+          "ziel": "Kupfer",
+          "ablenker": ["Medaille", "Statue", "Messing", "Gold"]
+        },
+        {
+          "stufe": 6,
+          "wort": "Stahl",
+          "ziel": "Eisen",
+          "ablenker": ["Rost", "hart", "Brücke", "Schmied"]
+        },
+        {
+          "stufe": 7,
+          "wort": "Beton",
+          "ziel": "Zement",
+          "ablenker": ["Bau", "grau", "Mauer", "Kran"]
+        },
+        {
+          "stufe": 8,
+          "wort": "Porzellan",
+          "ziel": "Kaolin",
+          "ablenker": ["Tasse", "China", "weiß", "zerbrechlich"]
+        }
+      ]
+    },
+    {
+      "id": "steigerung",
+      "name": "Steigerung",
+      "paare": [
+        {
+          "stufe": 1,
+          "wort": "warm",
+          "ziel": "heiß",
+          "ablenker": ["kalt", "Sommer", "lau", "Ofen"]
+        },
+        {
+          "stufe": 1,
+          "wort": "kalt",
+          "ziel": "eisig",
+          "ablenker": ["warm", "Eis", "kühl", "Winter"]
+        },
+        {
+          "stufe": 1,
+          "wort": "laufen",
+          "ziel": "rennen",
+          "ablenker": ["gehen", "Schuh", "Läufer", "schlendern"]
+        },
+        {
+          "stufe": 2,
+          "wort": "Hügel",
+          "ziel": "Berg",
+          "ablenker": ["Tal", "Gipfel", "Wanderer", "Ebene"]
+        },
+        {
+          "stufe": 2,
+          "wort": "Bach",
+          "ziel": "Fluss",
+          "ablenker": ["Wasser", "See", "Brücke", "Ufer"]
+        },
+        {
+          "stufe": 2,
+          "wort": "mögen",
+          "ziel": "lieben",
+          "ablenker": ["hassen", "Liebe", "Freund", "kennen"]
+        },
+        {
+          "stufe": 3,
+          "wort": "Regen",
+          "ziel": "Wolkenbruch",
+          "ablenker": ["Schirm", "Wolke", "Nieselregen", "nass"]
+        },
+        {
+          "stufe": 3,
+          "wort": "Ärger",
+          "ziel": "Wut",
+          "ablenker": ["Freude", "Ärgernis", "Streit", "Laune"]
+        },
+        {
+          "stufe": 4,
+          "wort": "flüstern",
+          "ziel": "schreien",
+          "ablenker": ["leise", "Stimme", "Mund", "Geheimnis"]
+        },
+        {
+          "stufe": 5,
+          "wort": "Angst",
+          "ziel": "Panik",
+          "ablenker": ["Mut", "Angsthase", "Gefahr", "Furcht"]
+        },
+        {
+          "stufe": 6,
+          "wort": "Dorf",
+          "ziel": "Stadt",
+          "ablenker": ["Bauer", "Kirche", "Land", "Rathaus"]
+        },
+        {
+          "stufe": 7,
+          "wort": "Kritik",
+          "ziel": "Verriss",
+          "ablenker": ["Lob", "Kritiker", "Meinung", "Kritzelei"]
+        },
+        {
+          "stufe": 8,
+          "wort": "Verstimmung",
+          "ziel": "Zerwürfnis",
+          "ablenker": ["Harmonie", "Stimmung", "Streitschlichter", "Versöhnung"]
+        },
+        {
+          "stufe": 9,
+          "wort": "Rezession",
+          "ziel": "Depression",
+          "ablenker": ["Wirtschaft", "Aufschwung", "Rezept", "Börse"]
+        }
+      ]
+    },
+    {
+      "id": "reihenfolge",
+      "name": "Reihenfolge",
+      "paare": [
+        {
+          "stufe": 1,
+          "wort": "Montag",
+          "ziel": "Dienstag",
+          "ablenker": ["Woche", "Sonntag", "Mittwoch", "Tag"]
+        },
+        {
+          "stufe": 1,
+          "wort": "Januar",
+          "ziel": "Februar",
+          "ablenker": ["Winter", "Dezember", "März", "Monat"]
+        },
+        {
+          "stufe": 1,
+          "wort": "Frühling",
+          "ziel": "Sommer",
+          "ablenker": ["Blume", "Herbst", "Winter", "warm"]
+        },
+        {
+          "stufe": 2,
+          "wort": "Morgen",
+          "ziel": "Mittag",
+          "ablenker": ["Frühstück", "Abend", "Nacht", "Sonne"]
+        },
+        {
+          "stufe": 2,
+          "wort": "Kind",
+          "ziel": "Jugendlicher",
+          "ablenker": ["Baby", "Spiel", "Erwachsener", "Schule"]
+        },
+        {
+          "stufe": 3,
+          "wort": "Knospe",
+          "ziel": "Blüte",
+          "ablenker": ["Stängel", "Frucht", "Blatt", "Biene"]
+        },
+        {
+          "stufe": 3,
+          "wort": "Raupe",
+          "ziel": "Puppe",
+          "ablenker": ["Schmetterling", "Blatt", "kriechen", "Ei"]
+        },
+        {
+          "stufe": 4,
+          "wort": "Leutnant",
+          "ziel": "Oberleutnant",
+          "ablenker": ["Hauptmann", "Offizier", "Uniform", "Fähnrich"]
+        },
+        {
+          "stufe": 4,
+          "wort": "Gefreiter",
+          "ziel": "Obergefreiter",
+          "ablenker": ["Hauptgefreiter", "Soldat", "Rekrut", "Unteroffizier"]
+        },
+        {
+          "stufe": 5,
+          "wort": "Sekunde",
+          "ziel": "Minute",
+          "ablenker": ["Stunde", "Uhr", "Zeit", "Moment"]
+        },
+        {
+          "stufe": 5,
+          "wort": "Gramm",
+          "ziel": "Kilogramm",
+          "ablenker": ["Tonne", "Waage", "schwer", "Milligramm"]
+        },
+        {
+          "stufe": 6,
+          "wort": "Antike",
+          "ziel": "Mittelalter",
+          "ablenker": ["Neuzeit", "Römer", "Ritter", "Geschichte"]
+        },
+        {
+          "stufe": 6,
+          "wort": "Bachelor",
+          "ziel": "Master",
+          "ablenker": ["Doktor", "Abitur", "Universität", "Prüfung"]
+        },
+        {
+          "stufe": 8,
+          "wort": "Merkur",
+          "ziel": "Venus",
+          "ablenker": ["Erde", "Sonne", "Mars", "Planet"]
+        },
+        {
+          "stufe": 9,
+          "wort": "Exposition",
+          "ziel": "Steigerung",
+          "ablenker": ["Höhepunkt", "Ausstellung", "Drama", "Katastrophe"]
+        },
+        {
+          "stufe": 10,
+          "wort": "Kambrium",
+          "ziel": "Ordovizium",
+          "ablenker": ["Silur", "Dinosaurier", "Erdzeitalter", "Fossil"]
+        }
+      ]
+    }
+  ]
+}

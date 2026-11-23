@@ -4,7 +4,7 @@ import { PromptView, SolutionView, choiceInfo, type ChoiceInfo } from '../module
 import { RotationAngleSummary } from '../modules/raumViews';
 import { BlockResultView, BlockView } from '../modules/blocks';
 import { unlockAudio } from '../core/audio';
-import { getModuleState, getSettings, saveSettings } from '../db/db';
+import { db, getModuleState, getSettings, saveSettings } from '../db/db';
 import { testStartLevel, updateStair, type StairState } from '../core/staircase';
 import { uid } from '../core/ids';
 import type { Attempt, Item, ModuleState, Session, Settings } from '../core/types';
@@ -78,6 +78,8 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
   const shownAt = useRef(0);
   const answered = useRef(false);
   const recent = useRef<Set<string>>(new Set());
+  /** gemeldete Aufgaben dieses Moduls (nie wieder zeigen) */
+  const blocked = useRef<Set<string>>(new Set());
   const inputRef = useRef<HTMLInputElement>(null);
   /** Kette der Speichervorgänge, damit die Auswertung erst nach dem letzten Speichern läuft. */
   const pending = useRef<Promise<void>>(Promise.resolve());
@@ -100,8 +102,13 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
   useEffect(() => {
     let alive = true;
     (async () => {
-      const [s, ms] = await Promise.all([getSettings(), getModuleState(moduleId)]);
+      const [s, ms, reps] = await Promise.all([
+        getSettings(),
+        getModuleState(moduleId),
+        db.reports.where('moduleId').equals(moduleId).toArray(),
+      ]);
       if (!alive) return;
+      blocked.current = new Set(reps.map((r) => r.fingerprint).filter((x): x is string => !!x));
       setSettings(s);
       setMstate(ms);
       setShowIntro(!ms.introSeen);
@@ -121,7 +128,7 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
   const presentNext = useCallback(
     (level: number) => {
       if (!gen) return;
-      const it = pickUniqueItem(gen, level, recent.current, modOpts);
+      const it = pickUniqueItem(gen, level, recent.current, modOpts, undefined, blocked.current);
       recent.current.add(gen.fingerprint(it));
       answered.current = false;
       setItem(it);
@@ -261,7 +268,7 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
     setStair({ level: lvl, streak: 0 });
     setResults([]);
     setFinalSession(null);
-    const it = pickUniqueItem(gen, lvl, recent.current, modOpts);
+    const it = pickUniqueItem(gen, lvl, recent.current, modOpts, undefined, blocked.current);
     recent.current.add(gen.fingerprint(it));
     answered.current = false;
     setItem(it);
@@ -580,7 +587,7 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
   return (
     <div className="task-shell">
       <div className="task-top">
-        <strong>{mod.name}</strong>
+        <strong className="task-name">{mod.name}</strong>
         <span className="muted hide-mobile">{modeName}</span>
         <span className="muted tnum hide-mobile">
           Aufgabe {number} von {total}
@@ -636,7 +643,10 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
               <>
                 <div
                   className={
-                    'options' + (choice.figures ? ' figures' : '') + (choice.large ? ' large' : '')
+                    'options' +
+                    (choice.figures ? ' figures' : '') +
+                    (choice.large ? ' large' : '') +
+                    (choice.list ? ' list' : '')
                   }
                   role="radiogroup"
                   aria-label="Antworten"
@@ -734,7 +744,10 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
         {phase === 'feedback' && last && choice && (
           <div
             className={
-              'options' + (choice.figures ? ' figures' : '') + (choice.large ? ' large' : '')
+              'options' +
+              (choice.figures ? ' figures' : '') +
+              (choice.large ? ' large' : '') +
+              (choice.list ? ' list' : '')
             }
             style={{ marginTop: 22 }}
             aria-label="Antworten mit Lösung"
@@ -773,7 +786,14 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
             {!last.correct && item.correctLabel && (
               <div className="solution-line">
                 <div>
-                  Richtige Lösung: <strong className="solution-value">{item.correctLabel}</strong>
+                  Richtige Lösung:{' '}
+                  <strong
+                    className={
+                      'solution-value' + (item.correctLabel.length > 14 ? ' solution-text' : '')
+                    }
+                  >
+                    {item.correctLabel}
+                  </strong>
                 </div>
                 <div className="muted small">
                   Deine Antwort: {last.timedOut ? 'keine (Zeit abgelaufen)' : last.answerLabel}
@@ -865,6 +885,7 @@ function ReportLink({
           seed: item.seed,
           level: item.level,
           promptText: gen ? gen.promptText(item) : '',
+          fingerprint: gen ? gen.fingerprint(item) : undefined,
         });
         onReported();
       }}

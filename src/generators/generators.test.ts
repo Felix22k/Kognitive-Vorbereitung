@@ -82,6 +82,9 @@ function perfectBlock(item: Item): Record<string, unknown> {
   }
 }
 import { RULE_BY_ID, RULES } from './zahlenreihen/rules';
+import { begriffeGenerator, rechtschreibungGenerator, wortanalogienGenerator } from './sprache';
+import { technikGenerator } from './technik';
+import { textaufgabenGenerator } from './textaufgaben';
 import { pickUniqueItem } from '../session/engine';
 import { deriveSeed } from '../core/rng';
 
@@ -107,7 +110,26 @@ const GENS: [string, Generator][] = [
   ['Determination', determinationGenerator as Generator],
   ['Farb-Wort-Interferenz', stroopGenerator as Generator],
   ['Vigilanz', vigilanzGenerator as Generator],
+  ['Textaufgaben', textaufgabenGenerator as Generator],
+  ['Wortanalogien', wortanalogienGenerator as Generator],
+  ['Begriffe vergleichen', begriffeGenerator as Generator],
+  ['Rechtschreibung', rechtschreibungGenerator as Generator],
+  ['Technisches Verständnis', technikGenerator as Generator],
 ];
+
+/**
+ * Generatoren mit begrenztem Aufgabenraum (Wortbanken, feste Sammlungen,
+ * glatte Zahlen): Hier gilt „keine Wiederholung“, solange mindestens die
+ * Hälfte des Aufgabenraums der Stufe noch nicht gezeigt wurde (höchstens 500).
+ */
+const LIMITED = new Set(['wortanalogien', 'rechtschreibung', 'textaufgaben', 'technik']);
+
+function spaceSize(gen: Generator, level: number): number {
+  const fps = new Set<string>();
+  for (let i = 0; i < 6000; i++)
+    fps.add(gen.fingerprint(gen.generate(deriveSeed(level * 31, i), level)));
+  return fps.size;
+}
 
 for (const [name, gen] of GENS) {
   describe(name, () => {
@@ -161,7 +183,10 @@ for (const [name, gen] of GENS) {
       for (let level = 1; level <= 10; level++) {
         const recent = new Set<string>();
         let s = level;
-        for (let i = 0; i < 500; i++) {
+        const n = LIMITED.has(gen.id) ? Math.min(500, Math.floor(spaceSize(gen, level) / 2)) : 500;
+        if (LIMITED.has(gen.id))
+          expect(n, `Aufgabenraum Stufe ${level}`).toBeGreaterThanOrEqual(25);
+        for (let i = 0; i < n; i++) {
           const item = pickUniqueItem(gen, level, recent, undefined, () => (s = deriveSeed(s, i)));
           const fp = gen.fingerprint(item);
           expect(recent.has(fp), `Wiederholung auf Stufe ${level}: ${fp}`).toBe(false);
@@ -421,5 +446,62 @@ describe('Vigilanz: Signalhäufigkeit', () => {
     const mean = counts.reduce((a, b) => a + b, 0) / counts.length;
     expect(mean).toBeGreaterThan(9);
     expect(mean).toBeLessThan(13);
+  });
+});
+
+describe('Gemeldete Aufgaben werden ausgeblendet', () => {
+  it('pickUniqueItem überspringt gesperrte Fingerabdrücke', () => {
+    // Technik-Sammlung: alle festen Aufgaben einer Stufe bis auf eine sperren
+    const gen = technikGenerator as Generator;
+    const fps = new Set<string>();
+    for (let i = 0; i < 3000; i++) {
+      const it = gen.generate(deriveSeed(9, i), 2) as Item;
+      const fp = gen.fingerprint(it);
+      if (fp.startsWith('bank:')) fps.add(fp);
+    }
+    const blocked = new Set(fps);
+    let s = 1;
+    for (let i = 0; i < 300; i++) {
+      const it = pickUniqueItem(gen, 2, [], undefined, () => (s = deriveSeed(s, i)), blocked);
+      expect(blocked.has(gen.fingerprint(it))).toBe(false);
+    }
+  });
+});
+
+describe('Technik: Getriebe', () => {
+  it('Zahnradkette, gemeinsame Achse und Blockade werden erkannt', async () => {
+    const { solveGears } = await import('./technik');
+    const g = (teeth: number, plane = 0) => ({ x: 0, y: 0, r: 10, teeth, label: '', plane });
+    const chain = solveGears({
+      type: 'zahnrad',
+      gears: [g(10), g(20), g(10), g(5, 1), g(20, 1)],
+      mesh: [
+        [0, 1],
+        [1, 2],
+        [3, 4],
+      ],
+      axle: [[2, 3]],
+      driver: 0,
+      dir: 1,
+      target: 4,
+    });
+    expect(chain.blocked).toBe(false);
+    expect(chain.dir).toEqual([1, -1, 1, 1, -1]);
+    // 1 U · 10/20 · 20/10 = 1 U auf Rad 2, gleiche Achse: 1 U, dann · 5/20
+    expect(chain.speed[4]).toBeCloseTo(0.25);
+    const tri = solveGears({
+      type: 'zahnrad',
+      gears: [g(10), g(10), g(10)],
+      mesh: [
+        [0, 1],
+        [1, 2],
+        [0, 2],
+      ],
+      axle: [],
+      driver: 0,
+      dir: 1,
+      target: 2,
+    });
+    expect(tri.blocked).toBe(true);
   });
 });

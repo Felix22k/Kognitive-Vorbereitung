@@ -1,0 +1,642 @@
+{
+  "beschreibung": "Feste Aufgaben zum technischen Verständnis (begrenzt, wiederholen sich). Je Eintrag eine eindeutig richtige Antwort.",
+  "aufgaben": [
+    {
+      "id": "te0",
+      "thema": "strom",
+      "stufe": 1,
+      "frage": "Zwei gleiche Lampen sind in Reihe an eine Batterie angeschlossen. Eine Lampe wird herausgedreht. Was passiert mit der anderen?",
+      "richtig": "Sie geht aus.",
+      "falsch": [
+        "Sie leuchtet heller.",
+        "Sie leuchtet gleich hell weiter.",
+        "Sie leuchtet schwächer weiter."
+      ],
+      "erklaerung": "In einer Reihenschaltung gibt es nur einen Stromweg. Ist er unterbrochen, fließt nirgends Strom."
+    },
+    {
+      "id": "te1",
+      "thema": "strom",
+      "stufe": 2,
+      "frage": "Zwei gleiche Lampen sind parallel an eine Batterie angeschlossen. Eine Lampe wird herausgedreht. Was passiert mit der anderen?",
+      "richtig": "Sie leuchtet gleich hell weiter.",
+      "falsch": ["Sie geht aus.", "Sie leuchtet doppelt so hell.", "Sie flackert."],
+      "erklaerung": "Bei der Parallelschaltung hat jede Lampe ihren eigenen Stromweg und liegt an der vollen Batteriespannung."
+    },
+    {
+      "id": "te2",
+      "thema": "strom",
+      "stufe": 2,
+      "frage": "Eine Lampe hängt an einer Batterie. Eine zweite, gleiche Lampe wird in Reihe dazugeschaltet. Wie leuchten die Lampen jetzt?",
+      "richtig": "Beide schwächer als vorher die eine.",
+      "falsch": [
+        "Beide genauso hell wie vorher.",
+        "Beide heller als vorher.",
+        "Eine hell, eine dunkel."
+      ],
+      "erklaerung": "Die Spannung teilt sich auf zwei Lampen auf, der Gesamtwiderstand steigt, der Strom sinkt."
+    },
+    {
+      "id": "te3",
+      "thema": "strom",
+      "stufe": 3,
+      "frage": "Zwei gleiche Lampen werden parallel statt in Reihe an dieselbe Batterie geschaltet. Was gilt für die Batterie?",
+      "richtig": "Sie wird schneller leer.",
+      "falsch": ["Sie hält länger.", "Es ändert sich nichts.", "Sie wird geladen."],
+      "erklaerung": "Parallel fließt durch jede Lampe der volle Strom, der Gesamtstrom ist größer, die Batterie entlädt sich schneller."
+    },
+    {
+      "id": "te4",
+      "thema": "strom",
+      "stufe": 1,
+      "frage": "Welcher Stoff leitet elektrischen Strom am besten?",
+      "richtig": "Kupfer",
+      "falsch": ["Holz", "Glas", "Gummi"],
+      "erklaerung": "Metalle wie Kupfer haben frei bewegliche Elektronen. Holz, Glas und Gummi sind Isolatoren."
+    },
+    {
+      "id": "te5",
+      "thema": "strom",
+      "stufe": 2,
+      "frage": "Ein Schalter liegt in Reihe zu zwei parallel geschalteten Lampen (vor der Verzweigung). Was passiert beim Öffnen des Schalters?",
+      "richtig": "Beide Lampen gehen aus.",
+      "falsch": [
+        "Nur eine Lampe geht aus.",
+        "Keine Lampe geht aus.",
+        "Die Lampen leuchten heller."
+      ],
+      "erklaerung": "Der Schalter unterbricht die gemeinsame Zuleitung, also beide Zweige."
+    },
+    {
+      "id": "te6",
+      "thema": "strom",
+      "stufe": 3,
+      "frage": "Wie groß ist die Stromstärke, wenn an einem Widerstand von 6 Ohm eine Spannung von 12 Volt anliegt?",
+      "richtig": "2 Ampere",
+      "falsch": ["72 Ampere", "0,5 Ampere", "18 Ampere"],
+      "erklaerung": "Ohmsches Gesetz: I = U / R = 12 V / 6 Ω = 2 A."
+    },
+    {
+      "id": "te7",
+      "thema": "strom",
+      "stufe": 4,
+      "frage": "Zwei Widerstände von je 10 Ohm sind parallel geschaltet. Wie groß ist der Gesamtwiderstand?",
+      "richtig": "5 Ohm",
+      "falsch": ["20 Ohm", "10 Ohm", "100 Ohm"],
+      "erklaerung": "Bei zwei gleichen Widerständen parallel halbiert sich der Widerstand: 10 Ω / 2 = 5 Ω."
+    },
+    {
+      "id": "te8",
+      "thema": "strom",
+      "stufe": 4,
+      "frage": "Zwei Widerstände von je 10 Ohm sind in Reihe geschaltet. Wie groß ist der Gesamtwiderstand?",
+      "richtig": "20 Ohm",
+      "falsch": ["5 Ohm", "10 Ohm", "100 Ohm"],
+      "erklaerung": "In Reihe addieren sich die Widerstände: 10 Ω + 10 Ω = 20 Ω."
+    },
+    {
+      "id": "te9",
+      "thema": "strom",
+      "stufe": 5,
+      "frage": "Eine Sicherung „brennt durch“. Was ist ihre Aufgabe?",
+      "richtig": "Den Stromkreis bei zu hohem Strom unterbrechen.",
+      "falsch": ["Die Spannung erhöhen.", "Strom speichern.", "Den Strom gleichrichten."],
+      "erklaerung": "Die Sicherung schützt Leitungen vor Überhitzung, indem sie bei zu großem Strom den Kreis öffnet."
+    },
+    {
+      "id": "te10",
+      "thema": "strom",
+      "stufe": 5,
+      "frage": "Welche Leistung nimmt ein Gerät auf, das an 230 Volt einen Strom von 2 Ampere zieht?",
+      "richtig": "460 Watt",
+      "falsch": ["115 Watt", "232 Watt", "2300 Watt"],
+      "erklaerung": "P = U · I = 230 V · 2 A = 460 W."
+    },
+    {
+      "id": "te11",
+      "thema": "strom",
+      "stufe": 6,
+      "frage": "Eine Glühlampe für 12 Volt wird an 6 Volt angeschlossen. Wie verhält sie sich?",
+      "richtig": "Sie leuchtet schwächer.",
+      "falsch": ["Sie brennt durch.", "Sie leuchtet heller.", "Sie leuchtet genauso."],
+      "erklaerung": "Bei halber Spannung fließt weniger Strom, die Leistung ist deutlich kleiner."
+    },
+    {
+      "id": "te12",
+      "thema": "waerme",
+      "stufe": 1,
+      "frage": "Warum haben Brücken Dehnungsfugen?",
+      "richtig": "Weil sich das Material bei Wärme ausdehnt.",
+      "falsch": [
+        "Damit Regen abfließen kann.",
+        "Damit die Brücke leichter wird.",
+        "Damit Fahrzeuge besser bremsen."
+      ],
+      "erklaerung": "Metall und Beton dehnen sich bei Erwärmung aus. Die Fugen verhindern Spannungen und Risse."
+    },
+    {
+      "id": "te13",
+      "thema": "waerme",
+      "stufe": 1,
+      "frage": "Welcher Löffel wird in heißem Tee am schnellsten heiß?",
+      "richtig": "Metalllöffel",
+      "falsch": ["Holzlöffel", "Kunststofflöffel", "Alle gleich schnell"],
+      "erklaerung": "Metalle leiten Wärme gut, Holz und Kunststoff schlecht."
+    },
+    {
+      "id": "te14",
+      "thema": "waerme",
+      "stufe": 2,
+      "frage": "Warum steigt warme Luft nach oben?",
+      "richtig": "Sie ist weniger dicht als kalte Luft.",
+      "falsch": [
+        "Sie ist schwerer als kalte Luft.",
+        "Sie wird vom Boden abgestoßen.",
+        "Sie enthält mehr Sauerstoff."
+      ],
+      "erklaerung": "Warme Luft dehnt sich aus, wird dadurch leichter (weniger dicht) und erfährt Auftrieb."
+    },
+    {
+      "id": "te15",
+      "thema": "waerme",
+      "stufe": 2,
+      "frage": "An einem sonnigen Tag: Welches Auto heizt sich innen stärker auf?",
+      "richtig": "Das schwarze Auto",
+      "falsch": ["Das weiße Auto", "Beide gleich", "Das silberne Auto"],
+      "erklaerung": "Dunkle Flächen nehmen mehr Strahlung auf, helle reflektieren mehr."
+    },
+    {
+      "id": "te16",
+      "thema": "waerme",
+      "stufe": 3,
+      "frage": "Ein festsitzender Metalldeckel auf einem Glas lässt sich öffnen, wenn man …",
+      "richtig": "ihn unter heißes Wasser hält.",
+      "falsch": [
+        "ihn unter kaltes Wasser hält.",
+        "ihn in den Kühlschrank stellt.",
+        "das Glas schüttelt."
+      ],
+      "erklaerung": "Metall dehnt sich bei Wärme stärker aus als Glas, der Deckel wird etwas weiter."
+    },
+    {
+      "id": "te17",
+      "thema": "waerme",
+      "stufe": 3,
+      "frage": "Wie gelangt die Wärme der Sonne zur Erde?",
+      "richtig": "Durch Strahlung",
+      "falsch": ["Durch Wärmeleitung", "Durch Strömung (Konvektion)", "Durch Luftdruck"],
+      "erklaerung": "Im Weltraum gibt es kein Material, das leiten oder strömen könnte. Wärme kommt nur als Strahlung an."
+    },
+    {
+      "id": "te18",
+      "thema": "waerme",
+      "stufe": 4,
+      "frage": "Bei welcher Temperatur siedet Wasser auf einem hohen Berg (geringerer Luftdruck)?",
+      "richtig": "Unter 100 °C",
+      "falsch": ["Genau bei 100 °C", "Über 100 °C", "Es siedet gar nicht."],
+      "erklaerung": "Je niedriger der Luftdruck, desto niedriger die Siedetemperatur."
+    },
+    {
+      "id": "te19",
+      "thema": "waerme",
+      "stufe": 4,
+      "frage": "Warum beschlägt eine kalte Brille in einem warmen Raum?",
+      "richtig": "Wasserdampf aus der Luft kondensiert an der kalten Fläche.",
+      "falsch": ["Die Brille schwitzt.", "Das Glas wird weich.", "Staub lagert sich ab."],
+      "erklaerung": "Kalte Oberflächen kühlen die Luft darunter ab, der Wasserdampf wird flüssig."
+    },
+    {
+      "id": "te20",
+      "thema": "waerme",
+      "stufe": 5,
+      "frage": "Ein Bimetallstreifen aus Kupfer (dehnt sich stark aus) und Eisen (dehnt sich weniger aus) wird erwärmt. Wohin biegt er sich?",
+      "richtig": "Zur Eisenseite",
+      "falsch": ["Zur Kupferseite", "Er bleibt gerade", "Er wird kürzer"],
+      "erklaerung": "Die Kupferseite wird länger als die Eisenseite, der Streifen krümmt sich so, dass Kupfer außen liegt, also zur Eisenseite hin."
+    },
+    {
+      "id": "te21",
+      "thema": "waerme",
+      "stufe": 5,
+      "frage": "Warum ist eine Thermoskanne doppelwandig mit Vakuum dazwischen?",
+      "richtig": "Im Vakuum gibt es keine Wärmeleitung und keine Strömung.",
+      "falsch": [
+        "Vakuum ist besonders schwer.",
+        "Vakuum erzeugt Wärme.",
+        "Damit die Kanne nicht bricht."
+      ],
+      "erklaerung": "Ohne Teilchen kann Wärme weder geleitet noch durch Strömung transportiert werden. Die Verspiegelung bremst zusätzlich die Strahlung."
+    },
+    {
+      "id": "te22",
+      "thema": "waerme",
+      "stufe": 6,
+      "frage": "Wasser hat seine größte Dichte bei etwa …",
+      "richtig": "4 °C",
+      "falsch": ["0 °C", "100 °C", "−4 °C"],
+      "erklaerung": "Anomalie des Wassers: Bei 4 °C ist Wasser am dichtesten. Deshalb frieren Seen von oben zu."
+    },
+    {
+      "id": "te23",
+      "thema": "auftrieb",
+      "stufe": 1,
+      "frage": "Warum schwimmt ein Holzklotz auf dem Wasser?",
+      "richtig": "Holz hat eine geringere Dichte als Wasser.",
+      "falsch": ["Holz ist wasserdicht.", "Holz ist leichter als Luft.", "Holz stößt Wasser ab."],
+      "erklaerung": "Ein Körper schwimmt, wenn seine mittlere Dichte kleiner ist als die der Flüssigkeit."
+    },
+    {
+      "id": "te24",
+      "thema": "auftrieb",
+      "stufe": 2,
+      "frage": "Ein Stahlschiff schwimmt, ein Stahlklotz gleicher Masse geht unter. Warum?",
+      "richtig": "Das Schiff verdrängt mit seinem Hohlraum mehr Wasser.",
+      "falsch": [
+        "Schiffsstahl ist leichter.",
+        "Der Motor hält das Schiff oben.",
+        "Salzwasser trägt nur Schiffe."
+      ],
+      "erklaerung": "Der Auftrieb entspricht dem Gewicht des verdrängten Wassers. Durch den Hohlraum verdrängt das Schiff viel mehr Wasser."
+    },
+    {
+      "id": "te25",
+      "thema": "auftrieb",
+      "stufe": 3,
+      "frage": "Ein Schiff fährt vom Meer (Salzwasser) in einen Fluss (Süßwasser). Was passiert?",
+      "richtig": "Es taucht etwas tiefer ein.",
+      "falsch": ["Es taucht weniger tief ein.", "Es ändert sich nichts.", "Es geht unter."],
+      "erklaerung": "Süßwasser hat eine kleinere Dichte. Um das gleiche Gewicht zu tragen, muss mehr Wasser verdrängt werden."
+    },
+    {
+      "id": "te26",
+      "thema": "auftrieb",
+      "stufe": 3,
+      "frage": "Ein Stein wiegt an Luft 30 N, unter Wasser 20 N. Wie groß ist der Auftrieb?",
+      "richtig": "10 N",
+      "falsch": ["20 N", "30 N", "50 N"],
+      "erklaerung": "Auftrieb = Gewicht an Luft minus Gewicht im Wasser = 30 N − 20 N."
+    },
+    {
+      "id": "te27",
+      "thema": "auftrieb",
+      "stufe": 4,
+      "frage": "Ein Eiswürfel schwimmt in einem randvollen Glas Wasser. Was passiert, wenn er schmilzt?",
+      "richtig": "Das Glas läuft nicht über.",
+      "falsch": ["Das Glas läuft über.", "Der Wasserstand sinkt deutlich.", "Das Wasser gefriert."],
+      "erklaerung": "Schwimmendes Eis verdrängt genau so viel Wasser, wie es selbst als Schmelzwasser ausmacht."
+    },
+    {
+      "id": "te28",
+      "thema": "auftrieb",
+      "stufe": 5,
+      "frage": "Ein U-Boot will auftauchen. Was muss es tun?",
+      "richtig": "Wasser aus den Tauchtanks pressen.",
+      "falsch": ["Wasser in die Tauchtanks lassen.", "Den Motor abstellen.", "Den Bug senken."],
+      "erklaerung": "Mit Luft statt Wasser in den Tanks sinkt die mittlere Dichte, der Auftrieb überwiegt."
+    },
+    {
+      "id": "te29",
+      "thema": "auftrieb",
+      "stufe": 6,
+      "frage": "Ein Heißluftballon steigt. Was muss der Pilot tun, um ihn sinken zu lassen?",
+      "richtig": "Die Luft im Ballon abkühlen lassen.",
+      "falsch": [
+        "Die Luft im Ballon stärker heizen.",
+        "Sandsäcke abwerfen.",
+        "Den Korb höher hängen."
+      ],
+      "erklaerung": "Kühlere Luft ist dichter, der Auftrieb nimmt ab. Sandsäcke abwerfen würde ihn steigen lassen."
+    },
+    {
+      "id": "te30",
+      "thema": "hydraulik",
+      "stufe": 2,
+      "frage": "Eine hydraulische Presse hat einen kleinen Kolben (Fläche 1 cm²) und einen großen Kolben (Fläche 50 cm²). Am kleinen drückt man mit 100 N. Welche Kraft entsteht am großen?",
+      "richtig": "5000 N",
+      "falsch": ["100 N", "2 N", "50 N"],
+      "erklaerung": "Der Druck ist überall gleich: F₂ = F₁ · A₂ / A₁ = 100 N · 50 = 5000 N."
+    },
+    {
+      "id": "te31",
+      "thema": "hydraulik",
+      "stufe": 3,
+      "frage": "Bei der hydraulischen Presse wird der kleine Kolben 10 cm hineingedrückt. Die Flächen stehen 1 : 10. Wie weit bewegt sich der große Kolben?",
+      "richtig": "1 cm",
+      "falsch": ["10 cm", "100 cm", "0,1 cm"],
+      "erklaerung": "Das verdrängte Volumen ist gleich: 10 cm · 1 = Weg · 10, also 1 cm. Mehr Kraft, aber weniger Weg."
+    },
+    {
+      "id": "te32",
+      "thema": "hydraulik",
+      "stufe": 3,
+      "frage": "Warum verwendet man in Bremsleitungen Flüssigkeit statt Luft?",
+      "richtig": "Flüssigkeiten lassen sich kaum zusammendrücken.",
+      "falsch": [
+        "Flüssigkeiten sind leichter.",
+        "Luft würde verbrennen.",
+        "Flüssigkeit kühlt die Räder."
+      ],
+      "erklaerung": "Luft ist kompressibel, das Pedal würde nachgeben. Flüssigkeit überträgt den Druck direkt."
+    },
+    {
+      "id": "te33",
+      "thema": "hydraulik",
+      "stufe": 4,
+      "frage": "In welcher Tiefe ist der Wasserdruck in einem See größer?",
+      "richtig": "In 10 m Tiefe",
+      "falsch": ["In 2 m Tiefe", "An der Oberfläche", "Überall gleich"],
+      "erklaerung": "Der Schweredruck steigt mit der Tiefe (etwa 1 bar je 10 m)."
+    },
+    {
+      "id": "te34",
+      "thema": "hydraulik",
+      "stufe": 4,
+      "frage": "Ein Wasserturm versorgt Häuser. Wovon hängt der Wasserdruck in der Leitung vor allem ab?",
+      "richtig": "Von der Höhe des Wasserspiegels im Turm",
+      "falsch": [
+        "Von der Breite des Turms",
+        "Von der Menge Wasser im Turm insgesamt",
+        "Von der Farbe des Turms"
+      ],
+      "erklaerung": "Der Schweredruck hängt nur von der Höhe der Wassersäule ab, nicht von der Form des Gefäßes."
+    },
+    {
+      "id": "te35",
+      "thema": "hydraulik",
+      "stufe": 5,
+      "frage": "Ein gefüllter Wasserbehälter hat unten, in der Mitte und oben je ein gleich großes Loch. Aus welchem tritt das Wasser mit der größten Geschwindigkeit aus?",
+      "richtig": "Aus dem unteren Loch",
+      "falsch": ["Aus dem mittleren Loch", "Aus dem oberen Loch", "Aus allen gleich schnell"],
+      "erklaerung": "Unten ist der Druck am höchsten, das Wasser tritt am schnellsten aus."
+    },
+    {
+      "id": "te36",
+      "thema": "roehren",
+      "stufe": 1,
+      "frage": "Zwei verbundene Röhren (U-Rohr) sind mit Wasser gefüllt. Wie stehen die Wasserspiegel?",
+      "richtig": "Gleich hoch",
+      "falsch": ["Im dickeren Rohr höher", "Im dünneren Rohr höher", "Zufällig verschieden"],
+      "erklaerung": "Bei kommunizierenden Röhren stellt sich überall derselbe Wasserspiegel ein, unabhängig von Form und Querschnitt."
+    },
+    {
+      "id": "te37",
+      "thema": "roehren",
+      "stufe": 2,
+      "frage": "Eine Gießkanne hat einen Ausguss, der tiefer endet als der Rand der Kanne. Bis zu welcher Höhe kann man sie füllen?",
+      "richtig": "Bis zur Höhe der Ausgussöffnung",
+      "falsch": ["Bis zum Rand der Kanne", "Bis zur Hälfte", "Beliebig hoch"],
+      "erklaerung": "Kanne und Ausguss sind verbundene Gefäße. Steigt das Wasser höher als die Öffnung, läuft es aus."
+    },
+    {
+      "id": "te38",
+      "thema": "roehren",
+      "stufe": 3,
+      "frage": "In einem U-Rohr ist links Wasser, rechts wird Öl (geringere Dichte) eingefüllt, das sich nicht mischt. Welche Säule steht höher?",
+      "richtig": "Die Ölsäule",
+      "falsch": ["Die Wassersäule", "Beide gleich", "Das Öl sinkt nach unten"],
+      "erklaerung": "Gleicher Druck unten verlangt bei kleinerer Dichte eine höhere Säule."
+    },
+    {
+      "id": "te39",
+      "thema": "roehren",
+      "stufe": 4,
+      "frage": "Mit einer Schlauchwaage prüft man auf der Baustelle …",
+      "richtig": "ob zwei Punkte gleich hoch liegen.",
+      "falsch": [
+        "wie schwer ein Gegenstand ist.",
+        "ob Wasser sauber ist.",
+        "wie hoch der Luftdruck ist."
+      ],
+      "erklaerung": "Ein wassergefüllter Schlauch ist ein kommunizierendes Gefäß: Die beiden Wasserspiegel liegen immer gleich hoch."
+    },
+    {
+      "id": "te40",
+      "thema": "roehren",
+      "stufe": 5,
+      "frage": "Mit einem Schlauch soll Wasser aus einem Fass gehebert werden. Wo muss das Schlauchende liegen?",
+      "richtig": "Tiefer als der Wasserspiegel im Fass",
+      "falsch": ["Höher als das Fass", "Genau auf Höhe des Wasserspiegels", "Egal wo"],
+      "erklaerung": "Ein Saugheber funktioniert nur, wenn der Auslauf tiefer liegt als der Wasserspiegel."
+    },
+    {
+      "id": "te41",
+      "thema": "schwerpunkt",
+      "stufe": 1,
+      "frage": "Wann kippt ein Gegenstand um?",
+      "richtig": "Wenn sein Schwerpunkt über die Standfläche hinausragt.",
+      "falsch": ["Wenn er schwer ist.", "Wenn er hoch ist.", "Wenn er schmal ist."],
+      "erklaerung": "Solange das Lot vom Schwerpunkt innerhalb der Standfläche liegt, steht der Körper."
+    },
+    {
+      "id": "te42",
+      "thema": "schwerpunkt",
+      "stufe": 2,
+      "frage": "Wie belädt man einen Lkw, damit er in Kurven nicht kippt?",
+      "richtig": "Schwere Ladung unten, leichte oben",
+      "falsch": ["Schwere Ladung oben, leichte unten", "Alles nach hinten", "Alles auf eine Seite"],
+      "erklaerung": "Ein tiefer Schwerpunkt erhöht die Standsicherheit."
+    },
+    {
+      "id": "te43",
+      "thema": "schwerpunkt",
+      "stufe": 3,
+      "frage": "Ein Seiltänzer trägt eine lange Stange. Wozu?",
+      "richtig": "Sie erhöht die Trägheit gegen Drehen und erleichtert das Ausbalancieren.",
+      "falsch": [
+        "Sie macht ihn leichter.",
+        "Sie hebt seinen Schwerpunkt an.",
+        "Sie dient nur zur Show."
+      ],
+      "erklaerung": "Die lange Stange hat ein großes Trägheitsmoment, Kippbewegungen laufen langsamer ab und lassen sich ausgleichen."
+    },
+    {
+      "id": "te44",
+      "thema": "schwerpunkt",
+      "stufe": 4,
+      "frage": "Ein Rucksack wird bepackt. Wohin gehört das schwerste Gepäck?",
+      "richtig": "Nah an den Rücken, etwa auf Schulterblatthöhe",
+      "falsch": ["Ganz nach außen", "Ganz nach unten außen", "In die Deckeltasche"],
+      "erklaerung": "Nah am Körper liegt der gemeinsame Schwerpunkt über den Füßen, man muss sich weniger nach vorn beugen."
+    },
+    {
+      "id": "te45",
+      "thema": "schwerpunkt",
+      "stufe": 5,
+      "frage": "Ein Stehaufmännchen richtet sich immer wieder auf, weil …",
+      "richtig": "sein Schwerpunkt sehr tief im runden Boden liegt.",
+      "falsch": ["es innen eine Feder hat.", "es hohl ist.", "es oben schwerer ist."],
+      "erklaerung": "Jede Neigung hebt den tiefen Schwerpunkt an, die Schwerkraft dreht es zurück."
+    },
+    {
+      "id": "te46",
+      "thema": "schwerpunkt",
+      "stufe": 6,
+      "frage": "Ein Brett liegt zur Hälfte über einer Tischkante. Ein Gewicht wird darauf zur Kante geschoben. Wann kippt das Brett?",
+      "richtig": "Wenn der gemeinsame Schwerpunkt über die Kante hinauswandert.",
+      "falsch": [
+        "Sobald das Gewicht die Kante erreicht.",
+        "Nie.",
+        "Sobald das Gewicht auf dem Brett liegt."
+      ],
+      "erklaerung": "Entscheidend ist der Gesamtschwerpunkt von Brett und Gewicht, nicht die Lage des Gewichts allein."
+    },
+    {
+      "id": "te47",
+      "thema": "kurve",
+      "stufe": 1,
+      "frage": "Ein Auto fährt schnell durch eine Linkskurve. In welche Richtung werden die Insassen gedrückt?",
+      "richtig": "Nach rechts (außen)",
+      "falsch": ["Nach links (innen)", "Nach vorne", "Nach oben"],
+      "erklaerung": "Der Körper will geradeaus weiter (Trägheit). Relativ zum Auto wird er nach außen gedrückt."
+    },
+    {
+      "id": "te48",
+      "thema": "kurve",
+      "stufe": 2,
+      "frage": "Ein Stein an einer Schnur wird im Kreis geschleudert. Die Schnur reißt. Wie fliegt der Stein weiter?",
+      "richtig": "Geradeaus in Richtung der Bewegung (tangential)",
+      "falsch": [
+        "Nach außen in Verlängerung der Schnur",
+        "Weiter auf der Kreisbahn",
+        "Zur Mitte hin"
+      ],
+      "erklaerung": "Ohne Schnurkraft bewegt sich der Stein gemäß Trägheit geradlinig weiter, in Richtung seiner momentanen Geschwindigkeit."
+    },
+    {
+      "id": "te49",
+      "thema": "kurve",
+      "stufe": 3,
+      "frage": "Ein Auto fährt mit doppelter Geschwindigkeit durch dieselbe Kurve. Wie ändert sich die nötige Seitenführungskraft?",
+      "richtig": "Sie vervierfacht sich.",
+      "falsch": ["Sie verdoppelt sich.", "Sie bleibt gleich.", "Sie halbiert sich."],
+      "erklaerung": "Die Zentripetalkraft wächst mit dem Quadrat der Geschwindigkeit: F = m · v² / r."
+    },
+    {
+      "id": "te50",
+      "thema": "kurve",
+      "stufe": 4,
+      "frage": "Wie wirkt eine Wäscheschleuder?",
+      "richtig": "Das Wasser fliegt durch die Löcher nach außen, die Wäsche wird von der Trommel gehalten.",
+      "falsch": [
+        "Die Trommel erhitzt das Wasser.",
+        "Die Luft saugt das Wasser ab.",
+        "Das Wasser wird zur Mitte gezogen."
+      ],
+      "erklaerung": "Die Trommelwand zwingt die Wäsche auf die Kreisbahn, das Wasser kann durch die Löcher geradeaus weiter."
+    },
+    {
+      "id": "te51",
+      "thema": "kurve",
+      "stufe": 5,
+      "frage": "Warum sind Kurven auf Rennstrecken nach innen geneigt (überhöht)?",
+      "richtig": "Ein Teil der Gewichtskraft hilft, das Fahrzeug auf der Kreisbahn zu halten.",
+      "falsch": [
+        "Damit das Regenwasser abläuft.",
+        "Damit die Fahrer besser sehen.",
+        "Damit die Fahrzeuge langsamer werden."
+      ],
+      "erklaerung": "Bei Neigung zeigt die Normalkraft teilweise zur Kurvenmitte und liefert Zentripetalkraft."
+    },
+    {
+      "id": "te52",
+      "thema": "kurve",
+      "stufe": 6,
+      "frage": "Ein Motorradfahrer legt sich in die Kurve. Warum?",
+      "richtig": "Damit die resultierende Kraft durch die Reifenaufstandsfläche geht und er nicht nach außen kippt.",
+      "falsch": [
+        "Damit er weniger Luftwiderstand hat.",
+        "Damit er schneller bremst.",
+        "Damit der Motor besser zieht."
+      ],
+      "erklaerung": "Gewichtskraft und nötige Zentripetalkraft ergeben zusammen eine schräge Kraft. Nur mit Schräglage geht sie durch den Reifen."
+    },
+    {
+      "id": "te53",
+      "thema": "mechanik",
+      "stufe": 1,
+      "frage": "Warum hat ein Messer eine scharfe, dünne Schneide?",
+      "richtig": "Die Kraft wirkt auf eine kleine Fläche, der Druck wird groß.",
+      "falsch": [
+        "Damit das Messer leichter ist.",
+        "Damit es nicht rostet.",
+        "Damit es besser glänzt."
+      ],
+      "erklaerung": "Druck = Kraft / Fläche. Kleine Fläche, großer Druck."
+    },
+    {
+      "id": "te54",
+      "thema": "mechanik",
+      "stufe": 2,
+      "frage": "Warum sinkt man mit Schneeschuhen weniger ein?",
+      "richtig": "Das Gewicht verteilt sich auf eine größere Fläche.",
+      "falsch": ["Schneeschuhe sind leichter.", "Der Schnee wird hart.", "Man läuft schneller."],
+      "erklaerung": "Größere Fläche, kleinerer Druck auf den Schnee."
+    },
+    {
+      "id": "te55",
+      "thema": "mechanik",
+      "stufe": 2,
+      "frage": "Ein Wagen rollt auf ebener Straße aus. Warum bleibt er irgendwann stehen?",
+      "richtig": "Wegen Reibung und Luftwiderstand",
+      "falsch": [
+        "Weil ihm die Energie ausgeht, ohne dass Kräfte wirken.",
+        "Wegen der Erdanziehung allein",
+        "Weil die Räder kleiner werden."
+      ],
+      "erklaerung": "Ohne bremsende Kräfte würde er weiterrollen (Trägheit). Reibung und Luftwiderstand bremsen ihn ab."
+    },
+    {
+      "id": "te56",
+      "thema": "mechanik",
+      "stufe": 3,
+      "frage": "Bei einer Vollbremsung im Bus kippen stehende Fahrgäste …",
+      "richtig": "nach vorne.",
+      "falsch": ["nach hinten.", "zur Seite.", "gar nicht."],
+      "erklaerung": "Der Körper will die Geschwindigkeit beibehalten, der Bus wird langsamer."
+    },
+    {
+      "id": "te57",
+      "thema": "mechanik",
+      "stufe": 3,
+      "frage": "Ein schwerer und ein leichter Ball werden ohne Luftwiderstand aus gleicher Höhe fallen gelassen. Welcher kommt zuerst unten an?",
+      "richtig": "Beide gleichzeitig",
+      "falsch": ["Der schwere", "Der leichte", "Hängt von der Farbe ab"],
+      "erklaerung": "Ohne Luftwiderstand fallen alle Körper gleich schnell."
+    },
+    {
+      "id": "te58",
+      "thema": "mechanik",
+      "stufe": 4,
+      "frage": "Ein Gewehr wird abgefeuert. Warum spürt der Schütze einen Rückstoß?",
+      "richtig": "Wegen actio gleich reactio: Die Kraft auf das Geschoss wirkt auch auf die Waffe zurück.",
+      "falsch": [
+        "Weil die Luft zurückprallt.",
+        "Weil der Lauf heiß wird.",
+        "Weil der Abzug zurückfedert."
+      ],
+      "erklaerung": "Drittes newtonsches Gesetz: Kraft und Gegenkraft sind gleich groß und entgegengesetzt."
+    },
+    {
+      "id": "te59",
+      "thema": "mechanik",
+      "stufe": 5,
+      "frage": "Eine Holzkiste wird über den Boden geschoben, erst auf der großen, dann auf der kleinen Seitenfläche liegend. Wie ändert sich die Gleitreibungskraft?",
+      "richtig": "Sie bleibt etwa gleich.",
+      "falsch": [
+        "Sie wird auf der kleinen Fläche deutlich größer.",
+        "Sie wird auf der kleinen Fläche deutlich kleiner.",
+        "Sie verschwindet auf der kleinen Fläche."
+      ],
+      "erklaerung": "Die Reibungskraft hängt von Gewicht und Reibungszahl ab (F = μ · Fₙ), in guter Näherung nicht von der Größe der Auflagefläche."
+    },
+    {
+      "id": "te60",
+      "thema": "mechanik",
+      "stufe": 6,
+      "frage": "Ein Rad mit größerem Durchmesser rollt mit gleicher Drehzahl wie ein kleineres. Welches Fahrzeug ist schneller?",
+      "richtig": "Das mit dem größeren Rad",
+      "falsch": ["Das mit dem kleineren Rad", "Beide gleich schnell", "Kommt auf das Gewicht an"],
+      "erklaerung": "Pro Umdrehung legt das große Rad mehr Weg zurück (Umfang = π · d)."
+    }
+  ]
+}

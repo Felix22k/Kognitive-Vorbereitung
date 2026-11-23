@@ -1,0 +1,3561 @@
+{
+  "beschreibung": "Feste Rechtschreib-Aufgaben. Jeder Eintrag hat genau eine eindeutig richtige Lösung unter den angebotenen Optionen. Wo der Duden zwei Schreibweisen erlaubt, ist nur eine davon angeboten.",
+  "eintraege": [
+    {
+      "id": "w0",
+      "typ": "wort",
+      "stufe": 1,
+      "richtig": "Fahrrad",
+      "falsch": ["Fahrad", "Farrad", "Fahrrat"],
+      "hinweis": "Fahr + Rad: beide Wortteile bleiben vollständig."
+    },
+    {
+      "id": "w1",
+      "typ": "wort",
+      "stufe": 1,
+      "richtig": "Maschine",
+      "falsch": ["Maschiene", "Masine", "Machine"],
+      "hinweis": "Fremdwort mit langem i ohne ie."
+    },
+    {
+      "id": "w2",
+      "typ": "wort",
+      "stufe": 1,
+      "richtig": "Gewehr",
+      "falsch": ["Gewer", "Geweher", "Gewehhr"],
+      "hinweis": "Gewehr mit eh."
+    },
+    {
+      "id": "w3",
+      "typ": "wort",
+      "stufe": 1,
+      "richtig": "Kompass",
+      "falsch": ["Kompaß", "Kompas", "Kombass"],
+      "hinweis": "Nach kurzem Vokal ss."
+    },
+    {
+      "id": "w4",
+      "typ": "wort",
+      "stufe": 1,
+      "richtig": "nämlich",
+      "falsch": ["nähmlich", "nemlich", "nämmlich"],
+      "hinweis": "nämlich ohne h, obwohl es von Name kommt."
+    },
+    {
+      "id": "w5",
+      "typ": "wort",
+      "stufe": 1,
+      "richtig": "Bataillon",
+      "falsch": ["Batallion", "Bataillion", "Batalion"],
+      "hinweis": "Französisches Fremdwort: -aill-."
+    },
+    {
+      "id": "w6",
+      "typ": "wort",
+      "stufe": 1,
+      "richtig": "Uniform",
+      "falsch": ["Uniforhm", "Unniform", "Uniphorm"],
+      "hinweis": "Uniform mit f, ein n."
+    },
+    {
+      "id": "w7",
+      "typ": "wort",
+      "stufe": 1,
+      "richtig": "Kaserne",
+      "falsch": ["Kasserne", "Kaserrne", "Casserne"],
+      "hinweis": "Kaserne mit einem s und einem r."
+    },
+    {
+      "id": "w8",
+      "typ": "wort",
+      "stufe": 1,
+      "richtig": "Gefreiter",
+      "falsch": ["Gefreitter", "Gefreider", "Gefraiter"],
+      "hinweis": "Gefreiter: ei und einfaches t."
+    },
+    {
+      "id": "w9",
+      "typ": "wort",
+      "stufe": 1,
+      "richtig": "Fahrzeug",
+      "falsch": ["Fahrzeuk", "Farzeug", "Fahrzeugh"],
+      "hinweis": "Fahr + Zeug."
+    },
+    {
+      "id": "w10",
+      "typ": "wort",
+      "stufe": 1,
+      "richtig": "Stiefel",
+      "falsch": ["Stifel", "Stiefell", "Stiefl"],
+      "hinweis": "Langes i als ie."
+    },
+    {
+      "id": "w11",
+      "typ": "wort",
+      "stufe": 1,
+      "richtig": "vielleicht",
+      "falsch": ["vieleicht", "fielleicht", "vielleich"],
+      "hinweis": "viel + leicht: zwei l."
+    },
+    {
+      "id": "w12",
+      "typ": "wort",
+      "stufe": 1,
+      "richtig": "Rhythmus",
+      "falsch": ["Rythmus", "Rhytmus", "Rhythmuss"],
+      "hinweis": "Rh am Anfang, th in der Mitte."
+    },
+    {
+      "id": "w13",
+      "typ": "wort",
+      "stufe": 1,
+      "richtig": "Zentimeter",
+      "falsch": ["Zentimetter", "Centimeter", "Zentimehter"],
+      "hinweis": "Meter mit einem t."
+    },
+    {
+      "id": "w14",
+      "typ": "wort",
+      "stufe": 1,
+      "richtig": "Unterricht",
+      "falsch": ["Unterrich", "Untericht", "Unterrichd"],
+      "hinweis": "Unter + richt."
+    },
+    {
+      "id": "w15",
+      "typ": "wort",
+      "stufe": 1,
+      "richtig": "endlich",
+      "falsch": ["entlich", "endtlich", "ändlich"],
+      "hinweis": "Von Ende: end-."
+    },
+    {
+      "id": "w16",
+      "typ": "wort",
+      "stufe": 1,
+      "richtig": "Kilometer",
+      "falsch": ["Kilometter", "Killometer", "Kilomehter"],
+      "hinweis": "Meter mit einem t."
+    },
+    {
+      "id": "w17",
+      "typ": "wort",
+      "stufe": 1,
+      "richtig": "Kontrolle",
+      "falsch": ["Kontrole", "Kontrollle", "Kontroll"],
+      "hinweis": "Zwei l."
+    },
+    {
+      "id": "w18",
+      "typ": "wort",
+      "stufe": 1,
+      "richtig": "Wiederholung",
+      "falsch": ["Widerholung", "Wiederhohlung", "Wiederhollung"],
+      "hinweis": "wieder = noch einmal; holen ohne h."
+    },
+    {
+      "id": "w19",
+      "typ": "wort",
+      "stufe": 2,
+      "richtig": "Ersatz",
+      "falsch": ["Ersaz", "Ehrsatz", "Erzatz"],
+      "hinweis": "Ersatz mit tz und einfachem r."
+    },
+    {
+      "id": "w20",
+      "typ": "wort",
+      "stufe": 2,
+      "richtig": "Verletzung",
+      "falsch": ["Verlezung", "Verlätzung", "Ferletzung"],
+      "hinweis": "Nach kurzem Vokal tz."
+    },
+    {
+      "id": "w21",
+      "typ": "wort",
+      "stufe": 2,
+      "richtig": "Gefahr",
+      "falsch": ["Gefar", "Gefaar", "Gevahr"],
+      "hinweis": "Gefahr mit h."
+    },
+    {
+      "id": "w22",
+      "typ": "wort",
+      "stufe": 2,
+      "richtig": "Detail",
+      "falsch": ["Detaill", "Dethail", "Deteil"],
+      "hinweis": "Französisches Fremdwort: -ail."
+    },
+    {
+      "id": "w23",
+      "typ": "wort",
+      "stufe": 2,
+      "richtig": "Interesse",
+      "falsch": ["Interresse", "Interese", "Intresse"],
+      "hinweis": "Ein r, zwei s."
+    },
+    {
+      "id": "w24",
+      "typ": "wort",
+      "stufe": 2,
+      "richtig": "Paket",
+      "falsch": ["Packet", "Pakett", "Packett"],
+      "hinweis": "Paket mit k, ein t."
+    },
+    {
+      "id": "w25",
+      "typ": "wort",
+      "stufe": 2,
+      "richtig": "Krankenwagen",
+      "falsch": ["Krankenwahgen", "Krankenwaggen", "Krankenwagn"],
+      "hinweis": "Wagen ohne h."
+    },
+    {
+      "id": "w26",
+      "typ": "wort",
+      "stufe": 2,
+      "richtig": "Lehrgang",
+      "falsch": ["Lehrgank", "Lehrganng", "Lergang"],
+      "hinweis": "Von lehren: mit h."
+    },
+    {
+      "id": "w27",
+      "typ": "wort",
+      "stufe": 2,
+      "richtig": "Bewerbung",
+      "falsch": ["Bewärbung", "Bewerbbung", "Beweerbung"],
+      "hinweis": "Von werben."
+    },
+    {
+      "id": "w28",
+      "typ": "wort",
+      "stufe": 2,
+      "richtig": "ziemlich",
+      "falsch": ["zimlich", "ziehmlich", "ziemmlich"],
+      "hinweis": "ziemlich mit ie, ohne h."
+    },
+    {
+      "id": "w29",
+      "typ": "wort",
+      "stufe": 2,
+      "richtig": "tatsächlich",
+      "falsch": ["tatsechlich", "tatsächlig", "tatsächlisch"],
+      "hinweis": "Von Sache: ä."
+    },
+    {
+      "id": "w30",
+      "typ": "wort",
+      "stufe": 2,
+      "richtig": "Fehler",
+      "falsch": ["Feler", "Fähler", "Fehhler"],
+      "hinweis": "Fehler mit eh."
+    },
+    {
+      "id": "w31",
+      "typ": "wort",
+      "stufe": 2,
+      "richtig": "spazieren",
+      "falsch": ["spatzieren", "spaziren", "spazierren"],
+      "hinweis": "Nach Konsonant kein tz: spazieren."
+    },
+    {
+      "id": "w32",
+      "typ": "wort",
+      "stufe": 2,
+      "richtig": "Rakete",
+      "falsch": ["Rackete", "Rakette", "Rakethe"],
+      "hinweis": "Fremdwort: k, ein t."
+    },
+    {
+      "id": "w33",
+      "typ": "wort",
+      "stufe": 2,
+      "richtig": "Pilot",
+      "falsch": ["Pillot", "Pilott", "Pielot"],
+      "hinweis": "Ein l, ein t."
+    },
+    {
+      "id": "w34",
+      "typ": "wort",
+      "stufe": 2,
+      "richtig": "Hubschrauber",
+      "falsch": ["Hubschraber", "Hupschrauber", "Hubschrauper"],
+      "hinweis": "Hub + Schrauber."
+    },
+    {
+      "id": "w35",
+      "typ": "wort",
+      "stufe": 2,
+      "richtig": "Gelände",
+      "falsch": ["Gelende", "Geländde", "Gelännde"],
+      "hinweis": "Von Land: ä."
+    },
+    {
+      "id": "w36",
+      "typ": "wort",
+      "stufe": 2,
+      "richtig": "Mannschaft",
+      "falsch": ["Manschaft", "Mannschaaft", "Mannshaft"],
+      "hinweis": "Mann + schaft."
+    },
+    {
+      "id": "w37",
+      "typ": "wort",
+      "stufe": 2,
+      "richtig": "Funkgerät",
+      "falsch": ["Funkgerätt", "Funkgeräht", "Funckgerät"],
+      "hinweis": "Gerät mit ä, ein t."
+    },
+    {
+      "id": "w38",
+      "typ": "wort",
+      "stufe": 2,
+      "richtig": "Erlaubnis",
+      "falsch": ["Erlaubniss", "Erlaupnis", "Erlaubnüs"],
+      "hinweis": "-nis mit einem s am Wortende."
+    },
+    {
+      "id": "w39",
+      "typ": "wort",
+      "stufe": 3,
+      "richtig": "Konkurrenz",
+      "falsch": ["Konkurenz", "Konkurrens", "Konkurrrenz"],
+      "hinweis": "Zwei r, Endung -enz."
+    },
+    {
+      "id": "w40",
+      "typ": "wort",
+      "stufe": 3,
+      "richtig": "Reparatur",
+      "falsch": ["Reperatur", "Reparatuhr", "Repparatur"],
+      "hinweis": "Von reparieren: a-a."
+    },
+    {
+      "id": "w41",
+      "typ": "wort",
+      "stufe": 3,
+      "richtig": "Standard",
+      "falsch": ["Standart", "Standartt", "Stantard"],
+      "hinweis": "Standard endet auf d."
+    },
+    {
+      "id": "w42",
+      "typ": "wort",
+      "stufe": 3,
+      "richtig": "Kaffee",
+      "falsch": ["Kaffe", "Kafee", "Kaffeh"],
+      "hinweis": "Kaffee mit ff und ee."
+    },
+    {
+      "id": "w43",
+      "typ": "wort",
+      "stufe": 3,
+      "richtig": "Atmosphäre",
+      "falsch": ["Atmosphere", "Athmosphäre", "Atmosfäre"],
+      "hinweis": "Ohne h nach t, ph, ä."
+    },
+    {
+      "id": "w44",
+      "typ": "wort",
+      "stufe": 3,
+      "richtig": "Kommandeur",
+      "falsch": ["Komandeur", "Kommandör", "Kommandeuer"],
+      "hinweis": "Zwei m, Endung -eur."
+    },
+    {
+      "id": "w45",
+      "typ": "wort",
+      "stufe": 3,
+      "richtig": "Leutnant",
+      "falsch": ["Leutenant", "Leitnant", "Leutnannt"],
+      "hinweis": "Der deutsche Dienstgrad: Leutnant."
+    },
+    {
+      "id": "w46",
+      "typ": "wort",
+      "stufe": 3,
+      "richtig": "Feldwebel",
+      "falsch": ["Feldwäbel", "Feldwebbel", "Feltwebel"],
+      "hinweis": "Feld + Webel."
+    },
+    {
+      "id": "w47",
+      "typ": "wort",
+      "stufe": 3,
+      "richtig": "Hauptmann",
+      "falsch": ["Hauptman", "Hauptmannn", "Haupmann"],
+      "hinweis": "Mann mit nn."
+    },
+    {
+      "id": "w48",
+      "typ": "wort",
+      "stufe": 3,
+      "richtig": "Brigade",
+      "falsch": ["Brigadde", "Briegade", "Brigarde"],
+      "hinweis": "Ein g, ein d."
+    },
+    {
+      "id": "w49",
+      "typ": "wort",
+      "stufe": 3,
+      "richtig": "Rucksack",
+      "falsch": ["Ruksack", "Rucksak", "Ruckssack"],
+      "hinweis": "ck in beiden Teilen."
+    },
+    {
+      "id": "w50",
+      "typ": "wort",
+      "stufe": 3,
+      "richtig": "Kanister",
+      "falsch": ["Kannister", "Kanisster", "Kanistter"],
+      "hinweis": "Ein n, ein s, ein t."
+    },
+    {
+      "id": "w51",
+      "typ": "wort",
+      "stufe": 3,
+      "richtig": "Sanitäter",
+      "falsch": ["Sanitähter", "Sannitäter", "Sanitätter"],
+      "hinweis": "Von Sanität: ein n, ein t."
+    },
+    {
+      "id": "w52",
+      "typ": "wort",
+      "stufe": 3,
+      "richtig": "Proviant",
+      "falsch": ["Profiant", "Provieant", "Proviannt"],
+      "hinweis": "Mit v."
+    },
+    {
+      "id": "w53",
+      "typ": "wort",
+      "stufe": 3,
+      "richtig": "Diesel",
+      "falsch": ["Disel", "Diesl", "Diessel"],
+      "hinweis": "Diesel mit ie."
+    },
+    {
+      "id": "w54",
+      "typ": "wort",
+      "stufe": 3,
+      "richtig": "Batterie",
+      "falsch": ["Baterie", "Batterih", "Battarie"],
+      "hinweis": "Zwei t, Endung -ie."
+    },
+    {
+      "id": "w55",
+      "typ": "wort",
+      "stufe": 3,
+      "richtig": "Signal",
+      "falsch": ["Signahl", "Siknal", "Signall"],
+      "hinweis": "Ein l am Ende."
+    },
+    {
+      "id": "w56",
+      "typ": "wort",
+      "stufe": 3,
+      "richtig": "Strategie",
+      "falsch": ["Strathegie", "Strategi", "Strattegie"],
+      "hinweis": "Ohne h, Endung -ie."
+    },
+    {
+      "id": "w57",
+      "typ": "wort",
+      "stufe": 3,
+      "richtig": "Taktik",
+      "falsch": ["Takttik", "Taktick", "Tacktik"],
+      "hinweis": "Ohne ck."
+    },
+    {
+      "id": "w58",
+      "typ": "wort",
+      "stufe": 3,
+      "richtig": "Gymnasium",
+      "falsch": ["Gymnasion", "Gümnasium", "Gymnasiumm"],
+      "hinweis": "y."
+    },
+    {
+      "id": "w59",
+      "typ": "wort",
+      "stufe": 3,
+      "richtig": "Biologie",
+      "falsch": ["Bioloigie", "Bilogie", "Biollogie"],
+      "hinweis": ""
+    },
+    {
+      "id": "w60",
+      "typ": "wort",
+      "stufe": 3,
+      "richtig": "Aggression",
+      "falsch": ["Agression", "Aggresion", "Agresion"],
+      "hinweis": "Zwei g, zwei s."
+    },
+    {
+      "id": "w61",
+      "typ": "wort",
+      "stufe": 3,
+      "richtig": "Adresse",
+      "falsch": ["Addresse", "Adrese", "Adrässe"],
+      "hinweis": "Ein d, zwei s (anders als im Englischen)."
+    },
+    {
+      "id": "w62",
+      "typ": "wort",
+      "stufe": 4,
+      "richtig": "Hygiene",
+      "falsch": ["Hygene", "Hügiene", "Hygine"],
+      "hinweis": "y und ie."
+    },
+    {
+      "id": "w63",
+      "typ": "wort",
+      "stufe": 4,
+      "richtig": "Respekt",
+      "falsch": ["Reschpekt", "Respeckt", "Rezpekt"],
+      "hinweis": "Ohne ck."
+    },
+    {
+      "id": "w64",
+      "typ": "wort",
+      "stufe": 4,
+      "richtig": "Disziplin",
+      "falsch": ["Disciplin", "Diziplin", "Disziplien"],
+      "hinweis": "sz in der Mitte, kurzes i am Ende."
+    },
+    {
+      "id": "w65",
+      "typ": "wort",
+      "stufe": 4,
+      "richtig": "Kapazität",
+      "falsch": ["Kapazietät", "Kapazitet", "Kappazität"],
+      "hinweis": ""
+    },
+    {
+      "id": "w66",
+      "typ": "wort",
+      "stufe": 4,
+      "richtig": "Konsequenz",
+      "falsch": ["Konsequens", "Konsekwenz", "Konsequentz"],
+      "hinweis": "qu, Endung -enz."
+    },
+    {
+      "id": "w67",
+      "typ": "wort",
+      "stufe": 4,
+      "richtig": "Satellit",
+      "falsch": ["Sattelit", "Satelit", "Sattellit"],
+      "hinweis": "Ein t vorn, zwei l, ein t am Ende."
+    },
+    {
+      "id": "w68",
+      "typ": "wort",
+      "stufe": 4,
+      "richtig": "Karosserie",
+      "falsch": ["Karroserie", "Karosserrie", "Karoserie"],
+      "hinweis": "Ein r, zwei s."
+    },
+    {
+      "id": "w69",
+      "typ": "wort",
+      "stufe": 4,
+      "richtig": "Wartung",
+      "falsch": ["Wahrtung", "Wartunk", "Wardung"],
+      "hinweis": "warten ohne h."
+    },
+    {
+      "id": "w70",
+      "typ": "wort",
+      "stufe": 4,
+      "richtig": "Tendenz",
+      "falsch": ["Tendens", "Tändenz", "Tenndenz"],
+      "hinweis": "Endung -enz."
+    },
+    {
+      "id": "w71",
+      "typ": "wort",
+      "stufe": 4,
+      "richtig": "Kommunikation",
+      "falsch": ["Komunikation", "Kommunication", "Kommunikazion"],
+      "hinweis": "Zwei m, k, -tion."
+    },
+    {
+      "id": "w72",
+      "typ": "wort",
+      "stufe": 4,
+      "richtig": "Organisation",
+      "falsch": ["Organissation", "Organisazion", "Orgarnisation"],
+      "hinweis": ""
+    },
+    {
+      "id": "w73",
+      "typ": "wort",
+      "stufe": 4,
+      "richtig": "Kandidat",
+      "falsch": ["Kanditat", "Kandidaat", "Kanndidat"],
+      "hinweis": "Zuerst d, dann d-a-t."
+    },
+    {
+      "id": "w74",
+      "typ": "wort",
+      "stufe": 4,
+      "richtig": "Prüfling",
+      "falsch": ["Prüfflink", "Prüffling", "Prühfling"],
+      "hinweis": "Prüfling mit einfachem f."
+    },
+    {
+      "id": "w75",
+      "typ": "wort",
+      "stufe": 4,
+      "richtig": "Ingenieur",
+      "falsch": ["Ingeneur", "Inschenieur", "Ingenieuer"],
+      "hinweis": "Ingenieur: -ieur."
+    },
+    {
+      "id": "w76",
+      "typ": "wort",
+      "stufe": 4,
+      "richtig": "Dynamik",
+      "falsch": ["Dünamik", "Dynamick", "Dinamik"],
+      "hinweis": "y, ohne ck."
+    },
+    {
+      "id": "w77",
+      "typ": "wort",
+      "stufe": 4,
+      "richtig": "Parallele",
+      "falsch": ["Paralelle", "Parralele", "Parallelle"],
+      "hinweis": "Ein r, zwei l in der Mitte, ein l hinten."
+    },
+    {
+      "id": "w78",
+      "typ": "wort",
+      "stufe": 4,
+      "richtig": "Assistent",
+      "falsch": ["Assisstent", "Asistent", "Assistänt"],
+      "hinweis": "Zwei s, dann einfaches s."
+    },
+    {
+      "id": "w79",
+      "typ": "wort",
+      "stufe": 4,
+      "richtig": "Physik",
+      "falsch": ["Fysik", "Phüsik", "Physick"],
+      "hinweis": "ph und y."
+    },
+    {
+      "id": "w80",
+      "typ": "wort",
+      "stufe": 4,
+      "richtig": "Thermometer",
+      "falsch": ["Termometer", "Thermometter", "Thermomether"],
+      "hinweis": "Th am Anfang."
+    },
+    {
+      "id": "w81",
+      "typ": "wort",
+      "stufe": 4,
+      "richtig": "Theorie",
+      "falsch": ["Teorie", "Theori", "Theohrie"],
+      "hinweis": "Th am Anfang."
+    },
+    {
+      "id": "w82",
+      "typ": "wort",
+      "stufe": 4,
+      "richtig": "Chirurg",
+      "falsch": ["Chirurk", "Schirurg", "Chierurg"],
+      "hinweis": "Ch am Anfang, g am Ende."
+    },
+    {
+      "id": "w83",
+      "typ": "wort",
+      "stufe": 4,
+      "richtig": "Medizin",
+      "falsch": ["Medizien", "Meditzin", "Mediziin"],
+      "hinweis": "Kurzes i am Ende ohne ie."
+    },
+    {
+      "id": "w84",
+      "typ": "wort",
+      "stufe": 4,
+      "richtig": "Labor",
+      "falsch": ["Laboor", "Labohr", "Lahbor"],
+      "hinweis": ""
+    },
+    {
+      "id": "w85",
+      "typ": "wort",
+      "stufe": 4,
+      "richtig": "Terrain",
+      "falsch": ["Terrän", "Terain", "Terrein"],
+      "hinweis": "Französisch: zwei r, -ain."
+    },
+    {
+      "id": "w86",
+      "typ": "wort",
+      "stufe": 4,
+      "richtig": "Gratulation",
+      "falsch": ["Gradulation", "Gratullation", "Kratulation"],
+      "hinweis": ""
+    },
+    {
+      "id": "w87",
+      "typ": "wort",
+      "stufe": 5,
+      "richtig": "Lizenz",
+      "falsch": ["Lizens", "Lizentz", "Litzenz"],
+      "hinweis": "Endung -enz, kein tz nach i."
+    },
+    {
+      "id": "w88",
+      "typ": "wort",
+      "stufe": 5,
+      "richtig": "Rhabarber",
+      "falsch": ["Rabarber", "Rhabarbar", "Rharbarber"],
+      "hinweis": "Rh am Anfang."
+    },
+    {
+      "id": "w89",
+      "typ": "wort",
+      "stufe": 5,
+      "richtig": "Akkusativ",
+      "falsch": ["Akusativ", "Akkusatief", "Akkussativ"],
+      "hinweis": "Zwei k."
+    },
+    {
+      "id": "w90",
+      "typ": "wort",
+      "stufe": 5,
+      "richtig": "Kollege",
+      "falsch": ["Kolege", "Kolleege", "Kollegge"],
+      "hinweis": "Zwei l."
+    },
+    {
+      "id": "w91",
+      "typ": "wort",
+      "stufe": 5,
+      "richtig": "Amateur",
+      "falsch": ["Amatör", "Amateuer", "Ammateur"],
+      "hinweis": ""
+    },
+    {
+      "id": "w92",
+      "typ": "wort",
+      "stufe": 5,
+      "richtig": "Initiative",
+      "falsch": ["Inizijative", "Initiatieve", "Inittiative"],
+      "hinweis": ""
+    },
+    {
+      "id": "w93",
+      "typ": "wort",
+      "stufe": 5,
+      "richtig": "Exzellenz",
+      "falsch": ["Exellenz", "Exzelenz", "Exzellens"],
+      "hinweis": "xz, zwei l."
+    },
+    {
+      "id": "w94",
+      "typ": "wort",
+      "stufe": 5,
+      "richtig": "Billard",
+      "falsch": ["Biliard", "Bilijard", "Bilard"],
+      "hinweis": "Zwei l, -ard."
+    },
+    {
+      "id": "w95",
+      "typ": "wort",
+      "stufe": 5,
+      "richtig": "Karussell",
+      "falsch": ["Karusell", "Karrussell", "Karussel"],
+      "hinweis": "Ein r, zwei s, zwei l."
+    },
+    {
+      "id": "w96",
+      "typ": "wort",
+      "stufe": 5,
+      "richtig": "Libelle",
+      "falsch": ["Libele", "Libellle", "Liebelle"],
+      "hinweis": "Zwei l."
+    },
+    {
+      "id": "w97",
+      "typ": "wort",
+      "stufe": 5,
+      "richtig": "Skelett",
+      "falsch": ["Skellett", "Skelet", "Schkelett"],
+      "hinweis": "Ein l, zwei t."
+    },
+    {
+      "id": "w98",
+      "typ": "wort",
+      "stufe": 5,
+      "richtig": "Rhetorik",
+      "falsch": ["Retorik", "Rhetorick", "Rethorik"],
+      "hinweis": "Rh am Anfang, kein h nach t."
+    },
+    {
+      "id": "w99",
+      "typ": "wort",
+      "stufe": 5,
+      "richtig": "Hierarchie",
+      "falsch": ["Hirarchie", "Hierachie", "Hierarschie"],
+      "hinweis": "ie am Anfang, -archie."
+    },
+    {
+      "id": "w100",
+      "typ": "wort",
+      "stufe": 5,
+      "richtig": "Dilettant",
+      "falsch": ["Dilletant", "Dilettannt", "Dilletannt"],
+      "hinweis": "Ein l, zwei t."
+    },
+    {
+      "id": "w101",
+      "typ": "wort",
+      "stufe": 5,
+      "richtig": "Reflex",
+      "falsch": ["Refleks", "Reflecks", "Reflecs"],
+      "hinweis": ""
+    },
+    {
+      "id": "w102",
+      "typ": "wort",
+      "stufe": 5,
+      "richtig": "Kautschuk",
+      "falsch": ["Kautschuck", "Kautschukk", "Kautchuk"],
+      "hinweis": ""
+    },
+    {
+      "id": "w103",
+      "typ": "wort",
+      "stufe": 5,
+      "richtig": "Präzision",
+      "falsch": ["Präzission", "Präzisijon", "Präzisiohn"],
+      "hinweis": "Ein s."
+    },
+    {
+      "id": "w104",
+      "typ": "wort",
+      "stufe": 5,
+      "richtig": "Inventar",
+      "falsch": ["Inventaar", "Infentar", "Inventahr"],
+      "hinweis": ""
+    },
+    {
+      "id": "w105",
+      "typ": "wort",
+      "stufe": 5,
+      "richtig": "Kapitulation",
+      "falsch": ["Kapittulation", "Kapitulazion", "Kapitulatsion"],
+      "hinweis": ""
+    },
+    {
+      "id": "w106",
+      "typ": "wort",
+      "stufe": 5,
+      "richtig": "Ökonomie",
+      "falsch": ["Ökonommie", "Öckonomie", "Ökonomi"],
+      "hinweis": ""
+    },
+    {
+      "id": "w107",
+      "typ": "wort",
+      "stufe": 5,
+      "richtig": "Lebensmittel",
+      "falsch": ["Lebensmitel", "Lebensmittl", "Lebenzmittel"],
+      "hinweis": ""
+    },
+    {
+      "id": "w108",
+      "typ": "wort",
+      "stufe": 5,
+      "richtig": "Sympathie",
+      "falsch": ["Sympatie", "Simpathie", "Symphatie"],
+      "hinweis": "y, dann pathie."
+    },
+    {
+      "id": "w109",
+      "typ": "wort",
+      "stufe": 5,
+      "richtig": "Rezept",
+      "falsch": ["Rezäpt", "Rezzept", "Rezepd"],
+      "hinweis": ""
+    },
+    {
+      "id": "w110",
+      "typ": "wort",
+      "stufe": 5,
+      "richtig": "Galerie",
+      "falsch": ["Gallerie", "Galerih", "Gallerih"],
+      "hinweis": "Ein l."
+    },
+    {
+      "id": "w111",
+      "typ": "wort",
+      "stufe": 5,
+      "richtig": "Fassade",
+      "falsch": ["Fasade", "Fassaade", "Faßade"],
+      "hinweis": "Zwei s."
+    },
+    {
+      "id": "w112",
+      "typ": "wort",
+      "stufe": 6,
+      "richtig": "Accessoire",
+      "falsch": ["Accesoire", "Akzessoire", "Assessoire"],
+      "hinweis": "Zwei c, zwei s."
+    },
+    {
+      "id": "w113",
+      "typ": "wort",
+      "stufe": 6,
+      "richtig": "Bredouille",
+      "falsch": ["Bredulje", "Breduille", "Bredoille"],
+      "hinweis": ""
+    },
+    {
+      "id": "w114",
+      "typ": "wort",
+      "stufe": 6,
+      "richtig": "Kolibri",
+      "falsch": ["Kollibri", "Kolibrie", "Kolibrih"],
+      "hinweis": ""
+    },
+    {
+      "id": "w115",
+      "typ": "wort",
+      "stufe": 6,
+      "richtig": "Mayonnaise",
+      "falsch": ["Majonnaise", "Mayonaise", "Mayonnäse"],
+      "hinweis": "Zwei n, -aise (die eingedeutschte Form Majonäse ist auch zulässig, steht hier aber nicht zur Wahl)."
+    },
+    {
+      "id": "w116",
+      "typ": "wort",
+      "stufe": 6,
+      "richtig": "Saxofon",
+      "falsch": ["Saxophonn", "Saxofonn", "Sacksofon"],
+      "hinweis": "Saxofon oder Saxophon, beide richtig; hier ist nur eins angeboten."
+    },
+    {
+      "id": "w117",
+      "typ": "wort",
+      "stufe": 6,
+      "richtig": "Pseudonym",
+      "falsch": ["Seudonym", "Pseudonüm", "Pseudonymm"],
+      "hinweis": "Ps am Anfang, y."
+    },
+    {
+      "id": "w118",
+      "typ": "wort",
+      "stufe": 6,
+      "richtig": "Psychologie",
+      "falsch": ["Psüchologie", "Psychologi", "Psichologie"],
+      "hinweis": "Ps am Anfang, ych."
+    },
+    {
+      "id": "w119",
+      "typ": "wort",
+      "stufe": 6,
+      "richtig": "Renaissance",
+      "falsch": ["Renaisance", "Renessance", "Renaissanse"],
+      "hinweis": ""
+    },
+    {
+      "id": "w120",
+      "typ": "wort",
+      "stufe": 6,
+      "richtig": "Nuance",
+      "falsch": ["Nüance", "Nuanse", "Nuangse"],
+      "hinweis": ""
+    },
+    {
+      "id": "w121",
+      "typ": "wort",
+      "stufe": 6,
+      "richtig": "Bibliothek",
+      "falsch": ["Bibliotek", "Biblothek", "Bibliotheck"],
+      "hinweis": "th am Ende ohne ck."
+    },
+    {
+      "id": "w122",
+      "typ": "wort",
+      "stufe": 6,
+      "richtig": "Labyrinth",
+      "falsch": ["Labirinth", "Labyrint", "Laborinth"],
+      "hinweis": "y in der Mitte, th am Ende."
+    },
+    {
+      "id": "w123",
+      "typ": "wort",
+      "stufe": 6,
+      "richtig": "Katastrophe",
+      "falsch": ["Katastrofe", "Kattastrophe", "Katastropfe"],
+      "hinweis": "ph (Katastrofe ist nicht zulässig)."
+    },
+    {
+      "id": "w124",
+      "typ": "wort",
+      "stufe": 6,
+      "richtig": "Diphtherie",
+      "falsch": ["Diphtherih", "Difterie", "Diftherie"],
+      "hinweis": "phth in der Mitte."
+    },
+    {
+      "id": "w125",
+      "typ": "wort",
+      "stufe": 6,
+      "richtig": "Silhouette",
+      "falsch": ["Silouette", "Silhuette", "Silhoutte"],
+      "hinweis": "Silh-ou-ette."
+    },
+    {
+      "id": "w126",
+      "typ": "wort",
+      "stufe": 6,
+      "richtig": "Kalorie",
+      "falsch": ["Kallorie", "Kalori", "Kalorrie"],
+      "hinweis": ""
+    },
+    {
+      "id": "w127",
+      "typ": "wort",
+      "stufe": 6,
+      "richtig": "Lappalie",
+      "falsch": ["Lapalie", "Lappallie", "Labbalie"],
+      "hinweis": "Zwei p, ein l."
+    },
+    {
+      "id": "w128",
+      "typ": "wort",
+      "stufe": 6,
+      "richtig": "Satire",
+      "falsch": ["Sattire", "Satiere", "Sathire"],
+      "hinweis": ""
+    },
+    {
+      "id": "w129",
+      "typ": "wort",
+      "stufe": 6,
+      "richtig": "Akquise",
+      "falsch": ["Aquise", "Akwise", "Ackquise"],
+      "hinweis": "kqu."
+    },
+    {
+      "id": "w130",
+      "typ": "wort",
+      "stufe": 6,
+      "richtig": "Detektiv",
+      "falsch": ["Dedektiv", "Detecktiv", "Detektief"],
+      "hinweis": ""
+    },
+    {
+      "id": "w131",
+      "typ": "wort",
+      "stufe": 6,
+      "richtig": "Kakophonie",
+      "falsch": ["Kakofonnie", "Kakophonnie", "Kackophonie"],
+      "hinweis": ""
+    },
+    {
+      "id": "w132",
+      "typ": "wort",
+      "stufe": 6,
+      "richtig": "Ressource",
+      "falsch": ["Resource", "Resourse", "Ressourse"],
+      "hinweis": "Zwei s, -ource."
+    },
+    {
+      "id": "w133",
+      "typ": "wort",
+      "stufe": 6,
+      "richtig": "Souvenir",
+      "falsch": ["Suvenir", "Souvenier", "Sovenir"],
+      "hinweis": ""
+    },
+    {
+      "id": "w134",
+      "typ": "wort",
+      "stufe": 6,
+      "richtig": "Medaille",
+      "falsch": ["Medallie", "Medaile", "Medalje"],
+      "hinweis": "-aille."
+    },
+    {
+      "id": "w135",
+      "typ": "wort",
+      "stufe": 7,
+      "richtig": "Rhinozeros",
+      "falsch": ["Rhinozerus", "Rinozeros", "Rhinozzeros"],
+      "hinweis": ""
+    },
+    {
+      "id": "w136",
+      "typ": "wort",
+      "stufe": 7,
+      "richtig": "Asymmetrie",
+      "falsch": ["Assymetrie", "Asymetrie", "Assymmetrie"],
+      "hinweis": "Ein s, zwei m."
+    },
+    {
+      "id": "w137",
+      "typ": "wort",
+      "stufe": 7,
+      "richtig": "Dekolleté",
+      "falsch": ["Dekoltee", "Dekolete", "Dekkolleté"],
+      "hinweis": ""
+    },
+    {
+      "id": "w138",
+      "typ": "wort",
+      "stufe": 7,
+      "richtig": "Rhododendron",
+      "falsch": ["Rododendron", "Rhododentron", "Rhodedendron"],
+      "hinweis": ""
+    },
+    {
+      "id": "w139",
+      "typ": "wort",
+      "stufe": 7,
+      "richtig": "Chrysantheme",
+      "falsch": ["Chrisantheme", "Chrysanteme", "Krysantheme"],
+      "hinweis": ""
+    },
+    {
+      "id": "w140",
+      "typ": "wort",
+      "stufe": 7,
+      "richtig": "Ouvertüre",
+      "falsch": ["Ouvertühre", "Uvertüre", "Overtüre"],
+      "hinweis": ""
+    },
+    {
+      "id": "w141",
+      "typ": "wort",
+      "stufe": 7,
+      "richtig": "Kommissar",
+      "falsch": ["Komissar", "Kommisar", "Komisar"],
+      "hinweis": "Zwei m, zwei s."
+    },
+    {
+      "id": "w142",
+      "typ": "wort",
+      "stufe": 7,
+      "richtig": "Konnossement",
+      "falsch": ["Konossement", "Konnosement", "Konnossemment"],
+      "hinweis": ""
+    },
+    {
+      "id": "w143",
+      "typ": "wort",
+      "stufe": 7,
+      "richtig": "Hypothek",
+      "falsch": ["Hypotek", "Hüpothek", "Hypotheck"],
+      "hinweis": ""
+    },
+    {
+      "id": "w144",
+      "typ": "wort",
+      "stufe": 7,
+      "richtig": "Kalligrafie",
+      "falsch": ["Kaligraphie", "Kalligraffie", "Kaligrafie"],
+      "hinweis": "Zwei l (Kalligraphie ist auch zulässig)."
+    },
+    {
+      "id": "w145",
+      "typ": "wort",
+      "stufe": 7,
+      "richtig": "Pharmazeut",
+      "falsch": ["Farmazeut", "Pharmazäut", "Pharmazeuht"],
+      "hinweis": ""
+    },
+    {
+      "id": "w146",
+      "typ": "wort",
+      "stufe": 7,
+      "richtig": "Apparat",
+      "falsch": ["Aparat", "Apparatt", "Apperat"],
+      "hinweis": "Zwei p, ein r, ein t."
+    },
+    {
+      "id": "w147",
+      "typ": "wort",
+      "stufe": 7,
+      "richtig": "Algorithmus",
+      "falsch": ["Algorythmus", "Algoritmus", "Allgorithmus"],
+      "hinweis": "i nach r, th."
+    },
+    {
+      "id": "w148",
+      "typ": "wort",
+      "stufe": 7,
+      "richtig": "Enzyklopädie",
+      "falsch": ["Enzyklopedie", "Encyklopädie", "Enzüklopädie"],
+      "hinweis": ""
+    },
+    {
+      "id": "w149",
+      "typ": "wort",
+      "stufe": 7,
+      "richtig": "Paralyse",
+      "falsch": ["Parallyse", "Paralüse", "Parralyse"],
+      "hinweis": ""
+    },
+    {
+      "id": "w150",
+      "typ": "wort",
+      "stufe": 7,
+      "richtig": "Rhapsodie",
+      "falsch": ["Rapsodie", "Rhapsodi", "Raphsodie"],
+      "hinweis": ""
+    },
+    {
+      "id": "w151",
+      "typ": "wort",
+      "stufe": 7,
+      "richtig": "Schikane",
+      "falsch": ["Schickane", "Schikahne", "Chikane"],
+      "hinweis": ""
+    },
+    {
+      "id": "w152",
+      "typ": "wort",
+      "stufe": 7,
+      "richtig": "Lymphe",
+      "falsch": ["Limphe", "Lymfe", "Lümphe"],
+      "hinweis": ""
+    },
+    {
+      "id": "w153",
+      "typ": "wort",
+      "stufe": 7,
+      "richtig": "Quarantäne",
+      "falsch": ["Quarantene", "Karantäne", "Quarrantäne"],
+      "hinweis": ""
+    },
+    {
+      "id": "w154",
+      "typ": "wort",
+      "stufe": 7,
+      "richtig": "Matratze",
+      "falsch": ["Matraze", "Madratze", "Matrratze"],
+      "hinweis": "tz nach kurzem a."
+    },
+    {
+      "id": "w155",
+      "typ": "wort",
+      "stufe": 7,
+      "richtig": "Reminiszenz",
+      "falsch": ["Reminiszens", "Reminiscenz", "Rehminiszenz"],
+      "hinweis": "sz."
+    },
+    {
+      "id": "w156",
+      "typ": "wort",
+      "stufe": 8,
+      "richtig": "Konnotation",
+      "falsch": ["Konotation", "Konnottation", "Konnotazion"],
+      "hinweis": "Zwei n, ein t."
+    },
+    {
+      "id": "w157",
+      "typ": "wort",
+      "stufe": 8,
+      "richtig": "Mnemotechnik",
+      "falsch": ["Nemotechnik", "Mnemotechnick", "Mnemmotechnik"],
+      "hinweis": "Mn am Anfang."
+    },
+    {
+      "id": "w158",
+      "typ": "wort",
+      "stufe": 8,
+      "richtig": "Pneumatik",
+      "falsch": ["Neumatik", "Pneumatick", "Pnäumatik"],
+      "hinweis": "Pn am Anfang."
+    },
+    {
+      "id": "w159",
+      "typ": "wort",
+      "stufe": 8,
+      "richtig": "Rhythmik",
+      "falsch": ["Rhytmik", "Rythmik", "Rhythmick"],
+      "hinweis": ""
+    },
+    {
+      "id": "w160",
+      "typ": "wort",
+      "stufe": 8,
+      "richtig": "Physiognomie",
+      "falsch": ["Physionomie", "Fysiognomie", "Physiognomi"],
+      "hinweis": ""
+    },
+    {
+      "id": "w161",
+      "typ": "wort",
+      "stufe": 8,
+      "richtig": "Aphorismus",
+      "falsch": ["Afforismus", "Aphorissmus", "Aphoriesmus"],
+      "hinweis": ""
+    },
+    {
+      "id": "w162",
+      "typ": "wort",
+      "stufe": 8,
+      "richtig": "Parlament",
+      "falsch": ["Parlement", "Parlamennt", "Parrlament"],
+      "hinweis": ""
+    },
+    {
+      "id": "w163",
+      "typ": "wort",
+      "stufe": 8,
+      "richtig": "Kanonade",
+      "falsch": ["Kannonade", "Kanonaade", "Kanohnade"],
+      "hinweis": ""
+    },
+    {
+      "id": "w164",
+      "typ": "wort",
+      "stufe": 8,
+      "richtig": "Kapillare",
+      "falsch": ["Kapilare", "Kappillare", "Kapillahre"],
+      "hinweis": ""
+    },
+    {
+      "id": "w165",
+      "typ": "wort",
+      "stufe": 8,
+      "richtig": "Hydraulik",
+      "falsch": ["Hydrauklik", "Hüdraulik", "Hydraullik"],
+      "hinweis": ""
+    },
+    {
+      "id": "w166",
+      "typ": "wort",
+      "stufe": 8,
+      "richtig": "Erythrozyt",
+      "falsch": ["Erytrozyt", "Eryhtrozyt", "Erythrozüt"],
+      "hinweis": ""
+    },
+    {
+      "id": "w167",
+      "typ": "wort",
+      "stufe": 8,
+      "richtig": "Narzissmus",
+      "falsch": ["Narzißmus", "Narzismus", "Narcissmus"],
+      "hinweis": "Zwei s nach kurzem i."
+    },
+    {
+      "id": "w168",
+      "typ": "wort",
+      "stufe": 8,
+      "richtig": "Atrophie",
+      "falsch": ["Atropie", "Athrophie", "Atrofie"],
+      "hinweis": ""
+    },
+    {
+      "id": "w169",
+      "typ": "wort",
+      "stufe": 8,
+      "richtig": "Exzerpt",
+      "falsch": ["Exerpt", "Excerpt", "Exzerbt"],
+      "hinweis": "xz."
+    },
+    {
+      "id": "w170",
+      "typ": "wort",
+      "stufe": 8,
+      "richtig": "Sukzession",
+      "falsch": ["Sukzesion", "Suksession", "Succzession"],
+      "hinweis": ""
+    },
+    {
+      "id": "w171",
+      "typ": "wort",
+      "stufe": 8,
+      "richtig": "Prophylaxe",
+      "falsch": ["Prophilaxe", "Profylaxe", "Prophylakse"],
+      "hinweis": ""
+    },
+    {
+      "id": "w172",
+      "typ": "wort",
+      "stufe": 9,
+      "richtig": "Bourgeoisie",
+      "falsch": ["Bourgoisie", "Bourgeosie", "Burgeoisie"],
+      "hinweis": ""
+    },
+    {
+      "id": "w173",
+      "typ": "wort",
+      "stufe": 9,
+      "richtig": "Chauvinismus",
+      "falsch": ["Schovinismus", "Chauvenismus", "Chauvinissmus"],
+      "hinweis": ""
+    },
+    {
+      "id": "w174",
+      "typ": "wort",
+      "stufe": 9,
+      "richtig": "echauffieren",
+      "falsch": ["eschauffieren", "echaufieren", "echauffiren"],
+      "hinweis": "Französisch: ech-, ff, -ieren."
+    },
+    {
+      "id": "w175",
+      "typ": "wort",
+      "stufe": 9,
+      "richtig": "Rhinitis",
+      "falsch": ["Rinitis", "Rhinittis", "Rhienitis"],
+      "hinweis": ""
+    },
+    {
+      "id": "w176",
+      "typ": "wort",
+      "stufe": 9,
+      "richtig": "Sisyphusarbeit",
+      "falsch": ["Sysiphusarbeit", "Sisiphusarbeit", "Sisyfusarbeit"],
+      "hinweis": "Sisy-phus."
+    },
+    {
+      "id": "w177",
+      "typ": "wort",
+      "stufe": 9,
+      "richtig": "Seismograf",
+      "falsch": ["Seißmograf", "Seismogaf", "Sismograf"],
+      "hinweis": "Seismograf oder Seismograph sind beide richtig; die falschen Formen haben ß oder fehlende Buchstaben."
+    },
+    {
+      "id": "w178",
+      "typ": "wort",
+      "stufe": 9,
+      "richtig": "Zirrhose",
+      "falsch": ["Zirose", "Zirrose", "Zhirrose"],
+      "hinweis": ""
+    },
+    {
+      "id": "w179",
+      "typ": "wort",
+      "stufe": 9,
+      "richtig": "Desoxyribonukleinsäure",
+      "falsch": ["Desoxiribonukleinsäure", "Desoxyribonuklainsäure", "Desoxyribonukleinseure"],
+      "hinweis": ""
+    },
+    {
+      "id": "w180",
+      "typ": "wort",
+      "stufe": 9,
+      "richtig": "Liaison",
+      "falsch": ["Liäson", "Liason", "Lieson"],
+      "hinweis": ""
+    },
+    {
+      "id": "w181",
+      "typ": "wort",
+      "stufe": 10,
+      "richtig": "Ichthyologie",
+      "falsch": ["Ichtyologie", "Ichthiologie", "Ichthyolohgie"],
+      "hinweis": "ichthy."
+    },
+    {
+      "id": "w182",
+      "typ": "wort",
+      "stufe": 10,
+      "richtig": "Rhythmusgefühl",
+      "falsch": ["Rythmusgefühl", "Rhytmusgefühl", "Rhythmusgefül"],
+      "hinweis": ""
+    },
+    {
+      "id": "w183",
+      "typ": "wort",
+      "stufe": 10,
+      "richtig": "Paraphrase",
+      "falsch": ["Parafrase", "Paraphrahse", "Parraphrase"],
+      "hinweis": ""
+    },
+    {
+      "id": "w184",
+      "typ": "wort",
+      "stufe": 10,
+      "richtig": "Synästhesie",
+      "falsch": ["Synesthesie", "Sünästhesie", "Synästesie"],
+      "hinweis": ""
+    },
+    {
+      "id": "w185",
+      "typ": "wort",
+      "stufe": 10,
+      "richtig": "Psoriasis",
+      "falsch": ["Soriasis", "Psoriassis", "Psoriasiss"],
+      "hinweis": ""
+    },
+    {
+      "id": "w186",
+      "typ": "wort",
+      "stufe": 10,
+      "richtig": "Xylophon",
+      "falsch": ["Xylofonn", "Xylophonn", "Xilophon"],
+      "hinweis": "Xylophon oder Xylofon sind beide richtig; die falschen Formen haben nn oder i."
+    },
+    {
+      "id": "d187",
+      "typ": "dasDass",
+      "stufe": 1,
+      "satz": "Ich hoffe, ___ du pünktlich bist.",
+      "loesung": ["dass"]
+    },
+    {
+      "id": "d188",
+      "typ": "dasDass",
+      "stufe": 1,
+      "satz": "Das Auto, ___ dort parkt, gehört dem Zugführer.",
+      "loesung": ["das"]
+    },
+    {
+      "id": "d189",
+      "typ": "dasDass",
+      "stufe": 1,
+      "satz": "Er weiß, ___ die Prüfung schwer wird.",
+      "loesung": ["dass"]
+    },
+    {
+      "id": "d190",
+      "typ": "dasDass",
+      "stufe": 1,
+      "satz": "___ Wetter ist heute gut.",
+      "loesung": ["Das"]
+    },
+    {
+      "id": "d191",
+      "typ": "dasDass",
+      "stufe": 1,
+      "satz": "Das Fahrzeug, ___ wir fahren, ist neu.",
+      "loesung": ["das"]
+    },
+    {
+      "id": "d192",
+      "typ": "dasDass",
+      "stufe": 1,
+      "satz": "Es ist klar, ___ wir früh aufbrechen.",
+      "loesung": ["dass"]
+    },
+    {
+      "id": "d193",
+      "typ": "dasDass",
+      "stufe": 1,
+      "satz": "Siehst du ___ Haus dort?",
+      "loesung": ["das"]
+    },
+    {
+      "id": "d194",
+      "typ": "dasDass",
+      "stufe": 1,
+      "satz": "Sie sagt, ___ sie morgen kommt.",
+      "loesung": ["dass"]
+    },
+    {
+      "id": "d195",
+      "typ": "dasDass",
+      "stufe": 1,
+      "satz": "Das Gewehr, ___ im Schrank steht, ist gereinigt.",
+      "loesung": ["das"]
+    },
+    {
+      "id": "d196",
+      "typ": "dasDass",
+      "stufe": 1,
+      "satz": "Wir wissen, ___ es regnen wird.",
+      "loesung": ["dass"]
+    },
+    {
+      "id": "d197",
+      "typ": "dasDass",
+      "stufe": 2,
+      "satz": "Ich glaube, ___ ___ richtig ist.",
+      "loesung": ["dass", "das"]
+    },
+    {
+      "id": "d198",
+      "typ": "dasDass",
+      "stufe": 2,
+      "satz": "___ du kommst, freut mich.",
+      "loesung": ["Dass"]
+    },
+    {
+      "id": "d199",
+      "typ": "dasDass",
+      "stufe": 2,
+      "satz": "Er hat ___ Buch gelesen, ___ ich ihm gab.",
+      "loesung": ["das", "das"]
+    },
+    {
+      "id": "d200",
+      "typ": "dasDass",
+      "stufe": 2,
+      "satz": "Das Ziel, ___ wir erreichen wollen, ist weit.",
+      "loesung": ["das"]
+    },
+    {
+      "id": "d201",
+      "typ": "dasDass",
+      "stufe": 2,
+      "satz": "Ich merke, ___ ich müde werde.",
+      "loesung": ["dass"]
+    },
+    {
+      "id": "d202",
+      "typ": "dasDass",
+      "stufe": 2,
+      "satz": "Kein Wunder, ___ er gewonnen hat.",
+      "loesung": ["dass"]
+    },
+    {
+      "id": "d203",
+      "typ": "dasDass",
+      "stufe": 2,
+      "satz": "Das Problem ist, ___ niemand Zeit hat.",
+      "loesung": ["dass"]
+    },
+    {
+      "id": "d204",
+      "typ": "dasDass",
+      "stufe": 2,
+      "satz": "Das Kind, ___ weint, hat sich verlaufen.",
+      "loesung": ["das"]
+    },
+    {
+      "id": "d205",
+      "typ": "dasDass",
+      "stufe": 2,
+      "satz": "Er sorgt dafür, ___ alles klappt.",
+      "loesung": ["dass"]
+    },
+    {
+      "id": "d206",
+      "typ": "dasDass",
+      "stufe": 2,
+      "satz": "Hast du gehört, ___ der Marsch verschoben wird?",
+      "loesung": ["dass"]
+    },
+    {
+      "id": "d207",
+      "typ": "dasDass",
+      "stufe": 3,
+      "satz": "___ ist das Gelände, ___ wir morgen erkunden.",
+      "loesung": ["Das", "das"]
+    },
+    {
+      "id": "d208",
+      "typ": "dasDass",
+      "stufe": 3,
+      "satz": "Ich wusste nicht, ___ ___ so lange dauert.",
+      "loesung": ["dass", "das"]
+    },
+    {
+      "id": "d209",
+      "typ": "dasDass",
+      "stufe": 3,
+      "satz": "Es ist wichtig, ___ jeder seine Ausrüstung prüft.",
+      "loesung": ["dass"]
+    },
+    {
+      "id": "d210",
+      "typ": "dasDass",
+      "stufe": 3,
+      "satz": "Das Funkgerät, ___ ausgefallen ist, wird ersetzt.",
+      "loesung": ["das"]
+    },
+    {
+      "id": "d211",
+      "typ": "dasDass",
+      "stufe": 3,
+      "satz": "Er behauptet, ___ er ___ Ziel kennt.",
+      "loesung": ["dass", "das"]
+    },
+    {
+      "id": "d212",
+      "typ": "dasDass",
+      "stufe": 3,
+      "satz": "___ er gelogen hat, ist sicher.",
+      "loesung": ["Dass"]
+    },
+    {
+      "id": "d213",
+      "typ": "dasDass",
+      "stufe": 3,
+      "satz": "So schnell, ___ niemand folgen konnte, lief er los.",
+      "loesung": ["dass"]
+    },
+    {
+      "id": "d214",
+      "typ": "dasDass",
+      "stufe": 3,
+      "satz": "Das Material, ___ geliefert wurde, war beschädigt.",
+      "loesung": ["das"]
+    },
+    {
+      "id": "d215",
+      "typ": "dasDass",
+      "stufe": 3,
+      "satz": "Ich bin froh, ___ ___ vorbei ist.",
+      "loesung": ["dass", "das"]
+    },
+    {
+      "id": "d216",
+      "typ": "dasDass",
+      "stufe": 3,
+      "satz": "Es kann sein, ___ ___ Wetter umschlägt.",
+      "loesung": ["dass", "das"]
+    },
+    {
+      "id": "d217",
+      "typ": "dasDass",
+      "stufe": 4,
+      "satz": "Er sprach so leise, ___ ihn keiner verstand.",
+      "loesung": ["dass"]
+    },
+    {
+      "id": "d218",
+      "typ": "dasDass",
+      "stufe": 4,
+      "satz": "Das Fahrzeug, ___ vorne steht, und ___, ___ hinten steht, sind bereit.",
+      "loesung": ["das", "das", "das"]
+    },
+    {
+      "id": "d219",
+      "typ": "dasDass",
+      "stufe": 4,
+      "satz": "Es fällt auf, ___ ___ Team besser wird.",
+      "loesung": ["dass", "das"]
+    },
+    {
+      "id": "d220",
+      "typ": "dasDass",
+      "stufe": 4,
+      "satz": "Weißt du, ___ ___ Funkgerät neu ist?",
+      "loesung": ["dass", "das"]
+    },
+    {
+      "id": "d221",
+      "typ": "dasDass",
+      "stufe": 4,
+      "satz": "Dass er kommt, glaube ich, aber ___ er pünktlich ist, nicht.",
+      "loesung": ["dass"]
+    },
+    {
+      "id": "d222",
+      "typ": "dasDass",
+      "stufe": 4,
+      "satz": "Das Lager, ___ wir bezogen haben, ist feucht.",
+      "loesung": ["das"]
+    },
+    {
+      "id": "d223",
+      "typ": "dasDass",
+      "stufe": 4,
+      "satz": "Ich rechne damit, ___ es länger dauert.",
+      "loesung": ["dass"]
+    },
+    {
+      "id": "d224",
+      "typ": "dasDass",
+      "stufe": 4,
+      "satz": "Er gibt zu, ___ er ___ Signal übersehen hat.",
+      "loesung": ["dass", "das"]
+    },
+    {
+      "id": "d225",
+      "typ": "dasDass",
+      "stufe": 4,
+      "satz": "Es ist schade, ___ ___ Wetter so schlecht ist.",
+      "loesung": ["dass", "das"]
+    },
+    {
+      "id": "d226",
+      "typ": "dasDass",
+      "stufe": 5,
+      "satz": "___ ___ stimmt, bezweifle ich.",
+      "loesung": ["Dass", "das"]
+    },
+    {
+      "id": "d227",
+      "typ": "dasDass",
+      "stufe": 5,
+      "satz": "Das Problem, ___ uns beschäftigt, ist, ___ niemand zuständig ist.",
+      "loesung": ["das", "dass"]
+    },
+    {
+      "id": "d228",
+      "typ": "dasDass",
+      "stufe": 5,
+      "satz": "Er war so erschöpft, ___ er sofort einschlief.",
+      "loesung": ["dass"]
+    },
+    {
+      "id": "d229",
+      "typ": "dasDass",
+      "stufe": 5,
+      "satz": "___ ___ Fahrzeug, ___ dort steht, funktioniert, ist unwahrscheinlich.",
+      "loesung": ["Dass", "das", "das"]
+    },
+    {
+      "id": "d230",
+      "typ": "dasDass",
+      "stufe": 5,
+      "satz": "Es zeigt sich, ___ ___ Konzept aufgeht.",
+      "loesung": ["dass", "das"]
+    },
+    {
+      "id": "d231",
+      "typ": "dasDass",
+      "stufe": 5,
+      "satz": "Das Wichtigste ist, ___ ___ Team zusammenhält.",
+      "loesung": ["dass", "das"]
+    },
+    {
+      "id": "d232",
+      "typ": "dasDass",
+      "stufe": 5,
+      "satz": "Mir ist bewusst, ___ ___ ein Risiko ist.",
+      "loesung": ["dass", "das"]
+    },
+    {
+      "id": "d233",
+      "typ": "dasDass",
+      "stufe": 5,
+      "satz": "Ich halte es für möglich, ___ ___ Ergebnis falsch ist.",
+      "loesung": ["dass", "das"]
+    },
+    {
+      "id": "d234",
+      "typ": "dasDass",
+      "stufe": 6,
+      "satz": "___ ___ Gerät, ___ er repariert hat, wieder ausfällt, ärgert ihn.",
+      "loesung": ["Dass", "das", "das"]
+    },
+    {
+      "id": "d235",
+      "typ": "dasDass",
+      "stufe": 6,
+      "satz": "Das Haus, ___ abbrannte, und ___ Auto, ___ davor stand, waren versichert.",
+      "loesung": ["das", "das", "das"]
+    },
+    {
+      "id": "d236",
+      "typ": "dasDass",
+      "stufe": 6,
+      "satz": "Ich hoffe, ___ ___ Schreiben, ___ ich geschickt habe, ankommt.",
+      "loesung": ["dass", "das", "das"]
+    },
+    {
+      "id": "d237",
+      "typ": "dasDass",
+      "stufe": 6,
+      "satz": "Er hat gesagt, ___ ___ Ziel, ___ wir anpeilen, unrealistisch ist.",
+      "loesung": ["dass", "das", "das"]
+    },
+    {
+      "id": "d238",
+      "typ": "dasDass",
+      "stufe": 6,
+      "satz": "Das ist ein Ergebnis, ___ zeigt, ___ wir besser werden.",
+      "loesung": ["das", "dass"]
+    },
+    {
+      "id": "d239",
+      "typ": "dasDass",
+      "stufe": 6,
+      "satz": "Es überrascht mich, ___ ___ Wetter hält.",
+      "loesung": ["dass", "das"]
+    },
+    {
+      "id": "d240",
+      "typ": "dasDass",
+      "stufe": 6,
+      "satz": "Die Tatsache, ___ ___ Funkgerät fehlt, ist ernst.",
+      "loesung": ["dass", "das"]
+    },
+    {
+      "id": "d241",
+      "typ": "dasDass",
+      "stufe": 1,
+      "satz": "Ich sehe, ___ du müde bist.",
+      "loesung": ["dass"]
+    },
+    {
+      "id": "d242",
+      "typ": "dasDass",
+      "stufe": 1,
+      "satz": "Das Zelt, ___ wir aufgebaut haben, ist dicht.",
+      "loesung": ["das"]
+    },
+    {
+      "id": "d243",
+      "typ": "dasDass",
+      "stufe": 1,
+      "satz": "Er meint, ___ es gleich losgeht.",
+      "loesung": ["dass"]
+    },
+    {
+      "id": "d244",
+      "typ": "dasDass",
+      "stufe": 2,
+      "satz": "Das Seil, ___ reißt, wird ersetzt.",
+      "loesung": ["das"]
+    },
+    {
+      "id": "d245",
+      "typ": "dasDass",
+      "stufe": 2,
+      "satz": "Es ist gut, ___ du hier bist.",
+      "loesung": ["dass"]
+    },
+    {
+      "id": "d246",
+      "typ": "dasDass",
+      "stufe": 2,
+      "satz": "Ich wette, ___ er gewinnt.",
+      "loesung": ["dass"]
+    },
+    {
+      "id": "d247",
+      "typ": "dasDass",
+      "stufe": 3,
+      "satz": "Er erklärte, ___ ___ Lager verlegt wird.",
+      "loesung": ["dass", "das"]
+    },
+    {
+      "id": "d248",
+      "typ": "dasDass",
+      "stufe": 3,
+      "satz": "Das Ergebnis, ___ er erzielte, war gut.",
+      "loesung": ["das"]
+    },
+    {
+      "id": "d249",
+      "typ": "dasDass",
+      "stufe": 3,
+      "satz": "Ich erwarte, ___ ihr pünktlich seid.",
+      "loesung": ["dass"]
+    },
+    {
+      "id": "d250",
+      "typ": "dasDass",
+      "stufe": 4,
+      "satz": "Das Gewehr, ___ klemmt, muss zur Waffenkammer.",
+      "loesung": ["das"]
+    },
+    {
+      "id": "d251",
+      "typ": "dasDass",
+      "stufe": 4,
+      "satz": "Er war so laut, ___ alle aufwachten.",
+      "loesung": ["dass"]
+    },
+    {
+      "id": "d252",
+      "typ": "dasDass",
+      "stufe": 4,
+      "satz": "Sie bemerkte, ___ ___ Tor offen stand.",
+      "loesung": ["dass", "das"]
+    },
+    {
+      "id": "d253",
+      "typ": "dasDass",
+      "stufe": 5,
+      "satz": "Er hoffte, ___ ___ Fahrzeug, ___ liegen blieb, bald abgeschleppt wird.",
+      "loesung": ["dass", "das", "das"]
+    },
+    {
+      "id": "v254",
+      "typ": "verwechslung",
+      "stufe": 1,
+      "satz": "Wir sind ___ drei Stunden unterwegs.",
+      "richtig": "seit",
+      "falsch": ["seid"],
+      "hinweis": "seit = Zeit; seid = Form von sein (ihr seid)."
+    },
+    {
+      "id": "v255",
+      "typ": "verwechslung",
+      "stufe": 1,
+      "satz": "Ihr ___ heute früh dran.",
+      "richtig": "seid",
+      "falsch": ["seit"],
+      "hinweis": "seid = ihr seid (Verb sein)."
+    },
+    {
+      "id": "v256",
+      "typ": "verwechslung",
+      "stufe": 1,
+      "satz": "Er kommt morgen ___.",
+      "richtig": "wieder",
+      "falsch": ["wider"],
+      "hinweis": "wieder = noch einmal; wider = gegen."
+    },
+    {
+      "id": "v257",
+      "typ": "verwechslung",
+      "stufe": 1,
+      "satz": "Das spricht ___ jede Vernunft.",
+      "richtig": "wider",
+      "falsch": ["wieder"],
+      "hinweis": "wider = gegen."
+    },
+    {
+      "id": "v258",
+      "typ": "verwechslung",
+      "stufe": 1,
+      "satz": "Der Vogel ist ___.",
+      "richtig": "tot",
+      "falsch": ["tod"],
+      "hinweis": "tot ist das Adjektiv, Tod das Nomen."
+    },
+    {
+      "id": "v259",
+      "typ": "verwechslung",
+      "stufe": 1,
+      "satz": "Der ___ kam plötzlich.",
+      "richtig": "Tod",
+      "falsch": ["Tot"],
+      "hinweis": "Tod ist das Nomen."
+    },
+    {
+      "id": "v260",
+      "typ": "verwechslung",
+      "stufe": 1,
+      "satz": "Er ___ ein Bild.",
+      "richtig": "malt",
+      "falsch": ["mahlt"],
+      "hinweis": "malen = mit Farbe; mahlen = zerkleinern."
+    },
+    {
+      "id": "v261",
+      "typ": "verwechslung",
+      "stufe": 1,
+      "satz": "Die Mühle ___ das Korn.",
+      "richtig": "mahlt",
+      "falsch": ["malt"],
+      "hinweis": "mahlen = zerkleinern."
+    },
+    {
+      "id": "v262",
+      "typ": "verwechslung",
+      "stufe": 1,
+      "satz": "Sie singt ein schönes ___.",
+      "richtig": "Lied",
+      "falsch": ["Lid"],
+      "hinweis": "Lied = Gesang; Lid = Augenlid."
+    },
+    {
+      "id": "v263",
+      "typ": "verwechslung",
+      "stufe": 1,
+      "satz": "Er hob das ___ und öffnete das Auge.",
+      "richtig": "Lid",
+      "falsch": ["Lied"],
+      "hinweis": "Lid = Augenlid."
+    },
+    {
+      "id": "v264",
+      "typ": "verwechslung",
+      "stufe": 2,
+      "satz": "Er beginnt eine ___ als Mechaniker.",
+      "richtig": "Lehre",
+      "falsch": ["Leere"],
+      "hinweis": "Lehre = Ausbildung; Leere = leerer Raum."
+    },
+    {
+      "id": "v265",
+      "typ": "verwechslung",
+      "stufe": 2,
+      "satz": "Er starrte in die ___.",
+      "richtig": "Leere",
+      "falsch": ["Lehre"],
+      "hinweis": "Leere = Nichts, leerer Raum."
+    },
+    {
+      "id": "v266",
+      "typ": "verwechslung",
+      "stufe": 2,
+      "satz": "Die ___ hat 20 000 Einwohner.",
+      "richtig": "Stadt",
+      "falsch": ["Statt"],
+      "hinweis": "Stadt = Ort; statt = anstelle."
+    },
+    {
+      "id": "v267",
+      "typ": "verwechslung",
+      "stufe": 2,
+      "satz": "Er nahm Tee ___ Kaffee.",
+      "richtig": "statt",
+      "falsch": ["stadt"],
+      "hinweis": "statt = anstelle."
+    },
+    {
+      "id": "v268",
+      "typ": "verwechslung",
+      "stufe": 2,
+      "satz": "Er ___ die Tür.",
+      "richtig": "schließt",
+      "falsch": ["schliest"],
+      "hinweis": "schließen: ß nach langem Vokal bzw. Diphthong."
+    },
+    {
+      "id": "v269",
+      "typ": "verwechslung",
+      "stufe": 2,
+      "satz": "Der Hund ___ den Stock.",
+      "richtig": "holt",
+      "falsch": ["hohlt"],
+      "hinweis": "holen ohne h; hohl = innen leer."
+    },
+    {
+      "id": "v270",
+      "typ": "verwechslung",
+      "stufe": 2,
+      "satz": "Der Baumstamm ist innen ___.",
+      "richtig": "hohl",
+      "falsch": ["hol"],
+      "hinweis": "hohl = innen leer."
+    },
+    {
+      "id": "v271",
+      "typ": "verwechslung",
+      "stufe": 2,
+      "satz": "Bitte ___ den Brief.",
+      "richtig": "lies",
+      "falsch": ["ließ"],
+      "hinweis": "lies = Befehlsform von lesen; ließ = Vergangenheit von lassen."
+    },
+    {
+      "id": "v272",
+      "typ": "verwechslung",
+      "stufe": 2,
+      "satz": "Er ___ die Tasche liegen.",
+      "richtig": "ließ",
+      "falsch": ["lies"],
+      "hinweis": "ließ = Vergangenheit von lassen."
+    },
+    {
+      "id": "v273",
+      "typ": "verwechslung",
+      "stufe": 3,
+      "satz": "Das Gegenteil von Anfang ist das ___.",
+      "richtig": "Ende",
+      "falsch": ["Ente"],
+      "hinweis": ""
+    },
+    {
+      "id": "v274",
+      "typ": "verwechslung",
+      "stufe": 3,
+      "satz": "Er ___ den Plan.",
+      "richtig": "entwirft",
+      "falsch": ["endwirft"],
+      "hinweis": "Vorsilbe ent- (nicht von Ende)."
+    },
+    {
+      "id": "v275",
+      "typ": "verwechslung",
+      "stufe": 3,
+      "satz": "Das war ___ gültig.",
+      "richtig": "endgültig",
+      "falsch": ["entgültig"],
+      "hinweis": "endgültig kommt von Ende."
+    },
+    {
+      "id": "v276",
+      "typ": "verwechslung",
+      "stufe": 3,
+      "satz": "Er ___ sich schnell.",
+      "richtig": "entschied",
+      "falsch": ["endschied"],
+      "hinweis": "Vorsilbe ent-."
+    },
+    {
+      "id": "v277",
+      "typ": "verwechslung",
+      "stufe": 3,
+      "satz": "Das Fahrzeug ist ___ beladen.",
+      "richtig": "voll",
+      "falsch": ["foll"],
+      "hinweis": ""
+    },
+    {
+      "id": "v278",
+      "typ": "verwechslung",
+      "stufe": 3,
+      "satz": "Er ist ___ müde.",
+      "richtig": "ziemlich",
+      "falsch": ["ziehmlich"],
+      "hinweis": ""
+    },
+    {
+      "id": "v279",
+      "typ": "verwechslung",
+      "stufe": 3,
+      "satz": "Der Zug ist ___ abgefahren.",
+      "richtig": "bereits",
+      "falsch": ["bereitz"],
+      "hinweis": ""
+    },
+    {
+      "id": "v280",
+      "typ": "verwechslung",
+      "stufe": 3,
+      "satz": "Wir gehen über das ___.",
+      "richtig": "Feld",
+      "falsch": ["Feldt"],
+      "hinweis": "Feld mit d (Felder)."
+    },
+    {
+      "id": "v281",
+      "typ": "verwechslung",
+      "stufe": 3,
+      "satz": "Das Pferd hat ein glänzendes ___.",
+      "richtig": "Fell",
+      "falsch": ["Fel"],
+      "hinweis": ""
+    },
+    {
+      "id": "v282",
+      "typ": "verwechslung",
+      "stufe": 3,
+      "satz": "Das ___ ist gefroren.",
+      "richtig": "Meer",
+      "falsch": ["Mehr"],
+      "hinweis": "Meer = See; mehr = Steigerung von viel."
+    },
+    {
+      "id": "v283",
+      "typ": "verwechslung",
+      "stufe": 4,
+      "satz": "Wir brauchen ___ Zeit.",
+      "richtig": "mehr",
+      "falsch": ["meer"],
+      "hinweis": "mehr = Steigerung von viel."
+    },
+    {
+      "id": "v284",
+      "typ": "verwechslung",
+      "stufe": 4,
+      "satz": "Er ___ eine Uhr.",
+      "richtig": "trägt",
+      "falsch": ["trägd"],
+      "hinweis": "tragen: trägt."
+    },
+    {
+      "id": "v285",
+      "typ": "verwechslung",
+      "stufe": 4,
+      "satz": "Er ___ den Fisch.",
+      "richtig": "fängt",
+      "falsch": ["fengt"],
+      "hinweis": "Von fangen: ä."
+    },
+    {
+      "id": "v286",
+      "typ": "verwechslung",
+      "stufe": 4,
+      "satz": "Das ist eine Frage der ___.",
+      "richtig": "Moral",
+      "falsch": ["Morahl"],
+      "hinweis": ""
+    },
+    {
+      "id": "v287",
+      "typ": "verwechslung",
+      "stufe": 4,
+      "satz": "Der ___ des Messers ist scharf.",
+      "richtig": "Stahl",
+      "falsch": ["Stal"],
+      "hinweis": "Stahl = Metall; Stall = Tierhaus."
+    },
+    {
+      "id": "v288",
+      "typ": "verwechslung",
+      "stufe": 4,
+      "satz": "Die Kühe stehen im ___.",
+      "richtig": "Stall",
+      "falsch": ["Stahl"],
+      "hinweis": "Stall = Tierhaus."
+    },
+    {
+      "id": "v289",
+      "typ": "verwechslung",
+      "stufe": 4,
+      "satz": "Er hat den Ball ___.",
+      "richtig": "gefangen",
+      "falsch": ["gefanngen"],
+      "hinweis": ""
+    },
+    {
+      "id": "v290",
+      "typ": "verwechslung",
+      "stufe": 4,
+      "satz": "Wir halten ___ am Plan fest.",
+      "richtig": "weiterhin",
+      "falsch": ["weiterhinn"],
+      "hinweis": ""
+    },
+    {
+      "id": "v291",
+      "typ": "verwechslung",
+      "stufe": 4,
+      "satz": "Bitte ___ nicht.",
+      "richtig": "lüg",
+      "falsch": ["lühg"],
+      "hinweis": ""
+    },
+    {
+      "id": "v292",
+      "typ": "verwechslung",
+      "stufe": 4,
+      "satz": "Er zahlte den ___ für die Fahrkarte.",
+      "richtig": "Preis",
+      "falsch": ["Preiß"],
+      "hinweis": "Preis mit s."
+    },
+    {
+      "id": "v293",
+      "typ": "verwechslung",
+      "stufe": 5,
+      "satz": "Die ___ des Flusses ist stark.",
+      "richtig": "Strömung",
+      "falsch": ["Strömmung"],
+      "hinweis": ""
+    },
+    {
+      "id": "v294",
+      "typ": "verwechslung",
+      "stufe": 5,
+      "satz": "Der Zug fährt ___ 8 Uhr ab.",
+      "richtig": "um",
+      "falsch": ["umm"],
+      "hinweis": ""
+    },
+    {
+      "id": "v295",
+      "typ": "verwechslung",
+      "stufe": 5,
+      "satz": "Wir ___ den Hügel hinauf.",
+      "richtig": "stiegen",
+      "falsch": ["stigen"],
+      "hinweis": ""
+    },
+    {
+      "id": "v296",
+      "typ": "verwechslung",
+      "stufe": 5,
+      "satz": "Er hat sein Ziel ___.",
+      "richtig": "verfehlt",
+      "falsch": ["verfelt"],
+      "hinweis": "Von Fehler: verfehlt."
+    },
+    {
+      "id": "v297",
+      "typ": "verwechslung",
+      "stufe": 5,
+      "satz": "Er ___ das Zelt auf.",
+      "richtig": "baut",
+      "falsch": ["baud"],
+      "hinweis": ""
+    },
+    {
+      "id": "v298",
+      "typ": "verwechslung",
+      "stufe": 5,
+      "satz": "Das ___ der Uhr ist laut.",
+      "richtig": "Ticken",
+      "falsch": ["Tiken"],
+      "hinweis": ""
+    },
+    {
+      "id": "v299",
+      "typ": "verwechslung",
+      "stufe": 5,
+      "satz": "Die ___ der Tür quietscht.",
+      "richtig": "Angel",
+      "falsch": ["Angell"],
+      "hinweis": ""
+    },
+    {
+      "id": "v300",
+      "typ": "verwechslung",
+      "stufe": 5,
+      "satz": "Er hat die ___ gefunden.",
+      "richtig": "Fährte",
+      "falsch": ["Färte"],
+      "hinweis": "Fährte (Spur) mit äh."
+    },
+    {
+      "id": "v301",
+      "typ": "verwechslung",
+      "stufe": 6,
+      "satz": "Das Wasser ist sehr ___.",
+      "richtig": "seicht",
+      "falsch": ["seucht"],
+      "hinweis": ""
+    },
+    {
+      "id": "v302",
+      "typ": "verwechslung",
+      "stufe": 6,
+      "satz": "Er ist ein echter ___.",
+      "richtig": "Experte",
+      "falsch": ["Expärte"],
+      "hinweis": ""
+    },
+    {
+      "id": "v303",
+      "typ": "verwechslung",
+      "stufe": 6,
+      "satz": "Er ___ den Wagen.",
+      "richtig": "lenkt",
+      "falsch": ["länkt"],
+      "hinweis": ""
+    },
+    {
+      "id": "v304",
+      "typ": "verwechslung",
+      "stufe": 6,
+      "satz": "Das Schiff liegt im ___.",
+      "richtig": "Hafen",
+      "falsch": ["Haafen"],
+      "hinweis": ""
+    },
+    {
+      "id": "v305",
+      "typ": "verwechslung",
+      "stufe": 6,
+      "satz": "Die ___ war heftig.",
+      "richtig": "Detonation",
+      "falsch": ["Dethonation"],
+      "hinweis": ""
+    },
+    {
+      "id": "v306",
+      "typ": "verwechslung",
+      "stufe": 6,
+      "satz": "Er ist ___ als erwartet.",
+      "richtig": "früher",
+      "falsch": ["frühher"],
+      "hinweis": ""
+    },
+    {
+      "id": "v307",
+      "typ": "verwechslung",
+      "stufe": 6,
+      "satz": "Die Wunde ___ gut.",
+      "richtig": "heilt",
+      "falsch": ["heult"],
+      "hinweis": "heilen = gesund werden."
+    },
+    {
+      "id": "v308",
+      "typ": "verwechslung",
+      "stufe": 6,
+      "satz": "Der Wolf ___ in der Nacht.",
+      "richtig": "heult",
+      "falsch": ["heilt"],
+      "hinweis": "heulen = laut klagen."
+    },
+    {
+      "id": "v309",
+      "typ": "verwechslung",
+      "stufe": 6,
+      "satz": "Er ___ das Seil.",
+      "richtig": "kappt",
+      "falsch": ["kapt"],
+      "hinweis": ""
+    },
+    {
+      "id": "v310",
+      "typ": "verwechslung",
+      "stufe": 6,
+      "satz": "Das ist mir ___.",
+      "richtig": "egal",
+      "falsch": ["egahl"],
+      "hinweis": ""
+    },
+    {
+      "id": "v311",
+      "typ": "verwechslung",
+      "stufe": 7,
+      "satz": "Er hat das ___ gewonnen.",
+      "richtig": "Duell",
+      "falsch": ["Duel"],
+      "hinweis": ""
+    },
+    {
+      "id": "v312",
+      "typ": "verwechslung",
+      "stufe": 7,
+      "satz": "Der Arzt stellte die ___.",
+      "richtig": "Diagnose",
+      "falsch": ["Diagnohse"],
+      "hinweis": ""
+    },
+    {
+      "id": "v313",
+      "typ": "verwechslung",
+      "stufe": 7,
+      "satz": "Wir müssen die Lage ___.",
+      "richtig": "analysieren",
+      "falsch": ["analisieren"],
+      "hinweis": "y wie in Analyse."
+    },
+    {
+      "id": "v314",
+      "typ": "verwechslung",
+      "stufe": 7,
+      "satz": "Der ___ ist überlastet.",
+      "richtig": "Server",
+      "falsch": ["Sörver"],
+      "hinweis": ""
+    },
+    {
+      "id": "v315",
+      "typ": "verwechslung",
+      "stufe": 7,
+      "satz": "Das Verfahren ist ___.",
+      "richtig": "kompliziert",
+      "falsch": ["kompliziehrt"],
+      "hinweis": ""
+    },
+    {
+      "id": "v316",
+      "typ": "verwechslung",
+      "stufe": 7,
+      "satz": "Er hat ein ___ Gedächtnis.",
+      "richtig": "exzellentes",
+      "falsch": ["exellentes"],
+      "hinweis": ""
+    },
+    {
+      "id": "v317",
+      "typ": "verwechslung",
+      "stufe": 7,
+      "satz": "Die Truppe ___ das Gebiet.",
+      "richtig": "sichert",
+      "falsch": ["sicherd"],
+      "hinweis": ""
+    },
+    {
+      "id": "v318",
+      "typ": "verwechslung",
+      "stufe": 8,
+      "satz": "Er hat die Regel ___.",
+      "richtig": "missachtet",
+      "falsch": ["mißachtet"],
+      "hinweis": "miss- mit ss nach neuer Rechtschreibung."
+    },
+    {
+      "id": "v319",
+      "typ": "verwechslung",
+      "stufe": 8,
+      "satz": "Das war ein ___.",
+      "richtig": "Missverständnis",
+      "falsch": ["Mißverständnis"],
+      "hinweis": "miss- mit ss."
+    },
+    {
+      "id": "v320",
+      "typ": "verwechslung",
+      "stufe": 8,
+      "satz": "Er ___ das Angebot.",
+      "richtig": "lehnt ab",
+      "falsch": ["leht ab"],
+      "hinweis": ""
+    },
+    {
+      "id": "v321",
+      "typ": "verwechslung",
+      "stufe": 8,
+      "satz": "Das ist ein ___ Problem.",
+      "richtig": "komplexes",
+      "falsch": ["kompleckses"],
+      "hinweis": ""
+    },
+    {
+      "id": "v322",
+      "typ": "verwechslung",
+      "stufe": 8,
+      "satz": "Die ___ war erfolgreich.",
+      "richtig": "Operation",
+      "falsch": ["Operazion"],
+      "hinweis": ""
+    },
+    {
+      "id": "v323",
+      "typ": "verwechslung",
+      "stufe": 8,
+      "satz": "Er ___ nach dem Weg.",
+      "richtig": "fragte",
+      "falsch": ["fragde"],
+      "hinweis": ""
+    },
+    {
+      "id": "v324",
+      "typ": "verwechslung",
+      "stufe": 2,
+      "satz": "Der Hund ___ laut.",
+      "richtig": "bellt",
+      "falsch": ["bält", "belld"],
+      "hinweis": ""
+    },
+    {
+      "id": "v325",
+      "typ": "verwechslung",
+      "stufe": 2,
+      "satz": "Er hat ___ Hunger.",
+      "richtig": "großen",
+      "falsch": ["grossen"],
+      "hinweis": "ß nach langem Vokal."
+    },
+    {
+      "id": "v326",
+      "typ": "verwechslung",
+      "stufe": 3,
+      "satz": "Das ___ ist schwer.",
+      "richtig": "Paket",
+      "falsch": ["Packet"],
+      "hinweis": "Paket mit k."
+    },
+    {
+      "id": "v327",
+      "typ": "verwechslung",
+      "stufe": 3,
+      "satz": "Er ___ sehr schnell.",
+      "richtig": "rennt",
+      "falsch": ["rent"],
+      "hinweis": "rennen mit nn."
+    },
+    {
+      "id": "v328",
+      "typ": "verwechslung",
+      "stufe": 3,
+      "satz": "Die ___ blüht.",
+      "richtig": "Wiese",
+      "falsch": ["Wise"],
+      "hinweis": "Langes i als ie."
+    },
+    {
+      "id": "v329",
+      "typ": "verwechslung",
+      "stufe": 4,
+      "satz": "Er hat die ___ verloren.",
+      "richtig": "Geduld",
+      "falsch": ["Gedult"],
+      "hinweis": "Geduld mit d (von dulden)."
+    },
+    {
+      "id": "v330",
+      "typ": "verwechslung",
+      "stufe": 4,
+      "satz": "Wir ___ das Ziel bald.",
+      "richtig": "erreichen",
+      "falsch": ["ereichen"],
+      "hinweis": "Zwei r."
+    },
+    {
+      "id": "v331",
+      "typ": "verwechslung",
+      "stufe": 5,
+      "satz": "Er ___ das Tor.",
+      "richtig": "bewacht",
+      "falsch": ["bewachd"],
+      "hinweis": ""
+    },
+    {
+      "id": "v332",
+      "typ": "verwechslung",
+      "stufe": 5,
+      "satz": "Er gab ihm einen ___.",
+      "richtig": "Tipp",
+      "falsch": ["Tip"],
+      "hinweis": "Tipp mit pp nach neuer Rechtschreibung."
+    },
+    {
+      "id": "v333",
+      "typ": "verwechslung",
+      "stufe": 6,
+      "satz": "Das ist ein großer ___.",
+      "richtig": "Erfolg",
+      "falsch": ["Erfolk"],
+      "hinweis": "Erfolg mit g (erfolgen)."
+    },
+    {
+      "id": "v334",
+      "typ": "verwechslung",
+      "stufe": 6,
+      "satz": "Er hat ___ zugestimmt.",
+      "richtig": "widerwillig",
+      "falsch": ["wiederwillig"],
+      "hinweis": "wider = gegen."
+    },
+    {
+      "id": "v335",
+      "typ": "verwechslung",
+      "stufe": 7,
+      "satz": "Er legte ___ ein.",
+      "richtig": "Widerspruch",
+      "falsch": ["Wiederspruch"],
+      "hinweis": "wider = gegen."
+    },
+    {
+      "id": "v336",
+      "typ": "verwechslung",
+      "stufe": 7,
+      "satz": "Auf ___!",
+      "richtig": "Wiedersehen",
+      "falsch": ["Widersehen"],
+      "hinweis": "wieder = noch einmal."
+    },
+    {
+      "id": "g337",
+      "typ": "gross",
+      "stufe": 1,
+      "richtig": "Wir essen heute Abend Fisch.",
+      "falsch": [
+        "Wir essen heute abend Fisch.",
+        "Wir Essen heute Abend Fisch.",
+        "Wir essen Heute Abend Fisch."
+      ],
+      "hinweis": "Tageszeit nach heute, morgen, gestern wird großgeschrieben."
+    },
+    {
+      "id": "g338",
+      "typ": "gross",
+      "stufe": 1,
+      "richtig": "Beim Laufen bekomme ich Seitenstechen.",
+      "falsch": [
+        "Beim laufen bekomme ich Seitenstechen.",
+        "Beim Laufen bekomme ich seitenstechen.",
+        "beim Laufen bekomme ich Seitenstechen."
+      ],
+      "hinweis": "Nach beim (bei + dem) wird das Verb zum Nomen."
+    },
+    {
+      "id": "g339",
+      "typ": "gross",
+      "stufe": 1,
+      "richtig": "Ich wünsche dir alles Gute.",
+      "falsch": [
+        "Ich wünsche dir alles gute.",
+        "Ich Wünsche dir alles Gute.",
+        "Ich wünsche Dir alles gute."
+      ],
+      "hinweis": "Nach alles wird das Adjektiv großgeschrieben."
+    },
+    {
+      "id": "g340",
+      "typ": "gross",
+      "stufe": 1,
+      "richtig": "Am Montag beginnt der Lehrgang.",
+      "falsch": [
+        "Am montag beginnt der Lehrgang.",
+        "Am Montag beginnt der lehrgang.",
+        "am Montag beginnt der Lehrgang."
+      ],
+      "hinweis": "Wochentage sind Nomen."
+    },
+    {
+      "id": "g341",
+      "typ": "gross",
+      "stufe": 1,
+      "richtig": "Er kam am Morgen zurück.",
+      "falsch": [
+        "Er kam am morgen zurück.",
+        "Er kam Am Morgen zurück.",
+        "er kam am Morgen zurück."
+      ],
+      "hinweis": "Nach am wird die Tageszeit großgeschrieben."
+    },
+    {
+      "id": "g342",
+      "typ": "gross",
+      "stufe": 2,
+      "richtig": "Das Schwimmen fällt ihm leicht.",
+      "falsch": [
+        "Das schwimmen fällt ihm leicht.",
+        "Das Schwimmen fällt ihm Leicht.",
+        "Das Schwimmen Fällt ihm leicht."
+      ],
+      "hinweis": "Mit Artikel wird das Verb zum Nomen."
+    },
+    {
+      "id": "g343",
+      "typ": "gross",
+      "stufe": 2,
+      "richtig": "Er hat nichts Neues erfahren.",
+      "falsch": [
+        "Er hat nichts neues erfahren.",
+        "Er hat Nichts Neues erfahren.",
+        "Er hat nichts Neues Erfahren."
+      ],
+      "hinweis": "Nach nichts, etwas, viel, wenig wird das Adjektiv großgeschrieben."
+    },
+    {
+      "id": "g344",
+      "typ": "gross",
+      "stufe": 2,
+      "richtig": "Sie hat etwas Wichtiges vergessen.",
+      "falsch": [
+        "Sie hat etwas wichtiges vergessen.",
+        "Sie hat Etwas Wichtiges vergessen.",
+        "Sie hat etwas Wichtiges Vergessen."
+      ],
+      "hinweis": "Nach etwas wird das Adjektiv großgeschrieben."
+    },
+    {
+      "id": "g345",
+      "typ": "gross",
+      "stufe": 2,
+      "richtig": "Morgens trinke ich Kaffee.",
+      "falsch": [
+        "morgens trinke ich Kaffee.",
+        "Morgens trinke ich kaffee.",
+        "Morgens Trinke ich Kaffee."
+      ],
+      "hinweis": "Tageszeit mit -s ist ein Adverb, am Satzanfang aber groß."
+    },
+    {
+      "id": "g346",
+      "typ": "gross",
+      "stufe": 2,
+      "richtig": "Wir treffen uns morgens um sechs.",
+      "falsch": [
+        "Wir treffen uns Morgens um sechs.",
+        "Wir treffen uns morgens um Sechs.",
+        "Wir Treffen uns morgens um sechs."
+      ],
+      "hinweis": "morgens (Adverb) klein, Uhrzeit-Zahlwort klein."
+    },
+    {
+      "id": "g347",
+      "typ": "gross",
+      "stufe": 2,
+      "richtig": "Er läuft am schnellsten.",
+      "falsch": [
+        "Er läuft am Schnellsten.",
+        "Er Läuft am schnellsten.",
+        "Er läuft Am schnellsten."
+      ],
+      "hinweis": "Superlativ mit am wird kleingeschrieben."
+    },
+    {
+      "id": "g348",
+      "typ": "gross",
+      "stufe": 2,
+      "richtig": "Sie ist die Schnellste im Team.",
+      "falsch": [
+        "Sie ist die schnellste im Team.",
+        "Sie ist die Schnellste im team.",
+        "Sie ist Die Schnellste im Team."
+      ],
+      "hinweis": "Mit Artikel und ohne folgendes Nomen: groß."
+    },
+    {
+      "id": "g349",
+      "typ": "gross",
+      "stufe": 3,
+      "richtig": "Er hat sich im Großen und Ganzen gut geschlagen.",
+      "falsch": [
+        "Er hat sich im großen und ganzen gut geschlagen.",
+        "Er hat sich im Großen und ganzen gut geschlagen.",
+        "Er hat sich im großen und Ganzen gut geschlagen."
+      ],
+      "hinweis": "Feste Wendung: im Großen und Ganzen."
+    },
+    {
+      "id": "g350",
+      "typ": "gross",
+      "stufe": 3,
+      "richtig": "Wir fahren ins Blaue.",
+      "falsch": ["Wir fahren ins blaue.", "Wir Fahren ins Blaue.", "wir fahren ins Blaue."],
+      "hinweis": "ins (in + das) macht das Adjektiv zum Nomen."
+    },
+    {
+      "id": "g351",
+      "typ": "gross",
+      "stufe": 3,
+      "richtig": "Das Rauchen ist hier verboten.",
+      "falsch": [
+        "Das rauchen ist hier verboten.",
+        "Das Rauchen ist hier Verboten.",
+        "Das Rauchen ist Hier verboten."
+      ],
+      "hinweis": "Mit Artikel: Nomen."
+    },
+    {
+      "id": "g352",
+      "typ": "gross",
+      "stufe": 3,
+      "richtig": "Sie kommt heute Nachmittag.",
+      "falsch": [
+        "Sie kommt heute nachmittag.",
+        "Sie kommt Heute Nachmittag.",
+        "Sie kommt heute Nach Mittag."
+      ],
+      "hinweis": "heute + Tageszeit: groß."
+    },
+    {
+      "id": "g353",
+      "typ": "gross",
+      "stufe": 3,
+      "richtig": "Er ist auf dem Laufenden.",
+      "falsch": [
+        "Er ist auf dem laufenden.",
+        "Er ist Auf dem Laufenden.",
+        "er ist auf dem Laufenden."
+      ],
+      "hinweis": "Feste Wendung: auf dem Laufenden."
+    },
+    {
+      "id": "g354",
+      "typ": "gross",
+      "stufe": 3,
+      "richtig": "Er erzählte uns allerlei Lustiges.",
+      "falsch": [
+        "Er erzählte uns allerlei lustiges.",
+        "Er erzählte uns Allerlei Lustiges.",
+        "Er Erzählte uns allerlei Lustiges."
+      ],
+      "hinweis": "Nach allerlei: Nomen."
+    },
+    {
+      "id": "g355",
+      "typ": "gross",
+      "stufe": 3,
+      "richtig": "Beim Zielen muss man ruhig atmen.",
+      "falsch": [
+        "Beim zielen muss man ruhig atmen.",
+        "Beim Zielen muss man Ruhig atmen.",
+        "Beim Zielen muss man ruhig Atmen."
+      ],
+      "hinweis": "Nach beim: Nomen."
+    },
+    {
+      "id": "g356",
+      "typ": "gross",
+      "stufe": 4,
+      "richtig": "Er kam als Erster ins Ziel.",
+      "falsch": [
+        "Er kam als erster ins Ziel.",
+        "Er kam als Erster ins ziel.",
+        "Er kam Als Erster ins Ziel."
+      ],
+      "hinweis": "Ordnungszahl als Nomen: groß."
+    },
+    {
+      "id": "g357",
+      "typ": "gross",
+      "stufe": 4,
+      "richtig": "Das ist das Erste, was ich höre.",
+      "falsch": [
+        "Das ist das erste, was ich höre.",
+        "Das ist Das Erste, was ich höre.",
+        "Das ist das Erste, Was ich höre."
+      ],
+      "hinweis": "Mit Artikel: groß."
+    },
+    {
+      "id": "g358",
+      "typ": "gross",
+      "stufe": 4,
+      "richtig": "Wir gehen im Dunkeln nach Hause.",
+      "falsch": [
+        "Wir gehen im dunkeln nach Hause.",
+        "Wir gehen im Dunkeln nach hause.",
+        "Wir gehen Im Dunkeln nach Hause."
+      ],
+      "hinweis": "im Dunkeln (Ort/Zustand) groß; nach Hause: Hause groß."
+    },
+    {
+      "id": "g359",
+      "typ": "gross",
+      "stufe": 4,
+      "richtig": "Er gab sein Bestes.",
+      "falsch": ["Er gab sein bestes.", "Er gab Sein Bestes.", "er gab sein Bestes."],
+      "hinweis": "Mit Possessivpronomen: Nomen."
+    },
+    {
+      "id": "g360",
+      "typ": "gross",
+      "stufe": 4,
+      "richtig": "Sie lernt Englisch.",
+      "falsch": ["Sie lernt englisch.", "Sie Lernt Englisch.", "sie lernt Englisch."],
+      "hinweis": "Sprache als Nomen: groß."
+    },
+    {
+      "id": "g361",
+      "typ": "gross",
+      "stufe": 4,
+      "richtig": "Er spricht fließend Deutsch.",
+      "falsch": [
+        "Er spricht fließend deutsch.",
+        "Er spricht Fließend Deutsch.",
+        "Er Spricht fließend Deutsch."
+      ],
+      "hinweis": "Sprache als Nomen: groß."
+    },
+    {
+      "id": "g362",
+      "typ": "gross",
+      "stufe": 5,
+      "richtig": "Er ist Tag und Nacht unterwegs.",
+      "falsch": [
+        "Er ist tag und nacht unterwegs.",
+        "Er ist Tag und nacht unterwegs.",
+        "Er ist tag und Nacht unterwegs."
+      ],
+      "hinweis": "Tag und Nacht: Nomen."
+    },
+    {
+      "id": "g363",
+      "typ": "gross",
+      "stufe": 5,
+      "richtig": "Ihm fehlt das nötige Wissen.",
+      "falsch": [
+        "Ihm fehlt das Nötige wissen.",
+        "Ihm fehlt das nötige wissen.",
+        "Ihm Fehlt das nötige Wissen."
+      ],
+      "hinweis": "Adjektiv vor Nomen bleibt klein."
+    },
+    {
+      "id": "g364",
+      "typ": "gross",
+      "stufe": 5,
+      "richtig": "Jung und Alt waren gekommen.",
+      "falsch": [
+        "jung und alt waren gekommen.",
+        "Jung und alt waren gekommen.",
+        "jung und Alt waren gekommen."
+      ],
+      "hinweis": "Jung und Alt (alle Menschen): groß."
+    },
+    {
+      "id": "g365",
+      "typ": "gross",
+      "stufe": 6,
+      "richtig": "Wir fahren über den Großen Belt.",
+      "falsch": [
+        "Wir fahren über den großen Belt.",
+        "Wir fahren über den Großen belt.",
+        "Wir Fahren über den Großen Belt."
+      ],
+      "hinweis": "Geografischer Name: Adjektiv groß."
+    },
+    {
+      "id": "g366",
+      "typ": "gross",
+      "stufe": 6,
+      "richtig": "Der Schiefe Turm von Pisa ist berühmt.",
+      "falsch": [
+        "Der schiefe Turm von Pisa ist berühmt.",
+        "Der Schiefe turm von Pisa ist berühmt.",
+        "Der schiefe Turm von pisa ist berühmt."
+      ],
+      "hinweis": "Eigenname: groß."
+    },
+    {
+      "id": "g367",
+      "typ": "gross",
+      "stufe": 6,
+      "richtig": "Die Schweizer Uhren sind teuer.",
+      "falsch": [
+        "Die schweizer Uhren sind teuer.",
+        "Die Schweizer uhren sind teuer.",
+        "Die schweizer uhren sind teuer."
+      ],
+      "hinweis": "Ableitungen von Orten auf -er: groß."
+    },
+    {
+      "id": "g368",
+      "typ": "gross",
+      "stufe": 6,
+      "richtig": "Sie ist im Voraus informiert.",
+      "falsch": [
+        "Sie ist im voraus informiert.",
+        "Sie ist Im Voraus informiert.",
+        "Sie ist im Voraus Informiert."
+      ],
+      "hinweis": "im Voraus: groß."
+    },
+    {
+      "id": "g369",
+      "typ": "gross",
+      "stufe": 7,
+      "richtig": "Er hat es schwarz auf weiß.",
+      "falsch": [
+        "Er hat es Schwarz auf Weiß.",
+        "Er hat es schwarz auf Weiß.",
+        "Er hat es Schwarz auf weiß."
+      ],
+      "hinweis": "Feste Wendung schwarz auf weiß: klein."
+    },
+    {
+      "id": "g370",
+      "typ": "gross",
+      "stufe": 7,
+      "richtig": "Er hat ihn zum Besten gehalten.",
+      "falsch": [
+        "Er hat ihn zum besten gehalten.",
+        "Er hat ihn Zum Besten gehalten.",
+        "Er hat ihn zum Besten Gehalten."
+      ],
+      "hinweis": "jemanden zum Besten halten: groß."
+    },
+    {
+      "id": "g371",
+      "typ": "gross",
+      "stufe": 7,
+      "richtig": "Sie hat auf Englisch geantwortet.",
+      "falsch": [
+        "Sie hat auf englisch geantwortet.",
+        "Sie hat Auf Englisch geantwortet.",
+        "Sie hat auf Englisch Geantwortet."
+      ],
+      "hinweis": "auf Englisch: groß."
+    },
+    {
+      "id": "g372",
+      "typ": "gross",
+      "stufe": 7,
+      "richtig": "Er sitzt im Trockenen.",
+      "falsch": ["Er sitzt im trockenen.", "Er Sitzt im Trockenen.", "Er sitzt Im Trockenen."],
+      "hinweis": "im Trockenen: groß."
+    },
+    {
+      "id": "g373",
+      "typ": "gross",
+      "stufe": 7,
+      "richtig": "Er tut nichts dergleichen.",
+      "falsch": [
+        "Er tut nichts Dergleichen.",
+        "Er tut Nichts dergleichen.",
+        "Er Tut nichts dergleichen."
+      ],
+      "hinweis": "dergleichen ist ein Pronomen: klein."
+    },
+    {
+      "id": "t374",
+      "typ": "getrennt",
+      "stufe": 6,
+      "richtig": "Das ist gar nicht schwer.",
+      "falsch": [
+        "Das ist garnicht schwer.",
+        "Das ist gar Nicht schwer.",
+        "Das ist Garnicht schwer."
+      ],
+      "hinweis": "gar nicht: immer getrennt."
+    },
+    {
+      "id": "t375",
+      "typ": "getrennt",
+      "stufe": 6,
+      "richtig": "Er hat zu viel gegessen.",
+      "falsch": ["Er hat zuviel gegessen.", "Er hat zu Viel gegessen.", "Er hat Zuviel gegessen."],
+      "hinweis": "zu viel: getrennt."
+    },
+    {
+      "id": "t376",
+      "typ": "getrennt",
+      "stufe": 6,
+      "richtig": "Wir haben zu wenig Wasser.",
+      "falsch": [
+        "Wir haben zuwenig Wasser.",
+        "Wir haben zu Wenig Wasser.",
+        "Wir haben Zuwenig Wasser."
+      ],
+      "hinweis": "zu wenig: getrennt."
+    },
+    {
+      "id": "t377",
+      "typ": "getrennt",
+      "stufe": 6,
+      "richtig": "Vor allem die Ausdauer zählt.",
+      "falsch": [
+        "Vorallem die Ausdauer zählt.",
+        "Vor Allem die Ausdauer zählt.",
+        "Vorallem die ausdauer zählt."
+      ],
+      "hinweis": "vor allem: getrennt."
+    },
+    {
+      "id": "t378",
+      "typ": "getrennt",
+      "stufe": 6,
+      "richtig": "Wie viel kostet das?",
+      "falsch": ["Wieviel kostet das?", "Wie Viel kostet das?", "Wie-viel kostet das?"],
+      "hinweis": "wie viel: getrennt."
+    },
+    {
+      "id": "t379",
+      "typ": "getrennt",
+      "stufe": 6,
+      "richtig": "Wir gehen zu Fuß.",
+      "falsch": ["Wir gehen zufuß.", "Wir gehen zu fuß.", "Wir gehen Zufuß."],
+      "hinweis": "zu Fuß: getrennt, Fuß groß."
+    },
+    {
+      "id": "t380",
+      "typ": "getrennt",
+      "stufe": 6,
+      "richtig": "Wir kommen sonst zu spät.",
+      "falsch": [
+        "Wir kommen sonst zuspät.",
+        "Wir kommen sonst zu Spät.",
+        "Wir kommen sonst Zuspät."
+      ],
+      "hinweis": "zu spät: getrennt."
+    },
+    {
+      "id": "t381",
+      "typ": "getrennt",
+      "stufe": 6,
+      "richtig": "Sie will Rad fahren.",
+      "falsch": ["Sie will radfahren.", "Sie will rad fahren.", "Sie will Radfahren."],
+      "hinweis": "Rad fahren: getrennt, Rad groß."
+    },
+    {
+      "id": "t382",
+      "typ": "getrennt",
+      "stufe": 6,
+      "richtig": "Wir sollten Auto fahren.",
+      "falsch": ["Wir sollten autofahren.", "Wir sollten auto fahren.", "Wir sollten Autofahren."],
+      "hinweis": "Auto fahren: getrennt, Auto groß."
+    },
+    {
+      "id": "t383",
+      "typ": "getrennt",
+      "stufe": 6,
+      "richtig": "Er ist Ski gefahren.",
+      "falsch": ["Er ist skigefahren.", "Er ist ski gefahren.", "Er ist Skigefahren."],
+      "hinweis": "Ski fahren: getrennt, Ski groß."
+    },
+    {
+      "id": "t384",
+      "typ": "getrennt",
+      "stufe": 6,
+      "richtig": "Wir haben Fußball gespielt.",
+      "falsch": [
+        "Wir haben fußballgespielt.",
+        "Wir haben fußball gespielt.",
+        "Wir haben Fußballgespielt."
+      ],
+      "hinweis": "Fußball spielen: getrennt."
+    },
+    {
+      "id": "t385",
+      "typ": "getrennt",
+      "stufe": 6,
+      "richtig": "Wir wollen spazieren gehen.",
+      "falsch": [
+        "Wir wollen spazierengehen.",
+        "Wir wollen Spazieren gehen.",
+        "Wir wollen spazieren Gehen."
+      ],
+      "hinweis": "spazieren gehen: getrennt."
+    },
+    {
+      "id": "t386",
+      "typ": "getrennt",
+      "stufe": 6,
+      "richtig": "Das muss man auswendig lernen.",
+      "falsch": [
+        "Das muss man auswendiglernen.",
+        "Das muss man Auswendig lernen.",
+        "Das muss man aus wendig lernen."
+      ],
+      "hinweis": "auswendig lernen: getrennt."
+    },
+    {
+      "id": "t387",
+      "typ": "getrennt",
+      "stufe": 7,
+      "richtig": "Umso besser!",
+      "falsch": ["Um so besser!", "Umso Besser!", "Um-so besser!"],
+      "hinweis": "umso: zusammen."
+    },
+    {
+      "id": "t388",
+      "typ": "getrennt",
+      "stufe": 7,
+      "richtig": "Er kam stattdessen am Abend.",
+      "falsch": [
+        "Er kam statt dessen am Abend.",
+        "Er kam Stattdessen am Abend.",
+        "Er kam statt-dessen am Abend."
+      ],
+      "hinweis": "stattdessen: zusammen."
+    },
+    {
+      "id": "t389",
+      "typ": "getrennt",
+      "stufe": 7,
+      "richtig": "Irgendetwas stimmt nicht.",
+      "falsch": [
+        "Irgend etwas stimmt nicht.",
+        "Irgend Etwas stimmt nicht.",
+        "Irgendetwas Stimmt nicht."
+      ],
+      "hinweis": "irgendetwas: zusammen."
+    },
+    {
+      "id": "t390",
+      "typ": "getrennt",
+      "stufe": 7,
+      "richtig": "Irgendjemand hat gerufen.",
+      "falsch": [
+        "Irgend jemand hat gerufen.",
+        "Irgend Jemand hat gerufen.",
+        "Irgendjemand hat Gerufen."
+      ],
+      "hinweis": "irgendjemand: zusammen."
+    },
+    {
+      "id": "t391",
+      "typ": "getrennt",
+      "stufe": 7,
+      "richtig": "Es ist irgendwann passiert.",
+      "falsch": [
+        "Es ist irgend wann passiert.",
+        "Es ist Irgendwann passiert.",
+        "Es ist irgend-wann passiert."
+      ],
+      "hinweis": "irgendwann: zusammen."
+    },
+    {
+      "id": "t392",
+      "typ": "getrennt",
+      "stufe": 7,
+      "richtig": "Er ist zurzeit im Einsatz.",
+      "falsch": [
+        "Er ist zur Zeit im Einsatz.",
+        "Er ist Zurzeit im Einsatz.",
+        "Er ist zur zeit im Einsatz."
+      ],
+      "hinweis": "zurzeit (= im Moment): zusammen."
+    },
+    {
+      "id": "t393",
+      "typ": "getrennt",
+      "stufe": 7,
+      "richtig": "Er war vorhin hier.",
+      "falsch": ["Er war vor hin hier.", "Er war Vorhin hier.", "Er war vor-hin hier."],
+      "hinweis": "vorhin: zusammen."
+    },
+    {
+      "id": "t394",
+      "typ": "getrennt",
+      "stufe": 7,
+      "richtig": "Er war zuallererst da.",
+      "falsch": ["Er war zu allererst da.", "Er war Zuallererst da.", "Er war zu aller erst da."],
+      "hinweis": "zuallererst: zusammen."
+    },
+    {
+      "id": "t395",
+      "typ": "getrennt",
+      "stufe": 7,
+      "richtig": "Er lief auf einmal los.",
+      "falsch": ["Er lief aufeinmal los.", "Er lief auf Einmal los.", "Er lief Aufeinmal los."],
+      "hinweis": "auf einmal: getrennt."
+    },
+    {
+      "id": "t396",
+      "typ": "getrennt",
+      "stufe": 7,
+      "richtig": "Er ist nach wie vor motiviert.",
+      "falsch": [
+        "Er ist nachwievor motiviert.",
+        "Er ist nach wie Vor motiviert.",
+        "Er ist nach-wie-vor motiviert."
+      ],
+      "hinweis": "nach wie vor: getrennt."
+    },
+    {
+      "id": "t397",
+      "typ": "getrennt",
+      "stufe": 7,
+      "richtig": "Er ist darüber hinaus zuständig.",
+      "falsch": [
+        "Er ist darüberhinaus zuständig.",
+        "Er ist Darüber hinaus zuständig.",
+        "Er ist darüber-hinaus zuständig."
+      ],
+      "hinweis": "darüber hinaus: getrennt."
+    },
+    {
+      "id": "t398",
+      "typ": "getrennt",
+      "stufe": 8,
+      "richtig": "Das Treffen hat stattgefunden.",
+      "falsch": [
+        "Das Treffen hat statt gefunden.",
+        "Das Treffen hat Stattgefunden.",
+        "Das Treffen hat Statt gefunden."
+      ],
+      "hinweis": "stattfinden: zusammen."
+    },
+    {
+      "id": "t399",
+      "typ": "getrennt",
+      "stufe": 8,
+      "richtig": "Sie hat an der Übung teilgenommen.",
+      "falsch": [
+        "Sie hat an der Übung Teil genommen.",
+        "Sie hat an der Übung teil genommen.",
+        "Sie hat an der Übung Teilgenommen."
+      ],
+      "hinweis": "teilnehmen: zusammen."
+    },
+    {
+      "id": "t400",
+      "typ": "getrennt",
+      "stufe": 8,
+      "richtig": "Er hat dem Druck standgehalten.",
+      "falsch": [
+        "Er hat dem Druck Stand gehalten.",
+        "Er hat dem Druck stand gehalten.",
+        "Er hat dem Druck Standgehalten."
+      ],
+      "hinweis": "standhalten: zusammen."
+    },
+    {
+      "id": "t401",
+      "typ": "getrennt",
+      "stufe": 8,
+      "richtig": "Er hat das Geheimnis preisgegeben.",
+      "falsch": [
+        "Er hat das Geheimnis Preis gegeben.",
+        "Er hat das Geheimnis preis gegeben.",
+        "Er hat das Geheimnis Preisgegeben."
+      ],
+      "hinweis": "preisgeben: zusammen."
+    },
+    {
+      "id": "t402",
+      "typ": "getrennt",
+      "stufe": 8,
+      "richtig": "Er hat das Paket entgegengenommen.",
+      "falsch": [
+        "Er hat das Paket entgegen genommen.",
+        "Er hat das Paket Entgegengenommen.",
+        "Er hat das Paket entgegen-genommen."
+      ],
+      "hinweis": "entgegennehmen: zusammen."
+    },
+    {
+      "id": "t403",
+      "typ": "getrennt",
+      "stufe": 8,
+      "richtig": "Er hat nichts mitbekommen.",
+      "falsch": [
+        "Er hat nichts mit bekommen.",
+        "Er hat nichts Mitbekommen.",
+        "Er hat nichts mit-bekommen."
+      ],
+      "hinweis": "mitbekommen: zusammen."
+    },
+    {
+      "id": "t404",
+      "typ": "getrennt",
+      "stufe": 8,
+      "richtig": "Sie sind übereingekommen, früher zu starten.",
+      "falsch": [
+        "Sie sind überein gekommen, früher zu starten.",
+        "Sie sind Übereingekommen, früher zu starten.",
+        "Sie sind über eingekommen, früher zu starten."
+      ],
+      "hinweis": "übereinkommen: zusammen."
+    },
+    {
+      "id": "t405",
+      "typ": "getrennt",
+      "stufe": 8,
+      "richtig": "Er hat sich hingesetzt.",
+      "falsch": ["Er hat sich hin gesetzt.", "Er hat sich Hingesetzt.", "Er hat sich hin-gesetzt."],
+      "hinweis": "hinsetzen: zusammen."
+    },
+    {
+      "id": "t406",
+      "typ": "getrennt",
+      "stufe": 9,
+      "richtig": "Es tut mir leid.",
+      "falsch": ["Es tut mir Leid.", "Es Tut mir leid.", "Es tut mir leit."],
+      "hinweis": "leidtun: leid klein (die Großschreibung Leid ist seit 2006 falsch)."
+    },
+    {
+      "id": "t407",
+      "typ": "getrennt",
+      "stufe": 9,
+      "richtig": "Sie kann gut eislaufen.",
+      "falsch": ["Sie kann gut Eis laufen.", "Sie kann gut Eislaufen.", "Sie kann gut eis laufen."],
+      "hinweis": "eislaufen: zusammen und klein."
+    },
+    {
+      "id": "t408",
+      "typ": "getrennt",
+      "stufe": 9,
+      "richtig": "Er hat vor Freude kopfgestanden.",
+      "falsch": [
+        "Er hat vor Freude Kopf gestanden.",
+        "Er hat vor Freude kopf gestanden.",
+        "Er hat vor Freude Kopfgestanden."
+      ],
+      "hinweis": "kopfstehen: zusammen und klein."
+    },
+    {
+      "id": "t409",
+      "typ": "getrennt",
+      "stufe": 9,
+      "richtig": "Das hat ihm sehr wehgetan.",
+      "falsch": [
+        "Das hat ihm sehr Weh getan.",
+        "Das hat ihm sehr Wehgetan.",
+        "Das hat ihm sehr weh-getan."
+      ],
+      "hinweis": "wehtun: zusammen (weh tun ist ebenfalls zulässig, steht hier aber nicht zur Wahl)."
+    },
+    {
+      "id": "t410",
+      "typ": "getrennt",
+      "stufe": 10,
+      "richtig": "Er hat seinen Fehler eingestanden.",
+      "falsch": [
+        "Er hat seinen Fehler ein gestanden.",
+        "Er hat seinen Fehler Eingestanden.",
+        "Er hat seinen Fehler ein-gestanden."
+      ],
+      "hinweis": "eingestehen: zusammen."
+    },
+    {
+      "id": "t411",
+      "typ": "getrennt",
+      "stufe": 10,
+      "richtig": "Sie sind auseinandergegangen.",
+      "falsch": [
+        "Sie sind aus einander gegangen.",
+        "Sie sind Auseinandergegangen.",
+        "Sie sind aus-einander-gegangen."
+      ],
+      "hinweis": "auseinandergehen (sich trennen): zusammen."
+    },
+    {
+      "id": "t412",
+      "typ": "getrennt",
+      "stufe": 10,
+      "richtig": "Er hat den Auftrag zurückgewiesen.",
+      "falsch": [
+        "Er hat den Auftrag zurück gewiesen.",
+        "Er hat den Auftrag Zurückgewiesen.",
+        "Er hat den Auftrag zurück-gewiesen."
+      ],
+      "hinweis": "zurückweisen: zusammen."
+    }
+  ]
+}

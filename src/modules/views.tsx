@@ -22,6 +22,58 @@ import {
 } from './raumViews';
 import { VoxelSvg } from './VoxelSvg';
 import { CubeSvg } from './CubeSvg';
+import type { TcItem } from '../generators/textChoice';
+import type { TeItem } from '../generators/technik';
+import type { TaItem } from '../generators/textaufgaben';
+import { TechSvg } from './TechSvg';
+
+/** Module mit Textoptionen (gemeinsame Darstellung) */
+export const TEXT_CHOICE_MODULES = new Set([
+  'wortanalogien',
+  'begriffe',
+  'rechtschreibung',
+  'technik',
+  'textaufgaben',
+]);
+
+function TextChoicePrompt({ item }: { item: TcItem }) {
+  const p = item.prompt as TeItem['prompt'];
+  const big = p.kind === 'analogie' || p.kind === 'analogie2';
+  return (
+    <div className={'tc-prompt tc-' + item.moduleId}>
+      {p.fixed && <div className="tc-badge">Feste Aufgabe aus einer begrenzten Sammlung</div>}
+      <div className="tc-question">{p.question}</div>
+      {p.figure && (
+        <div className="tc-figure">
+          <TechSvg fig={p.figure} />
+        </div>
+      )}
+      {p.stem && <div className={big ? 'tc-stem big' : 'tc-stem'}>{p.stem}</div>}
+      {p.words && (
+        <div className="tc-words">
+          {p.words.map((w) => (
+            <span key={w} className="tc-word">
+              {w}
+            </span>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function TextaufgabenSolution({ item }: { item: TaItem }) {
+  return (
+    <div className="solution">
+      <div className="sol-head">Rechenweg</div>
+      {item.prompt.steps.map((s, i) => (
+        <div key={i} className="sol-steps">
+          {s}
+        </div>
+      ))}
+    </div>
+  );
+}
 
 function KopfrechnenPrompt({ item }: { item: KrItem }) {
   return (
@@ -174,6 +226,7 @@ export function PromptView({ item }: { item: Item }) {
     case 'wuerfelZaehlen':
       return <ZaehlenPrompt item={item as WzItem} />;
     default:
+      if (TEXT_CHOICE_MODULES.has(item.moduleId)) return <TextChoicePrompt item={item as TcItem} />;
       return <div>Unbekanntes Modul</div>;
   }
 }
@@ -214,6 +267,7 @@ export function SolutionView({ item }: { item: Item }) {
     return <RotationSolution item={item as MrItem} />;
   if (item.moduleId === 'wuerfelDrehen') return <WuerfelSolution item={item as WdItem} />;
   if (item.moduleId === 'wuerfelZaehlen') return <ZaehlenSolution item={item as WzItem} />;
+  if (item.moduleId === 'textaufgaben') return <TextaufgabenSolution item={item as TaItem} />;
   return <div style={{ whiteSpace: 'pre-line' }}>{item.explanation}</div>;
 }
 
@@ -236,10 +290,23 @@ export interface ChoiceInfo {
   multi?: number;
   /** richtige Optionen bei Mehrfachauswahl */
   correctIndices?: number[];
+  /** lange Textoptionen untereinander statt im Raster */
+  list?: boolean;
 }
 
 /** Antwortoptionen, falls die Aufgabe im Auswahlmodus gezeigt werden kann. */
 export function choiceInfo(item: Item): ChoiceInfo | null {
+  if (TEXT_CHOICE_MODULES.has(item.moduleId)) {
+    const p = (item as TcItem).prompt;
+    return {
+      count: p.options.length,
+      correctIndex: p.correctIndex,
+      render: (i) => p.options[i],
+      label: (i) => p.options[i],
+      figures: false,
+      list: p.options.some((o) => o.length > 24),
+    };
+  }
   if (item.moduleId === 'kopfrechnen') {
     const p = (item as KrItem).prompt;
     return {

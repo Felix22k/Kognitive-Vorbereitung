@@ -7,17 +7,18 @@ Web-App zum Training der computergestützten kognitiven Tests im Potenzialfestst
 
 Alles läuft lokal im Browser. Kein Backend, keine Anmeldung, kein Tracking.
 
-## Stand: Meilenstein 5 (Reaktion und Vigilanz)
+## Stand: Meilenstein 6 (Sprache, Technik, Textaufgaben)
 
-| Bereich                                                                                        | Stand                                |
-| ---------------------------------------------------------------------------------------------- | ------------------------------------ |
-| Navigation (Heute, Bibliothek, Simulation, Fortschritt, Einstellungen)                         | fertig                               |
-| Datenmodell, IndexedDB (Dexie), Export und Import als JSON, CSV-Export                         | fertig                               |
-| Sitzungs-Engine: Lern- und Testmodus, Zeitlimit, Treppenverfahren, Protokoll je Antwort        | fertig                               |
-| Modul Kopfrechnen (6.1), Modul Zahlenreihen (6.3)                                              | fertig                               |
-| Fortschritt: Verlauf je Modul, Fehlerprotokoll nach Regel-Tag und nach Tag, gemeldete Aufgaben | fertig                               |
-| Heute-Seite: Hinweis, Wochenleiste, Bereichskarten, Zuletzt                                    | vorläufig (Tageseinheit folgt in M7) |
-| Alle weiteren Module, Simulation, Belastungsmodus, Debug-Seite                                 | Meilensteine 2 bis 7                 |
+| Bereich                                                                                               | Stand         |
+| ----------------------------------------------------------------------------------------------------- | ------------- |
+| Navigation, Datenmodell (IndexedDB), Export und Import (JSON), CSV-Export                             | fertig        |
+| Sitzungs-Engine: Lern- und Testmodus, Zeitlimit, Treppenverfahren, Protokoll je Antwort               | fertig        |
+| Sprache und Zahlen: Kopfrechnen, Textaufgaben, Zahlenreihen, Wortanalogien, Begriffe, Rechtschreibung | fertig        |
+| Logik und Technik: Matrizen, Figurenreihen, Technisches Verständnis                                   | fertig        |
+| Räumliches Denken: Rotation (zwei Formate), Würfel drehen, Würfel zählen                              | fertig        |
+| Gedächtnis, Konzentration, Reaktion, Vigilanz                                                         | fertig        |
+| Fortschritt, Fehlerprotokoll, gemeldete Aufgaben (werden danach nicht mehr gezeigt), Debug-Seite      | fertig        |
+| Tageseinheit, Wochenplan, Phasen, Simulationen, Belastungsmodus, „Schwächen üben“                     | Meilenstein 7 |
 
 ## Start
 
@@ -197,6 +198,31 @@ Wo der Bau-Prompt nichts festlegt, gilt:
 - Wahlreaktion: 60 Durchgänge, Antwortfenster 1,5 s bis 0,78 s je Stufe. Go/No-Go: etwa 40 % Go-Reize (Gelb plus Ton), Ablenker sind Gelb ohne Ton oder Blau mit oder ohne Ton.
 - Vigilanz-Uhr: Der Takt hängt an requestAnimationFrame; jede Taktabweichung vom Soll wird gemessen und in der Auswertung angezeigt. Signale haben mindestens 20 Schritte Abstand. Original-nah ergibt bei 1 s Takt im Mittel rund 11 Signale in 30 min (Test).
 
+**Textaufgaben**
+
+- 28 Vorlagen in acht Typen (Dreisatz, umgekehrter Dreisatz, Geschwindigkeit, Prozent, Zins, Mischung, Maßstab, Marsch). Zahlen werden so gezogen, dass die Lösung glatt ist (höchstens zwei Nachkommastellen).
+- Ablenker sind ausgerechnete typische Denkfehler: Dreisatz in die falsche Richtung, Prozent vom neuen statt vom alten Grundwert, Monate vergessen, Mittelwert statt gewichtetem Mittel, Faktor 10 bei Maßstab, Pausen falsch gezählt. Fehlen davon welche (gleiche Werte), wird mit Nachbarwerten aufgefüllt.
+- Marschregel steht immer im Aufgabentext („nach jeder vollen Marschstunde 10 Minuten Pause, am Ziel keine“), damit die Lösung eindeutig ist.
+
+**Wortanalogien, Begriffe, Rechtschreibung (Wortbanken in `src/data/`)**
+
+- `analogien.json`: 10 Beziehungen, 164 Wortpaare mit je 4 Ablenkern. Eine Aufgabe kombiniert zwei Paare derselben Beziehung (rund 2.500 Kombinationen). Die Stufe ist die des gefragten Paars. Ab Stufe 8 in der Hälfte der Fälle zwei Lücken („? : B = C : ?“) mit Wortpaaren als Optionen.
+- `begriffe.json`: 46 Kategorien in Gruppen (zum Beispiel Saiten-, Blas-, Schlaginstrumente). Jedes Wort steht in genau einer Kategorie; mehrdeutige Wörter (Becken, Golf, Drohne, Hammer) wurden bewusst entfernt. Ab Stufe 6 kommen die Ablenker aus derselben Gruppe.
+- `rechtschreibung.json`: 413 Einträge (Wörter, das/dass, Verwechslungswörter, Groß- und Kleinschreibung, Getrennt- und Zusammenschreibung ab Stufe 6). Wo der Duden zwei Schreibweisen zulässt (kennenlernen/kennen lernen, Recht/recht haben, aufs Neue/neue …), wurde der Eintrag gestrichen oder nur eine Form angeboten. Fälle mit zwei zulässigen Formen sind die größte Fehlerquelle; wer einen Fehler findet, meldet ihn mit „Aufgabe fehlerhaft?“.
+- `npm run validate:banks` prüft alle Banken: Schema, keine Dubletten, Lösung nicht unter den Ablenkern, Erklärung vorhanden, Mindestumfang (Rechtschreibung 400, Technik 60).
+
+**Technisches Verständnis**
+
+- Erzeugte Grafiken: Zahnradketten (Drehsinn und Drehzahl, ab Stufe 3 auch blockierende Dreierkreise, ab Stufe 6 Räder auf gemeinsamer Achse), Riemen offen oder gekreuzt (ab Stufe 6 mit Zwischenwelle), Hebel (ab Stufe 6 mehrere Gewichte), Flaschenzug (Kraft und Seilweg), schiefe Ebene.
+- Drehsinn und Drehzahl werden über einen Kopplungsgraphen berechnet (Eingriff: Gegenrichtung und Zähneverhältnis, Achse: gleich). Ein Widerspruch im Graphen heißt „blockiert“.
+- Räder auf gemeinsamer Achse liegen in zwei Ebenen: Das hintere Rad ist blasser gezeichnet, die Achse gestrichelt markiert. Räder derselben Ebene überlappen nie (Test).
+- Feste Sammlung `technik.json`: 61 Fragen zu Strom, Wärme, Auftrieb, Hydraulik, verbundenen Gefäßen, Schwerpunkt, Kurvenfahrt und Mechanik (Stufe 1 bis 6). Sie ist begrenzt und als „feste Aufgabe“ gekennzeichnet; etwa jede dritte Aufgabe stammt daraus.
+
+**Gemeldete Aufgaben und begrenzte Aufgabenräume**
+
+- „Aufgabe fehlerhaft?“ speichert jetzt auch den Fingerabdruck. Gemeldete Aufgaben werden in diesem Modul nicht mehr gezeigt, solange es Alternativen gibt.
+- Wortbanken und feste Sammlungen haben je Stufe nur einige hundert verschiedene Aufgaben (Rechtschreibung etwa 100 bis 370, Analogien 270 bis 1.000). Für sie prüft der Test „keine Wiederholung“, bis die Hälfte des Aufgabenraums der Stufe gezeigt wurde, statt starr 500.
+
 **Debug-Seite**
 
 - Laut Prompt nur im Entwicklungsmodus. Weil die App vor allem über GitHub Pages genutzt wird, lässt sie sich dort unter Einstellungen → Entwicklerwerkzeuge einschalten. Sie zeigt 20 Aufgaben je Generator und Stufe mit Lösung, Regel-Tags, Seed und Prüfergebnis.
@@ -216,4 +242,5 @@ Wo der Bau-Prompt nichts festlegt, gilt:
 - Browser-Zeitmessung ist etwa einen Bildschirmframe ungenau (rund 8 bis 17 ms). Für Tempo-Vergleiche über Wochen reicht das, für Millisekunden-Diagnostik nicht.
 - Die Daten liegen nur in diesem Browser. Privates Fenster, Browserwechsel oder „Websitedaten löschen“ entfernen sie. Regelmäßig exportieren.
 - Die Treppenlogik misst ein relatives Niveau innerhalb der App. Es ist nicht mit Punktwerten des echten Tests vergleichbar.
-- Noch nicht gebaut: Tageseinheit, Wochenplan, Phasen, Simulationen, Belastungsmodus, „Schwächen üben“, Debug-Seite, PWA. Siehe Meilensteine im Bau-Prompt.
+- Noch nicht gebaut: Tageseinheit, Wochenplan, Phasen, Simulationen, Belastungsmodus, „Schwächen üben“, PWA (Meilenstein 7).
+- Sprach- und Technikbanken sind von Hand geschrieben und damit begrenzt. Sie wiederholen sich bei intensivem Training nach einigen Wochen.

@@ -105,6 +105,8 @@ export interface Report {
   timestamp: string;
   promptText: string;
   note?: string;
+  /** Fingerabdruck der Aufgabe: gemeldete Aufgaben werden nicht mehr gezeigt */
+  fingerprint?: string;
 }
 
 export interface Settings {

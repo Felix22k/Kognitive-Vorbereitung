@@ -24,6 +24,13 @@ import {
   vigilanzGenerator,
   wahlreaktionGenerator,
 } from '../generators/reaktion';
+import {
+  begriffeGenerator,
+  rechtschreibungGenerator,
+  wortanalogienGenerator,
+} from '../generators/sprache';
+import { technikGenerator } from '../generators/technik';
+import { textaufgabenGenerator } from '../generators/textaufgaben';
 
 export interface ModuleOption {
   key: string;
@@ -92,8 +99,15 @@ export const MODULES: ModuleDef[] = [
     id: 'textaufgaben',
     areaId: 'sprache',
     name: 'Textaufgaben',
-    description: 'Dreisatz, Geschwindigkeit, Prozent, Zins, Maßstab, Marschdauer.',
+    description: 'Dreisatz, Geschwindigkeit, Prozent, Zins, Mischung, Maßstab, Marschdauer.',
     milestone: 6,
+    generator: textaufgabenGenerator as Generator,
+    instructions:
+      'Lies die Aufgabe, rechne (Papier und Stift sind erlaubt) und wähle das Ergebnis. Die falschen Antworten entstehen aus typischen Denkfehlern, zum Beispiel Dreisatz in die falsche Richtung, Prozent vom falschen Grundwert oder vergessene Einheiten. Auswahl mit A bis D oder 1 bis 4, Enter bestätigt.',
+    exampleLevels: [2, 5],
+    itemsLernen: 8,
+    itemsTest: 10,
+    timeText: '60 bis 90 s',
   },
   {
     id: 'zahlenreihen',
@@ -115,6 +129,13 @@ export const MODULES: ModuleDef[] = [
     name: 'Wortanalogien',
     description: 'Hammer : Nagel = Schraubendreher : ?',
     milestone: 6,
+    generator: wortanalogienGenerator as Generator,
+    instructions:
+      'Das erste Wortpaar steht in einer bestimmten Beziehung (zum Beispiel Gegenteil, Teil und Ganzes, Werkzeug und Zweck). Finde das Wort, das zum dritten Wort in derselben Beziehung steht. Ab Stufe 8 fehlen zwei Wörter: Dann wählst du ein Wortpaar. Auswahl mit A bis E oder 1 bis 5, Enter bestätigt.',
+    exampleLevels: [1, 8],
+    itemsLernen: 12,
+    itemsTest: 15,
+    timeText: '30 bis 45 s',
   },
   {
     id: 'begriffe',
@@ -122,6 +143,13 @@ export const MODULES: ModuleDef[] = [
     name: 'Begriffe vergleichen',
     description: 'Was passt nicht, Oberbegriffe, Gemeinsamkeiten.',
     milestone: 6,
+    generator: begriffeGenerator as Generator,
+    instructions:
+      'Drei Aufgabenarten: Welcher Begriff passt nicht? Welcher Oberbegriff passt zu allen? Was haben zwei Begriffe gemeinsam? Ab Stufe 6 sind die falschen Antworten eng verwandt (zum Beispiel Blas- statt Saiteninstrumente). Auswahl mit Buchstaben oder Ziffern, Enter bestätigt.',
+    exampleLevels: [1, 6],
+    itemsLernen: 12,
+    itemsTest: 15,
+    timeText: '20 bis 40 s',
   },
   {
     id: 'rechtschreibung',
@@ -129,6 +157,13 @@ export const MODULES: ModuleDef[] = [
     name: 'Rechtschreibung',
     description: 'Falsch geschriebene Wörter, das/dass, Groß- und Kleinschreibung.',
     milestone: 6,
+    generator: rechtschreibungGenerator as Generator,
+    instructions:
+      'Wähle die richtige Schreibweise, das passende Wort für die Lücke (das oder dass, seit oder seid …) oder den richtig geschriebenen Satz. Ab Stufe 5 fragt die Aufgabe manchmal nach dem FALSCH geschriebenen Wort, ab Stufe 6 kommt Getrennt- und Zusammenschreibung dazu. Grundlage ist die amtliche Rechtschreibung; wo zwei Schreibweisen erlaubt sind, steht nur eine zur Wahl.',
+    exampleLevels: [1, 6],
+    itemsLernen: 15,
+    itemsTest: 20,
+    timeText: '10 bis 20 s',
   },
   {
     id: 'matrizen',
@@ -162,8 +197,15 @@ export const MODULES: ModuleDef[] = [
     id: 'technik',
     areaId: 'logik',
     name: 'Technisches Verständnis',
-    description: 'Zahnräder, Riemen, Hebel, Flaschenzüge, schiefe Ebene.',
+    description: 'Zahnräder, Riemen, Hebel, Flaschenzüge, schiefe Ebene, Physik-Grundlagen.',
     milestone: 6,
+    generator: technikGenerator as Generator,
+    instructions:
+      'Zu jeder Grafik gibt es eine Frage: Drehrichtung und Drehzahl von Zahnrädern und Riemenscheiben, Gleichgewicht am Hebel, Kraft und Seilweg am Flaschenzug, Kraft an der schiefen Ebene. Dazwischen kommen Fragen aus einer festen, begrenzten Sammlung (Strom, Wärme, Auftrieb, Hydraulik, Schwerpunkt, Kurvenfahrt); diese wiederholen sich mit der Zeit. Reibung und Eigengewicht von Rollen und Balken werden vernachlässigt.',
+    exampleLevels: [2, 6],
+    itemsLernen: 8,
+    itemsTest: 12,
+    timeText: '45 bis 75 s',
   },
   {
     id: 'rotation',
@@ -465,6 +507,45 @@ export function modulesOfArea(areaId: AreaId): ModuleDef[] {
 
 /** Lesbare Namen für Regel-Tags (Fehlerprotokoll). */
 export const TAG_NAMES: Record<string, string> = {
+  'ta.dreisatz': 'Dreisatz',
+  'ta.antiprop': 'Umgekehrter Dreisatz',
+  'ta.geschwindigkeit': 'Geschwindigkeit',
+  'ta.prozent': 'Prozentrechnung',
+  'ta.zins': 'Zinsrechnung',
+  'ta.mischung': 'Mischungen',
+  'ta.massstab': 'Maßstab',
+  'ta.marsch': 'Marschdauer und Uhrzeit',
+  'wa.synonym': 'Analogie: gleiche Bedeutung',
+  'wa.gegenteil': 'Analogie: Gegenteil',
+  'wa.teilGanzes': 'Analogie: Teil und Ganzes',
+  'wa.oberUnter': 'Analogie: Ober- und Unterbegriff',
+  'wa.funktion': 'Analogie: Werkzeug und Zweck',
+  'wa.ursacheWirkung': 'Analogie: Ursache und Wirkung',
+  'wa.ort': 'Analogie: Ort',
+  'wa.material': 'Analogie: Material',
+  'wa.steigerung': 'Analogie: Steigerung',
+  'wa.reihenfolge': 'Analogie: Reihenfolge',
+  'bv.passtNicht': 'Was passt nicht?',
+  'bv.oberbegriff': 'Oberbegriff',
+  'bv.gemeinsamkeit': 'Gemeinsamkeit',
+  'rs.wort': 'Schreibweise einzelner Wörter',
+  'rs.dasDass': 'das oder dass',
+  'rs.verwechslung': 'Verwechslungswörter',
+  'rs.gross': 'Groß- und Kleinschreibung',
+  'rs.getrennt': 'Getrennt- und Zusammenschreibung',
+  'te.zahnrad': 'Zahnräder',
+  'te.riemen': 'Riemenantrieb',
+  'te.hebel': 'Hebel',
+  'te.flaschenzug': 'Flaschenzug',
+  'te.schiefeEbene': 'Schiefe Ebene',
+  'te.strom': 'Stromkreise',
+  'te.waerme': 'Wärme',
+  'te.auftrieb': 'Auftrieb',
+  'te.hydraulik': 'Hydraulik und Druck',
+  'te.roehren': 'Verbundene Gefäße',
+  'te.schwerpunkt': 'Schwerpunkt',
+  'te.kurve': 'Kurvenfahrt und Fliehkraft',
+  'te.mechanik': 'Mechanik',
   'kr.add': 'Addition',
   'kr.sub': 'Subtraktion',
   'kr.mul': 'Multiplikation',

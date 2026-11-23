@@ -1,0 +1,502 @@
+{
+  "beschreibung": "Kategorien mit Gruppe (verwandte Kategorien) und Stufe. Jedes Wort gehört zu genau einer Kategorie. Der Generator bildet daraus „Was passt nicht?“, Oberbegriffe und Gemeinsamkeiten.",
+  "kategorien": [
+    {
+      "gruppe": "lebensmittel",
+      "name": "Obst",
+      "stufe": 1,
+      "woerter": ["Apfel", "Birne", "Kirsche", "Pflaume", "Banane", "Orange", "Erdbeere", "Traube"]
+    },
+    {
+      "gruppe": "lebensmittel",
+      "name": "Gemüse",
+      "stufe": 1,
+      "woerter": [
+        "Karotte",
+        "Spinat",
+        "Brokkoli",
+        "Zwiebel",
+        "Lauch",
+        "Blumenkohl",
+        "Erbse",
+        "Sellerie"
+      ]
+    },
+    {
+      "gruppe": "lebensmittel",
+      "name": "Getreide",
+      "stufe": 3,
+      "woerter": ["Weizen", "Roggen", "Gerste", "Hafer", "Mais", "Hirse", "Dinkel", "Reis"]
+    },
+    {
+      "gruppe": "lebensmittel",
+      "name": "Milchprodukte",
+      "stufe": 2,
+      "woerter": ["Käse", "Joghurt", "Quark", "Butter", "Sahne", "Kefir", "Buttermilch", "Molke"]
+    },
+    {
+      "gruppe": "tiere",
+      "name": "Säugetiere",
+      "stufe": 2,
+      "woerter": ["Hund", "Pferd", "Elefant", "Bär", "Fuchs", "Maus", "Hase", "Löwe"]
+    },
+    {
+      "gruppe": "tiere",
+      "name": "Vögel",
+      "stufe": 1,
+      "woerter": ["Amsel", "Adler", "Spatz", "Eule", "Taube", "Specht", "Storch", "Rabe"]
+    },
+    {
+      "gruppe": "tiere",
+      "name": "Fische",
+      "stufe": 1,
+      "woerter": ["Forelle", "Hering", "Lachs", "Karpfen", "Hecht", "Barsch", "Thunfisch", "Dorsch"]
+    },
+    {
+      "gruppe": "tiere",
+      "name": "Insekten",
+      "stufe": 2,
+      "woerter": ["Biene", "Ameise", "Käfer", "Fliege", "Mücke", "Wespe", "Libelle", "Heuschrecke"]
+    },
+    {
+      "gruppe": "tiere",
+      "name": "Reptilien",
+      "stufe": 4,
+      "woerter": [
+        "Eidechse",
+        "Schlange",
+        "Krokodil",
+        "Schildkröte",
+        "Leguan",
+        "Chamäleon",
+        "Gecko",
+        "Waran"
+      ]
+    },
+    {
+      "gruppe": "fahrzeuge",
+      "name": "Landfahrzeuge",
+      "stufe": 2,
+      "woerter": ["Auto", "Bus", "Lkw", "Fahrrad", "Motorrad", "Traktor", "Zug", "Straßenbahn"]
+    },
+    {
+      "gruppe": "fahrzeuge",
+      "name": "Wasserfahrzeuge",
+      "stufe": 2,
+      "woerter": ["Boot", "Fähre", "Kanu", "Segelboot", "Frachter", "Kajak", "Floß", "U-Boot"]
+    },
+    {
+      "gruppe": "fahrzeuge",
+      "name": "Luftfahrzeuge",
+      "stufe": 3,
+      "woerter": [
+        "Flugzeug",
+        "Hubschrauber",
+        "Ballon",
+        "Zeppelin",
+        "Segelflugzeug",
+        "Luftschiff",
+        "Gleitschirm",
+        "Düsenjet"
+      ]
+    },
+    {
+      "gruppe": "musik",
+      "name": "Saiteninstrumente",
+      "stufe": 4,
+      "woerter": [
+        "Geige",
+        "Gitarre",
+        "Harfe",
+        "Cello",
+        "Bratsche",
+        "Kontrabass",
+        "Mandoline",
+        "Zither"
+      ]
+    },
+    {
+      "gruppe": "musik",
+      "name": "Blasinstrumente",
+      "stufe": 4,
+      "woerter": ["Trompete", "Flöte", "Klarinette", "Posaune", "Saxofon", "Oboe", "Tuba", "Fagott"]
+    },
+    {
+      "gruppe": "musik",
+      "name": "Schlaginstrumente",
+      "stufe": 4,
+      "woerter": [
+        "Trommel",
+        "Pauke",
+        "Xylofon",
+        "Gong",
+        "Triangel",
+        "Kastagnetten",
+        "Bongo",
+        "Tamburin"
+      ]
+    },
+    {
+      "gruppe": "berufe",
+      "name": "Handwerksberufe",
+      "stufe": 3,
+      "woerter": [
+        "Tischler",
+        "Maurer",
+        "Schmied",
+        "Klempner",
+        "Dachdecker",
+        "Elektriker",
+        "Schlosser",
+        "Glaser"
+      ]
+    },
+    {
+      "gruppe": "berufe",
+      "name": "Gesundheitsberufe",
+      "stufe": 3,
+      "woerter": [
+        "Arzt",
+        "Chirurg",
+        "Zahnarzt",
+        "Hebamme",
+        "Sanitäter",
+        "Apotheker",
+        "Pfleger",
+        "Physiotherapeut"
+      ]
+    },
+    {
+      "gruppe": "haushalt",
+      "name": "Möbel",
+      "stufe": 1,
+      "woerter": ["Tisch", "Stuhl", "Schrank", "Bett", "Sofa", "Regal", "Kommode", "Sessel"]
+    },
+    {
+      "gruppe": "haushalt",
+      "name": "Kleidung",
+      "stufe": 1,
+      "woerter": ["Hose", "Hemd", "Jacke", "Mantel", "Pullover", "Rock", "Bluse", "Weste"]
+    },
+    {
+      "gruppe": "haushalt",
+      "name": "Werkzeuge",
+      "stufe": 2,
+      "woerter": [
+        "Schraubenschlüssel",
+        "Zange",
+        "Säge",
+        "Schraubendreher",
+        "Feile",
+        "Meißel",
+        "Hobel",
+        "Bohrer"
+      ]
+    },
+    {
+      "gruppe": "natur",
+      "name": "Gewässer",
+      "stufe": 2,
+      "woerter": ["Fluss", "See", "Bach", "Teich", "Meer", "Ozean", "Kanal", "Weiher"]
+    },
+    {
+      "gruppe": "natur",
+      "name": "Geländeformen",
+      "stufe": 4,
+      "woerter": ["Berg", "Tal", "Hügel", "Ebene", "Schlucht", "Hochebene", "Senke", "Kuppe"]
+    },
+    {
+      "gruppe": "natur",
+      "name": "Wettererscheinungen",
+      "stufe": 3,
+      "woerter": ["Regen", "Schnee", "Hagel", "Nebel", "Gewitter", "Sturm", "Tau", "Graupel"]
+    },
+    {
+      "gruppe": "stoffe",
+      "name": "Metalle",
+      "stufe": 3,
+      "woerter": ["Eisen", "Kupfer", "Gold", "Silber", "Zink", "Blei", "Aluminium", "Zinn"]
+    },
+    {
+      "gruppe": "stoffe",
+      "name": "Edelsteine",
+      "stufe": 5,
+      "woerter": ["Diamant", "Rubin", "Smaragd", "Saphir", "Opal", "Topas", "Amethyst", "Granat"]
+    },
+    {
+      "gruppe": "sport",
+      "name": "Ballsportarten",
+      "stufe": 2,
+      "woerter": [
+        "Fußball",
+        "Handball",
+        "Basketball",
+        "Volleyball",
+        "Tennis",
+        "Rugby",
+        "Baseball",
+        "Hockey"
+      ]
+    },
+    {
+      "gruppe": "sport",
+      "name": "Wassersportarten",
+      "stufe": 3,
+      "woerter": [
+        "Schwimmen",
+        "Rudern",
+        "Segeln",
+        "Tauchen",
+        "Surfen",
+        "Kanufahren",
+        "Wasserski",
+        "Turmspringen"
+      ]
+    },
+    {
+      "gruppe": "sport",
+      "name": "Wintersportarten",
+      "stufe": 3,
+      "woerter": [
+        "Skilaufen",
+        "Rodeln",
+        "Eiskunstlauf",
+        "Biathlon",
+        "Bobfahren",
+        "Skispringen",
+        "Snowboarden",
+        "Eisstockschießen"
+      ]
+    },
+    {
+      "gruppe": "einheiten",
+      "name": "Längeneinheiten",
+      "stufe": 4,
+      "woerter": [
+        "Meter",
+        "Zentimeter",
+        "Kilometer",
+        "Millimeter",
+        "Meile",
+        "Zoll",
+        "Seemeile",
+        "Mikrometer"
+      ]
+    },
+    {
+      "gruppe": "einheiten",
+      "name": "Masseeinheiten",
+      "stufe": 4,
+      "woerter": ["Gramm", "Kilogramm", "Tonne", "Pfund", "Unze", "Milligramm", "Zentner", "Karat"]
+    },
+    {
+      "gruppe": "einheiten",
+      "name": "Zeiteinheiten",
+      "stufe": 3,
+      "woerter": [
+        "Sekunde",
+        "Minute",
+        "Stunde",
+        "Woche",
+        "Monat",
+        "Jahr",
+        "Jahrzehnt",
+        "Jahrhundert"
+      ]
+    },
+    {
+      "gruppe": "geometrie",
+      "name": "ebene Figuren",
+      "stufe": 5,
+      "woerter": [
+        "Kreis",
+        "Dreieck",
+        "Quadrat",
+        "Rechteck",
+        "Raute",
+        "Trapez",
+        "Fünfeck",
+        "Ellipse"
+      ]
+    },
+    {
+      "gruppe": "geometrie",
+      "name": "geometrische Körper",
+      "stufe": 5,
+      "woerter": [
+        "Würfel",
+        "Kugel",
+        "Kegel",
+        "Zylinder",
+        "Pyramide",
+        "Quader",
+        "Prisma",
+        "Tetraeder"
+      ]
+    },
+    {
+      "gruppe": "literatur",
+      "name": "Lyrik",
+      "stufe": 8,
+      "woerter": ["Gedicht", "Sonett", "Ballade", "Ode", "Hymne", "Elegie", "Haiku", "Limerick"]
+    },
+    {
+      "gruppe": "literatur",
+      "name": "Dramatik",
+      "stufe": 8,
+      "woerter": [
+        "Tragödie",
+        "Komödie",
+        "Schauspiel",
+        "Farce",
+        "Posse",
+        "Lustspiel",
+        "Trauerspiel",
+        "Singspiel"
+      ]
+    },
+    {
+      "gruppe": "literatur",
+      "name": "Epik",
+      "stufe": 8,
+      "woerter": [
+        "Roman",
+        "Novelle",
+        "Kurzgeschichte",
+        "Fabel",
+        "Märchen",
+        "Sage",
+        "Legende",
+        "Anekdote"
+      ]
+    },
+    {
+      "gruppe": "staat",
+      "name": "Staatsformen",
+      "stufe": 7,
+      "woerter": [
+        "Monarchie",
+        "Republik",
+        "Diktatur",
+        "Demokratie",
+        "Oligarchie",
+        "Theokratie",
+        "Aristokratie",
+        "Tyrannei"
+      ]
+    },
+    {
+      "gruppe": "wissenschaft",
+      "name": "Naturwissenschaften",
+      "stufe": 6,
+      "woerter": [
+        "Physik",
+        "Chemie",
+        "Biologie",
+        "Astronomie",
+        "Geologie",
+        "Botanik",
+        "Zoologie",
+        "Mineralogie"
+      ]
+    },
+    {
+      "gruppe": "wissenschaft",
+      "name": "Geisteswissenschaften",
+      "stufe": 7,
+      "woerter": [
+        "Philosophie",
+        "Geschichte",
+        "Theologie",
+        "Philologie",
+        "Linguistik",
+        "Archäologie",
+        "Kunstgeschichte",
+        "Musikwissenschaft"
+      ]
+    },
+    {
+      "gruppe": "dienstgrade",
+      "name": "Mannschaftsdienstgrade",
+      "stufe": 5,
+      "woerter": [
+        "Gefreiter",
+        "Obergefreiter",
+        "Hauptgefreiter",
+        "Stabsgefreiter",
+        "Oberstabsgefreiter"
+      ]
+    },
+    {
+      "gruppe": "dienstgrade",
+      "name": "Unteroffiziersdienstgrade",
+      "stufe": 6,
+      "woerter": [
+        "Unteroffizier",
+        "Stabsunteroffizier",
+        "Feldwebel",
+        "Oberfeldwebel",
+        "Hauptfeldwebel",
+        "Stabsfeldwebel",
+        "Oberstabsfeldwebel"
+      ]
+    },
+    {
+      "gruppe": "dienstgrade",
+      "name": "Offiziersdienstgrade",
+      "stufe": 6,
+      "woerter": [
+        "Leutnant",
+        "Oberleutnant",
+        "Hauptmann",
+        "Major",
+        "Oberstleutnant",
+        "Oberst",
+        "Brigadegeneral",
+        "Generalleutnant"
+      ]
+    },
+    {
+      "gruppe": "koerper",
+      "name": "Organe",
+      "stufe": 4,
+      "woerter": ["Herz", "Lunge", "Leber", "Niere", "Milz", "Magen", "Darm", "Gehirn"]
+    },
+    {
+      "gruppe": "koerper",
+      "name": "Knochen",
+      "stufe": 5,
+      "woerter": [
+        "Speiche",
+        "Schienbein",
+        "Wadenbein",
+        "Schlüsselbein",
+        "Rippe",
+        "Wirbel",
+        "Schulterblatt",
+        "Brustbein"
+      ]
+    },
+    {
+      "gruppe": "abstrakt",
+      "name": "Gefühle",
+      "stufe": 6,
+      "woerter": ["Freude", "Trauer", "Angst", "Wut", "Ekel", "Scham", "Neid", "Eifersucht"]
+    },
+    {
+      "gruppe": "abstrakt",
+      "name": "Tugenden",
+      "stufe": 8,
+      "woerter": [
+        "Tapferkeit",
+        "Ehrlichkeit",
+        "Geduld",
+        "Demut",
+        "Treue",
+        "Gerechtigkeit",
+        "Mäßigung",
+        "Klugheit"
+      ]
+    }
+  ]
+}

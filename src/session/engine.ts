@@ -6,7 +6,9 @@ export const RECENT_LIMIT = 500;
 
 /**
  * Erzeugt eine neue Aufgabe, die sich nicht mit den zuletzt gezeigten
- * Aufgaben (Fingerabdruck) wiederholt.
+ * Aufgaben (Fingerabdruck) wiederholt. Gemeldete Aufgaben (blocked) werden
+ * nie gezeigt, solange es Alternativen gibt; Wiederholungen nur, wenn der
+ * Aufgabenraum erschöpft ist (feste Sammlungen).
  */
 export function pickUniqueItem(
   gen: Generator,
@@ -14,14 +16,21 @@ export function pickUniqueItem(
   recent: Iterable<string>,
   opts?: Record<string, unknown>,
   seedSource: () => number = randomSeed,
+  blocked?: ReadonlySet<string>,
 ): Item {
   const seen = recent instanceof Set ? (recent as Set<string>) : new Set(recent);
-  let item: Item | null = null;
-  for (let i = 0; i < 60; i++) {
-    item = gen.generate(seedSource(), level, opts);
-    if (!seen.has(gen.fingerprint(item))) return item;
+  let fallback: Item | null = null;
+  let last: Item | null = null;
+  for (let i = 0; i < 120; i++) {
+    const item = gen.generate(seedSource(), level, opts);
+    last = item;
+    const fp = gen.fingerprint(item);
+    if (blocked?.has(fp)) continue;
+    if (!seen.has(fp)) return item;
+    fallback ??= item;
+    if (i >= 59 && fallback) break;
   }
-  return item as Item; // Raum erschöpft: Wiederholung in Kauf nehmen
+  return (fallback ?? last) as Item;
 }
 
 export function pushRecent(recent: string[], fp: string): string[] {
