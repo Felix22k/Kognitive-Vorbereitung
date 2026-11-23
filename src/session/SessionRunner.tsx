@@ -3,6 +3,7 @@ import { MODULE_BY_ID } from '../modules/catalog';
 import { PromptView, SolutionView, choiceInfo, type ChoiceInfo } from '../modules/views';
 import { RotationAngleSummary } from '../modules/raumViews';
 import { BlockResultView, BlockView } from '../modules/blocks';
+import { unlockAudio } from '../core/audio';
 import { getModuleState, getSettings, saveSettings } from '../db/db';
 import { testStartLevel, updateStair, type StairState } from '../core/staircase';
 import { uid } from '../core/ids';
@@ -83,6 +84,11 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
 
   const total = mode === 'lernen' ? (mod?.itemsLernen ?? 10) : (mod?.itemsTest ?? 12);
   const timeLimitOn = mode === 'test' || !!settings?.timeLimitInLearning;
+  const modOpts = useMemo(() => {
+    const o: Record<string, string> = {};
+    for (const opt of mod?.options ?? []) o[opt.key] = opt.default;
+    return { ...o, ...(settings?.moduleOptions?.[moduleId] ?? {}) };
+  }, [mod, settings, moduleId]);
   const kopfAuswahl =
     mode === 'test' && moduleId === 'kopfrechnen' && !!settings?.kopfrechnenAuswahlImTest;
   const choice: ChoiceInfo | null = useMemo(
@@ -115,7 +121,7 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
   const presentNext = useCallback(
     (level: number) => {
       if (!gen) return;
-      const it = pickUniqueItem(gen, level, recent.current);
+      const it = pickUniqueItem(gen, level, recent.current, modOpts);
       recent.current.add(gen.fingerprint(it));
       answered.current = false;
       setItem(it);
@@ -128,7 +134,7 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
       setInputError('');
       setPhase('run');
     },
-    [gen],
+    [gen, modOpts],
   );
 
   // Zeitpunkt der Darstellung messen (nach dem Zeichnen)
@@ -247,6 +253,7 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
 
   const start = useCallback(async () => {
     if (!mstate || !gen) return;
+    unlockAudio();
     await markIntroSeen(moduleId);
     const s = await startSession({ type: 'modul', mode, moduleIds: [moduleId], belastet });
     setSession(s);
@@ -254,7 +261,7 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
     setStair({ level: lvl, streak: 0 });
     setResults([]);
     setFinalSession(null);
-    const it = pickUniqueItem(gen, lvl, recent.current);
+    const it = pickUniqueItem(gen, lvl, recent.current, modOpts);
     recent.current.add(gen.fingerprint(it));
     answered.current = false;
     setItem(it);
@@ -264,7 +271,7 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
     setShowExpl(false);
     setReported(false);
     setPhase('run');
-  }, [mstate, gen, moduleId, mode, belastet]);
+  }, [mstate, gen, moduleId, mode, belastet, modOpts]);
 
   const continueAfterFeedback = useCallback(() => {
     if (results.length >= total) void finish(stair.level);
@@ -406,6 +413,30 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
               Auswertung kommt am Ende.
             </p>
           )}
+          {(mod.options ?? []).map((opt) => (
+            <label key={opt.key} className="field" style={{ marginBottom: 0 }}>
+              <span>{opt.label}</span>
+              <select
+                value={modOpts[opt.key]}
+                onChange={async (e) =>
+                  setSettings(
+                    await saveSettings({
+                      moduleOptions: {
+                        ...settings.moduleOptions,
+                        [moduleId]: { ...modOpts, [opt.key]: e.target.value },
+                      },
+                    }),
+                  )
+                }
+              >
+                {opt.choices.map((c) => (
+                  <option key={c.value} value={c.value}>
+                    {c.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+          ))}
           {mode === 'lernen' && (
             <label className="check">
               <input
@@ -588,6 +619,7 @@ export function SessionRunner({ moduleId, mode, onExit, belastet = false }: Runn
                 key={item.id + '-' + results.length}
                 item={item}
                 mode={mode}
+                settings={settings}
                 onDone={(data, rt) => submit({ type: 'block', data, rtMs: rt })}
               />
             </div>

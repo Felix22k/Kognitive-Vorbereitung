@@ -20,6 +20,19 @@ import { NbackBlock } from './Nback';
 import { FaktenBlock } from './Fakten';
 import { CityMap, WegeBlock } from './Wege';
 import { DurchstreichenBlock, RechenketteBlock, SymbolZahlBlock } from './Konzentration';
+import { DeterminationBlock, StroopBlock, WahlBlock } from './Reaktion';
+import { VigilanzBlock, VigilanzResult } from './Vigilanz';
+import {
+  DT_NAMES,
+  dtScore,
+  stroopScore,
+  type DtEvent,
+  type DtItem,
+  type StItem,
+  type TrialResult,
+  type VgItem,
+  type WrItem,
+} from '../../generators/reaktion';
 
 export function BlockView(props: BlockProps<Item>) {
   const { item } = props;
@@ -40,6 +53,14 @@ export function BlockView(props: BlockProps<Item>) {
       return <SymbolZahlBlock {...(props as BlockProps<SzItem>)} />;
     case 'rechenkette':
       return <RechenketteBlock {...(props as BlockProps<RkItem>)} />;
+    case 'wahlreaktion':
+      return <WahlBlock {...(props as BlockProps<WrItem>)} />;
+    case 'determination':
+      return <DeterminationBlock {...(props as BlockProps<DtItem>)} />;
+    case 'stroop':
+      return <StroopBlock {...(props as BlockProps<StItem>)} />;
+    case 'vigilanz':
+      return <VigilanzBlock {...(props as BlockProps<VgItem>)} />;
     default:
       return <div>Unbekanntes Modul</div>;
   }
@@ -274,6 +295,83 @@ export function BlockResultView({ item, data }: { item: Item; data?: Record<stri
         </div>
       );
     }
+    case 'wahlreaktion': {
+      const it = item as WrItem;
+      const res = (data.results as TrialResult[]) ?? [];
+      const rts = res.filter((r) => r.correct && r.rtMs !== null).map((r) => r.rtMs as number);
+      const extra: [string, string | number][] =
+        it.prompt.variant === 'gonogo'
+          ? [
+              [
+                'Go verpasst',
+                res.filter((r, i) => it.prompt.trials[i]?.go && r.resp === -1).length,
+              ],
+              [
+                'Fehlreaktionen',
+                res.filter((r, i) => !it.prompt.trials[i]?.go && r.resp !== -1).length,
+              ],
+            ]
+          : [
+              ['falsche Taste', res.filter((r) => r.resp >= 0 && !r.correct).length],
+              ['zu langsam', res.filter((r) => r.resp === -1).length],
+            ];
+      return (
+        <Stats
+          items={[
+            ['richtig', pct(res.filter((r) => r.correct).length, res.length)],
+            ['Median-Zeit', sec(median(rts))],
+            ...extra,
+          ]}
+        />
+      );
+    }
+    case 'determination': {
+      const ev = (data.events as DtEvent[]) ?? [];
+      const sc = dtScore(ev);
+      const byStim = DT_NAMES.map((n, k) => {
+        const e = ev.filter((x) => x.stim === k);
+        return { n, ok: e.filter((x) => x.result === 'richtig').length, all: e.length };
+      });
+      return (
+        <div>
+          <Stats
+            items={[
+              ['richtig', sc.richtig],
+              ['falsch', sc.falsch],
+              ['verspätet', sc.verspaetet],
+              ['ausgelassen', sc.ausgelassen],
+              ['Median-Zeit', sec(sc.medianMs)],
+              ['Takt am Ende', sc.taktProMin ? `${sc.taktProMin} Reize/min` : '–'],
+            ]}
+          />
+          <div className="small muted" style={{ marginTop: 10 }}>
+            Richtig je Reizart
+          </div>
+          <Bars
+            values={byStim.map((b) => (b.all ? Math.round((b.ok / b.all) * 100) : 0))}
+            labels={byStim.map((b) => b.n)}
+            max={100}
+            unit=" %"
+          />
+        </div>
+      );
+    }
+    case 'stroop': {
+      const it = item as StItem;
+      const sc = stroopScore(it.prompt.trials, (data.results as TrialResult[]) ?? []);
+      return (
+        <Stats
+          items={[
+            ['richtig', pct(sc.richtig, sc.n)],
+            ['Median passend', sec(sc.medianPassend)],
+            ['Median unpassend', sec(sc.medianUnpassend)],
+            ['Interferenz', sc.interferenzMs === null ? '–' : `${sc.interferenzMs} ms`],
+          ]}
+        />
+      );
+    }
+    case 'vigilanz':
+      return <VigilanzResult item={item as VgItem} data={data} />;
     default:
       return <div style={{ whiteSpace: 'pre-line' }}>{item.explanation}</div>;
   }

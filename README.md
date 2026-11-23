@@ -7,7 +7,7 @@ Web-App zum Training der computergestützten kognitiven Tests im Potenzialfestst
 
 Alles läuft lokal im Browser. Kein Backend, keine Anmeldung, kein Tracking.
 
-## Stand: Meilenstein 4 (Gedächtnis und Konzentration)
+## Stand: Meilenstein 5 (Reaktion und Vigilanz)
 
 | Bereich                                                                                        | Stand                                |
 | ---------------------------------------------------------------------------------------------- | ------------------------------------ |
@@ -187,6 +187,15 @@ Wo der Bau-Prompt nichts festlegt, gilt:
 - Durchstreichtest: eigene Umsetzung, kein geschützter Test. 14 × 40 Zeichen, Zielregel wechselt je Durchgang (Buchstabe und Strichzahl). Zeit pro Zeile: 20 s (Stufe 1 bis 3), 15 s (4 bis 7), 12 s (ab 8), weil der Prompt nur 15 s nennt, aber Stufen verlangt. Kennwerte: bearbeitete Zeichen (bis zur letzten Markierung je Zeile), Auslassungen, Verwechslungen, KL = Treffer − Verwechslungen, Fehlerprozent, Schwankungsbreite. Geschafft bei höchstens 10 % Fehlern.
 - Symbol-Zahl-Kodierung: neue Zuordnung je Block, 2 Minuten. Stufe 1 bis 2 ein Symbol, 3 bis 5 zwei, ab 6 auch drei und Malnehmen. Geschafft ab 85 % richtig (mindestens 8 bearbeitet).
 - Rechenkette: Einerstelle als einzelner Tastendruck, ohne Enter. Dauer 3, 4 oder 5 Minuten je Stufe. Geschafft ab 90 % richtig. Die Auswertung zeigt die richtigen Antworten je 30 Sekunden (Ermüdungskurve).
+
+**Reaktion und Vigilanz**
+
+- Optionen je Modul stehen auf dem Startbildschirm (Variante, Modus, Dauer, Signalhäufigkeit, Takt, Antwortfenster) und werden gemerkt.
+- Töne: Sinustöne über die Web Audio API, einmal als Puffer erzeugt und über die Audiouhr geplant. Ist der Ton in den Einstellungen aus, erscheinen Tonreize als Symbol (♪ hoch/tief), damit die Aufgabe lösbar bleibt.
+- Reizzeit: Ein Reiz gilt ab dem übernächsten Bildschirmframe als sichtbar (requestAnimationFrame), Reaktionszeiten zählen ab dort. Browser messen etwa einen Frame ungenau (8 bis 17 ms).
+- Determinationstest-ähnlich: Ein Reiz ist 75 % der Taktzeit sichtbar, danach kurz leer. Richtige Antworten in der Lücke zählen als „verspätet“. Adaptiv: −5 % nach richtig, +10 % nach Fehler oder Auslassung, Start 1,2 s, Grenzen 0,25 bis 3 s. Aktion: fester Takt je Stufe (1,2 s bis 0,66 s). Reaktion: nächster Reiz nach der Antwort, höchstens 3 s Wartezeit. Tastenbelegung in den Einstellungen änderbar.
+- Wahlreaktion: 60 Durchgänge, Antwortfenster 1,5 s bis 0,78 s je Stufe. Go/No-Go: etwa 40 % Go-Reize (Gelb plus Ton), Ablenker sind Gelb ohne Ton oder Blau mit oder ohne Ton.
+- Vigilanz-Uhr: Der Takt hängt an requestAnimationFrame; jede Taktabweichung vom Soll wird gemessen und in der Auswertung angezeigt. Signale haben mindestens 20 Schritte Abstand. Original-nah ergibt bei 1 s Takt im Mittel rund 11 Signale in 30 min (Test).
 
 **Debug-Seite**
 

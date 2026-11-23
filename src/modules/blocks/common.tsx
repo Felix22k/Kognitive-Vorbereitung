@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
+import type { Settings } from '../../core/types';
 
 export interface BlockProps<I> {
   item: I;
   mode: 'lernen' | 'test';
+  settings?: Settings;
   onDone: (data: Record<string, unknown>, rtMs?: number) => void;
 }
 

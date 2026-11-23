@@ -27,6 +27,14 @@ import {
   type DsItem,
 } from './konzentration';
 
+import {
+  determinationGenerator,
+  stroopGenerator,
+  vigilanzGenerator,
+  wahlreaktionGenerator,
+  type VgItem,
+} from './reaktion';
+
 /** Bestmögliche Antwort einer Block-Aufgabe (für die Prüfung der Auswertung). */
 function perfectBlock(item: Item): Record<string, unknown> {
   switch (item.moduleId) {
@@ -48,6 +56,23 @@ function perfectBlock(item: Item): Record<string, unknown> {
             .filter((i) => i >= 0)
             .concat(39),
         ),
+      };
+    }
+    case 'determination':
+      return {
+        events: Array.from({ length: 20 }, (_, k) => ({
+          stim: k % 7,
+          shownAt: k * 1000,
+          durMs: 1000,
+          result: 'richtig',
+          rtMs: 500,
+        })),
+      };
+    case 'vigilanz': {
+      const vp = (item as VgItem).prompt;
+      return {
+        signals: vp.signals.map((st) => ({ step: st, t: st * vp.tickMs, hit: true, rtMs: 400 })),
+        falseAlarms: [],
       };
     }
     default:
@@ -78,6 +103,10 @@ const GENS: [string, Generator][] = [
   ['Durchstreichtest', durchstreichenGenerator as Generator],
   ['Symbol-Zahl-Kodierung', symbolZahlGenerator as Generator],
   ['Rechenkette', rechenketteGenerator as Generator],
+  ['Wahlreaktion', wahlreaktionGenerator as Generator],
+  ['Determination', determinationGenerator as Generator],
+  ['Farb-Wort-Interferenz', stroopGenerator as Generator],
+  ['Vigilanz', vigilanzGenerator as Generator],
 ];
 
 for (const [name, gen] of GENS) {
@@ -374,5 +403,23 @@ describe('Konzentration: Durchstreichtest-Kennwerte', () => {
     expect(sc.confusions).toBe(1);
     expect(sc.kl).toBe(2);
     expect(sc.schwankung).toBe(3);
+  });
+});
+
+describe('Vigilanz: Signalhäufigkeit', () => {
+  it('Original-nah: rund 10 bis 12 Signale in 30 min bei 1 s Takt, mindestens 20 Schritte Abstand', () => {
+    const counts: number[] = [];
+    for (let i = 0; i < 200; i++) {
+      const it = vigilanzGenerator.generate(deriveSeed(99, i), 5, {
+        haeufigkeit: 'original',
+        dauer: '30',
+        takt: '1000',
+      });
+      counts.push(it.prompt.signals.length);
+      it.prompt.signals.forEach((x, k, a) => k && expect(x - a[k - 1]).toBeGreaterThanOrEqual(20));
+    }
+    const mean = counts.reduce((a, b) => a + b, 0) / counts.length;
+    expect(mean).toBeGreaterThan(9);
+    expect(mean).toBeLessThan(13);
   });
 });

@@ -119,6 +119,10 @@ export interface Settings {
   theme: 'system' | 'hell' | 'dunkel';
   /** Debug-Seite in der Navigation anzeigen */
   devTools: boolean;
+  /** Optionen je Modul (z. B. Dauer, Modus), vom Startbildschirm */
+  moduleOptions: Record<string, Record<string, string>>;
+  /** Tastenbelegung Determinationstest: rot, gelb, grün, blau, weiß, hoher Ton, tiefer Ton */
+  dtKeys: string[];
 }
 
 export const DEFAULT_SETTINGS: Settings = {
@@ -131,6 +135,8 @@ export const DEFAULT_SETTINGS: Settings = {
   disclaimerDismissed: false,
   theme: 'dunkel',
   devTools: false,
+  moduleOptions: {},
+  dtKeys: ['a', 's', 'd', 'f', ' ', 'j', 'k'],
 };
 
 export interface Generator<P = unknown, C = unknown> {

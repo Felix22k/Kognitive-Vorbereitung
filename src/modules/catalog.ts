@@ -18,6 +18,19 @@ import {
   rechenketteGenerator,
   symbolZahlGenerator,
 } from '../generators/konzentration';
+import {
+  determinationGenerator,
+  stroopGenerator,
+  vigilanzGenerator,
+  wahlreaktionGenerator,
+} from '../generators/reaktion';
+
+export interface ModuleOption {
+  key: string;
+  label: string;
+  choices: { value: string; label: string }[];
+  default: string;
+}
 
 export interface AreaDef {
   id: AreaId;
@@ -46,6 +59,8 @@ export interface ModuleDef {
   stair?: 'standard' | 'span';
   /** Startstufe im Lernmodus beim ersten Mal (Standard 1) */
   startLevel?: number;
+  /** Einstellungen auf dem Startbildschirm (z. B. Dauer, Modus) */
+  options?: ModuleOption[];
 }
 
 export const AREAS: AreaDef[] = [
@@ -316,15 +331,61 @@ export const MODULES: ModuleDef[] = [
     id: 'wahlreaktion',
     areaId: 'reaktion',
     name: 'Wahlreaktion',
-    description: 'Auf eines von vier Feldern schnell reagieren.',
+    description: 'Auf eines von vier Feldern schnell reagieren, ab Stufe 5 auch Go/No-Go.',
     milestone: 5,
+    generator: wahlreaktionGenerator as Generator,
+    instructions:
+      'Eines von vier Feldern leuchtet auf: sofort die passende Taste D, F, J oder K. In der Go/No-Go-Variante gibt es ein Feld: nur reagieren (Leertaste), wenn es gelb ist und gleichzeitig ein Ton kommt. 60 Durchgänge, das Antwortfenster wird mit der Stufe kürzer.',
+    itemsLernen: 1,
+    itemsTest: 1,
+    timeText: '1,5 bis 0,8 s je Reiz',
+    options: [
+      {
+        key: 'variante',
+        label: 'Variante',
+        default: 'auto',
+        choices: [
+          { value: 'auto', label: 'automatisch (ab Stufe 5 gemischt)' },
+          { value: 'wahl', label: 'vier Felder' },
+          { value: 'gonogo', label: 'Go/No-Go (Gelb plus Ton)' },
+        ],
+      },
+    ],
   },
   {
     id: 'determination',
     areaId: 'reaktion',
     name: 'Determinationstest-ähnlich',
-    description: 'Farben und Töne unter Tempo zuordnen.',
+    description: 'Fünf Farben und zwei Töne unter steigendem Tempo zuordnen.',
     milestone: 5,
+    generator: determinationGenerator as Generator,
+    instructions:
+      'Farbige Kreise (rot, gelb, grün, blau, weiß) und Töne (hoch, tief) erscheinen nacheinander. Jede Reizart hat eine Taste (Standard: A, S, D, F, Leertaste, J, K; änderbar in den Einstellungen). Adaptiv: Nach jeder richtigen Antwort kommen die Reize 5 % schneller, nach einem Fehler 10 % langsamer, Start bei 1,2 s. Aktion: fester Takt. Reaktion: der nächste Reiz kommt erst nach der Antwort. Die Legende blendest du mit L ein und aus. Bei ausgeschaltetem Ton erscheinen die Tonreize als Symbol.',
+    itemsLernen: 1,
+    itemsTest: 1,
+    timeText: '4, 6 oder 10 min',
+    options: [
+      {
+        key: 'modus',
+        label: 'Modus',
+        default: 'adaptiv',
+        choices: [
+          { value: 'adaptiv', label: 'adaptiv (Tempo passt sich an)' },
+          { value: 'aktion', label: 'Aktion (fester Takt)' },
+          { value: 'reaktion', label: 'Reaktion (nächster Reiz nach Antwort)' },
+        ],
+      },
+      {
+        key: 'dauer',
+        label: 'Dauer',
+        default: '4',
+        choices: [
+          { value: '4', label: '4 Minuten' },
+          { value: '6', label: '6 Minuten' },
+          { value: '10', label: '10 Minuten' },
+        ],
+      },
+    ],
   },
   {
     id: 'stroop',
@@ -332,6 +393,12 @@ export const MODULES: ModuleDef[] = [
     name: 'Farb-Wort-Interferenz',
     description: 'Schriftfarbe nennen, nicht das Wort.',
     milestone: 5,
+    generator: stroopGenerator as Generator,
+    instructions:
+      'Farbwörter erscheinen in einer Schriftfarbe. Drücke die Taste für die SCHRIFTFARBE: rot D, grün F, blau J, gelb K. Die Hälfte der Wörter passt nicht zur Farbe. Kennwert ist, wie viel langsamer du bei unpassenden Wörtern bist.',
+    itemsLernen: 1,
+    itemsTest: 1,
+    timeText: '2,5 bis 1,2 s je Wort',
   },
   {
     id: 'vigilanz',
@@ -339,6 +406,50 @@ export const MODULES: ModuleDef[] = [
     name: 'Vigilanz-Uhr',
     description: 'Doppelsprünge eines Lichtpunkts über lange Zeit erkennen.',
     milestone: 5,
+    generator: vigilanzGenerator as Generator,
+    instructions:
+      'Vollbild, schwarzer Hintergrund: Ein heller Punkt springt im Takt eine Position im Uhrzeigersinn weiter. Selten springt er zwei Positionen auf einmal. Dann sofort die Leertaste drücken. Es gibt keine Uhr und keine Rückmeldung (außer in der Stufe „Einstieg“). Ausgewertet wird pro Drittel, damit sichtbar wird, wann die Aufmerksamkeit nachlässt.',
+    itemsLernen: 1,
+    itemsTest: 1,
+    timeText: '5 bis 45 min',
+    options: [
+      {
+        key: 'dauer',
+        label: 'Dauer',
+        default: '5',
+        choices: [
+          { value: '5', label: '5 Minuten' },
+          { value: '15', label: '15 Minuten' },
+          { value: '30', label: '30 Minuten' },
+          { value: '45', label: '45 Minuten' },
+        ],
+      },
+      {
+        key: 'haeufigkeit',
+        label: 'Signalhäufigkeit',
+        default: 'training',
+        choices: [
+          { value: 'original', label: 'Original-nah (ca. 0,6 %)' },
+          { value: 'training', label: 'Training (2 %)' },
+          { value: 'einstieg', label: 'Einstieg (5 %, mit Rückmeldung)' },
+        ],
+      },
+      {
+        key: 'takt',
+        label: 'Takt',
+        default: '1000',
+        choices: ['650', '800', '1000', '1200', '1500'].map((v) => ({
+          value: v,
+          label: `${v} ms`,
+        })),
+      },
+      {
+        key: 'fenster',
+        label: 'Antwortfenster',
+        default: '1000',
+        choices: ['600', '800', '1000', '1500'].map((v) => ({ value: v, label: `${v} ms` })),
+      },
+    ],
   },
 ];
 
@@ -404,6 +515,18 @@ export const TAG_NAMES: Record<string, string> = {
   'ko.durchstreichen': 'Durchstreichtest',
   'ko.symbolZahl': 'Symbol-Zahl-Kodierung',
   'ko.rechenkette': 'Rechenkette',
+  're.wahl': 'Wahlreaktion',
+  're.wahl.wahl': 'Wahlreaktion (vier Felder)',
+  're.wahl.gonogo': 'Wahlreaktion (Go/No-Go)',
+  're.determination': 'Determination',
+  're.determination.adaptiv': 'Determination adaptiv',
+  're.determination.aktion': 'Determination Aktion',
+  're.determination.reaktion': 'Determination Reaktion',
+  're.stroop': 'Farb-Wort-Interferenz',
+  'vg.vigilanz': 'Vigilanz',
+  'vg.original': 'Vigilanz original-nah',
+  'vg.training': 'Vigilanz Training',
+  'vg.einstieg': 'Vigilanz Einstieg',
 };
 
 const FIG_RULES: Record<string, string> = {
